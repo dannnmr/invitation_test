@@ -33,6 +33,6 @@
   --z-base:    0;
   --z-content: 10;
   --z-overlay: 50;
-  --z-cursor:  100;
+  --z-cursor:  9999;
   --z-loader:  200;
 }
