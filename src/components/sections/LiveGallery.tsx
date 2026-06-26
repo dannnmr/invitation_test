@@ -1,11 +1,12 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { supabase } from '@/lib/supabase';
+import { supabase, isSupabaseConfigured } from '@/lib/supabase';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import { useCursorMagnet } from '@/hooks/useCursorMagnet';
 import type { InvitationConfig, GalleryPhoto } from '@/types/invitation';
 import { defaultInvitationConfig } from '@/config/invitation.config';
+import { SplitTextReveal } from '@/components/core/SplitTextReveal';
 
 interface LiveGalleryProps {
   config?: InvitationConfig;
@@ -33,6 +34,11 @@ export function LiveGallery({ config = defaultInvitationConfig }: LiveGalleryPro
 
   // 1. Cargar fotos iniciales desde Supabase y suscribirse a Realtime
   useEffect(() => {
+    if (!isSupabaseConfigured) {
+      console.info('[LiveGallery] Supabase no configurado. Utilizando fotos locales de demo.');
+      return;
+    }
+
     let active = true;
 
     async function fetchPhotos() {
@@ -114,6 +120,33 @@ export function LiveGallery({ config = defaultInvitationConfig }: LiveGalleryPro
     setUploadSuccess(false);
 
     const nameToUse = guestName.trim() || 'Invitado';
+
+    if (!isSupabaseConfigured) {
+      // Simular subida en local de forma inmediata para evitar peticiones no resueltas a Supabase
+      const reader = new FileReader();
+      reader.onload = () => {
+        const localPhoto: GalleryPhoto = {
+          id: `local-${Date.now()}`,
+          invitationId: config.id,
+          url: reader.result as string,
+          uploadedBy: nameToUse,
+          createdAt: new Date().toISOString()
+        };
+        setPhotos(prev => [localPhoto, ...prev]);
+        setUploadSuccess(true);
+        setIsUploading(false);
+      };
+      reader.onerror = () => {
+        setErrorMessage('Error al leer el archivo local.');
+        setIsUploading(false);
+      };
+      reader.readAsDataURL(file);
+      if (fileInputRefRef.current) {
+        fileInputRefRef.current.value = '';
+      }
+      setTimeout(() => setUploadSuccess(false), 3000);
+      return;
+    }
 
     try {
       const fileExt = file.name.split('.').pop();
@@ -202,18 +235,26 @@ export function LiveGallery({ config = defaultInvitationConfig }: LiveGalleryPro
       >
         {/* Cabecera de la Sección */}
         <div style={{ textAlign: 'center', maxWidth: '600px' }}>
-          <span
+          <SplitTextReveal
+            text="Comparte tus momentos"
+            as="span"
+            type="words"
             style={{
               fontFamily: 'var(--font-mono)',
               fontSize: '0.75rem',
               color: 'var(--color-gold)',
               letterSpacing: '0.2em',
               textTransform: 'uppercase',
+              display: 'block',
             }}
-          >
-            Comparte tus momentos
-          </span>
-          <h2
+          />
+          <SplitTextReveal
+            text="Galería en Vivo"
+            as="h2"
+            type="chars"
+            stagger={0.04}
+            rotate={5}
+            skewY={3}
             style={{
               fontFamily: 'var(--font-display)',
               fontSize: 'clamp(2.2rem, 5vw, 3.5rem)',
@@ -222,9 +263,7 @@ export function LiveGallery({ config = defaultInvitationConfig }: LiveGalleryPro
               fontWeight: 300,
               marginTop: '0.5rem',
             }}
-          >
-            Galería en Vivo
-          </h2>
+          />
           <p
             style={{
               fontFamily: 'var(--font-display)',

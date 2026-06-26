@@ -3,6 +3,7 @@
 import { useEffect, useState, useRef } from 'react';
 import { getTimeUntil } from '@/lib/utils';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
+import { SplitTextReveal } from '@/components/core/SplitTextReveal';
 import type { InvitationConfig } from '@/types/invitation';
 import { defaultInvitationConfig } from '@/config/invitation.config';
 
@@ -256,18 +257,26 @@ export function Countdown({ config = defaultInvitationConfig }: CountdownProps) 
         }}
       >
         <div className="reveal-item">
-          <span
+          <SplitTextReveal
+            text="Falta muy poco"
+            as="span"
+            type="words"
             style={{
               fontFamily: 'var(--font-mono)',
               fontSize: '0.75rem',
               color: 'var(--color-gold)',
               letterSpacing: '0.2em',
               textTransform: 'uppercase',
+              display: 'block',
             }}
-          >
-            Falta muy poco
-          </span>
-          <h2
+          />
+          <SplitTextReveal
+            text="Guarda la Fecha"
+            as="h2"
+            type="chars"
+            stagger={0.04}
+            rotate={5}
+            skewY={3}
             style={{
               fontFamily: 'var(--font-display)',
               fontSize: 'clamp(2.2rem, 5vw, 3.5rem)',
@@ -276,9 +285,7 @@ export function Countdown({ config = defaultInvitationConfig }: CountdownProps) 
               fontWeight: 300,
               marginTop: '0.5rem',
             }}
-          >
-            Guarda la Fecha
-          </h2>
+          />
         </div>
 
         {/* Panel de Dígitos */}

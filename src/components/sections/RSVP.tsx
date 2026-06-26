@@ -1,10 +1,11 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
-import { supabase } from '@/lib/supabase';
+import { supabase, isSupabaseConfigured } from '@/lib/supabase';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import { useCursorMagnet } from '@/hooks/useCursorMagnet';
 import type { InvitationConfig } from '@/types/invitation';
+import { SplitTextReveal } from '@/components/core/SplitTextReveal';
 import { defaultInvitationConfig } from '@/config/invitation.config';
 
 interface RSVPProps {
@@ -122,6 +123,13 @@ export function RSVP({ config = defaultInvitationConfig }: RSVPProps) {
     setIsSubmitting(true);
     setErrorMessage(null);
 
+    if (!isSupabaseConfigured) {
+      // Simular guardado exitoso inmediatamente en local para evitar fallos de red en consola
+      setSubmitSuccess(true);
+      setIsSubmitting(false);
+      return;
+    }
+
     try {
       // Inserción en Supabase
       const { error } = await supabase
@@ -185,18 +193,26 @@ export function RSVP({ config = defaultInvitationConfig }: RSVPProps) {
         }}
       >
         <div style={{ textAlign: 'center' }}>
-          <span
+          <SplitTextReveal
+            text="Confirmación de asistencia"
+            as="span"
+            type="words"
             style={{
               fontFamily: 'var(--font-mono)',
               fontSize: '0.75rem',
               color: 'var(--color-gold)',
               letterSpacing: '0.2em',
               textTransform: 'uppercase',
+              display: 'block',
             }}
-          >
-            Confirmación de asistencia
-          </span>
-          <h2
+          />
+          <SplitTextReveal
+            text="Confirmar RSVP"
+            as="h2"
+            type="chars"
+            stagger={0.04}
+            rotate={5}
+            skewY={3}
             style={{
               fontFamily: 'var(--font-display)',
               fontSize: 'clamp(2.2rem, 5vw, 3.5rem)',
@@ -205,9 +221,7 @@ export function RSVP({ config = defaultInvitationConfig }: RSVPProps) {
               fontWeight: 300,
               marginTop: '0.5rem',
             }}
-          >
-            Confirmar RSVP
-          </h2>
+          />
         </div>
 
         {submitSuccess ? (

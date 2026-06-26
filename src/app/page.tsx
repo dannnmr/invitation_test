@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useRef, Suspense } from 'react';
 import { gsap } from '@/lib/gsap';
-import { PageLoader } from '@/components/core/PageLoader';
 import { IntroBrooch } from '@/components/core/IntroBrooch';
 
 // Importar secciones de contenido
@@ -20,7 +19,6 @@ import { LiveGallery } from '@/components/sections/LiveGallery';
 import { defaultInvitationConfig } from '@/config/invitation.config';
 
 export default function HomePage() {
-  const [isLoading, setIsLoading] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
   const mainContentRef = useRef<HTMLDivElement>(null);
 
@@ -72,15 +70,10 @@ export default function HomePage() {
 
   return (
     <>
-      {/* 1. Loader de porcentaje inicial */}
-      <PageLoader onComplete={() => setIsLoading(false)} />
+      {/* Broche / Sobre de entrada animado */}
+      <IntroBrooch onOpen={handleBroochOpen} />
 
-      {/* 2. Broche / Sobre de entrada animado */}
-      {!isLoading && (
-        <IntroBrooch onOpen={handleBroochOpen} />
-      )}
-
-      {/* 3. Secciones de la Invitación (Contenido) */}
+      {/* Secciones de la Invitación (Contenido) */}
       <div
         ref={mainContentRef}
         id="main-content"
@@ -108,3 +101,4 @@ export default function HomePage() {
     </>
   );
 }
+

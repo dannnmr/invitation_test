@@ -2,29 +2,33 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { gsap } from '@/lib/gsap';
+import { SplitTextReveal } from '@/components/core/SplitTextReveal';
 
 interface IntroBroochProps {
   onOpen?: () => void;
 }
 
 /**
- * Pantalla de entrada con el broche animado.
- *
+ * Pantalla de entrada con sobre de lujo y broche interactivo.
+ * 
  * Flujo:
- * 1. Pantalla negra total.
- * 2. Partículas doradas en Canvas convergen hacia el centro.
- * 3. Se revela el broche (SVG dividido en mitad izquierda y derecha).
- * 4. Clic para abrir: reproduce sonido de apertura y las mitades se separan lateralmente.
- * 5. Se oculta el overlay y se activa el callback onOpen para revelar el contenido inferior.
- * 6. Guarda el estado en sessionStorage para saltarse esta intro al recargar.
+ * 1. Muestra el sobre cerrado completo como fondo inicial.
+ * 2. El broche central y los textos con SplitTextReveal entran con rebote inercial.
+ * 3. Al hacer clic en el broche:
+ *    - Se reproduce el sonido de sobre.
+ *    - Se detona un estallido masivo de partículas doradas en Canvas.
+ *    - El broche escala y se desvanece.
+ *    - El sobre completo se oculta, y las mitades izquierda/derecha se abren deslizándose hacia los lados.
+ *    - Se activa el callback onOpen para iniciar el clip-path de revelado de la invitación inferior.
  */
 export function IntroBrooch({ onOpen }: IntroBroochProps) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const canvasRef    = useRef<HTMLCanvasElement>(null);
-  const broochLeft   = useRef<SVGSVGElement>(null);
-  const broochRight  = useRef<SVGSVGElement>(null);
-  const titleRef     = useRef<HTMLDivElement>(null);
-  const clickHintRef = useRef<HTMLButtonElement>(null);
+  const containerRef     = useRef<HTMLDivElement>(null);
+  const canvasRef        = useRef<HTMLCanvasElement>(null);
+  const sobreCompletoRef = useRef<HTMLDivElement>(null);
+  const leftFlapRef      = useRef<HTMLDivElement>(null);
+  const rightFlapRef     = useRef<HTMLDivElement>(null);
+  const broochRef        = useRef<HTMLButtonElement>(null);
+  const titleRef         = useRef<HTMLDivElement>(null);
   
   const [isOpen, setIsOpen] = useState(false);
   const [hasCheckedSession, setHasCheckedSession] = useState(false);
@@ -57,60 +61,73 @@ export function IntroBrooch({ onOpen }: IntroBroochProps) {
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
 
-    // Sistema de partículas doradas
+    // Sistema de partículas doradas interactivo en 2D
     class Particle {
       x: number;
       y: number;
-      targetX: number;
-      targetY: number;
-      angle: number;
-      distance: number;
-      speed: number;
+      vx: number;
+      vy: number;
       size: number;
       alpha: number;
-      convergeFactor: number;
+      color: string;
+      gravity: number;
+      drag: number;
+      decay: number;
+      active: boolean;
 
-      constructor(w: number, h: number) {
-        this.targetX = w / 2;
-        this.targetY = h / 2;
-        this.angle = Math.random() * Math.PI * 2;
-        // Distancia inicial aleatoria
-        this.distance = Math.random() * Math.max(w, h) * 0.6 + 200;
-        this.speed = Math.random() * 0.015 + 0.005;
-        this.size = Math.random() * 2.5 + 0.8;
-        this.alpha = Math.random() * 0.6 + 0.3;
-        this.convergeFactor = Math.random() * 0.02 + 0.01;
-        
-        // Coordenadas iniciales
-        this.x = this.targetX + Math.cos(this.angle) * this.distance;
-        this.y = this.targetY + Math.sin(this.angle) * this.distance;
-      }
+      constructor(w: number, h: number, isBurst: boolean = false) {
+        this.x = w / 2;
+        this.y = h / 2;
+        this.active = true;
 
-      update(converge: boolean, width: number, height: number) {
-        this.targetX = width / 2;
-        this.targetY = height / 2;
-
-        if (converge) {
-          // Convergen gradualmente al centro
-          this.distance -= this.distance * this.convergeFactor * 2.5;
-          if (this.distance < 2) this.distance = 2;
+        if (isBurst) {
+          // Explosión radial del broche al abrirse
+          const angle = Math.random() * Math.PI * 2;
+          const speed = Math.random() * 8 + 4;
+          this.vx = Math.cos(angle) * speed;
+          this.vy = Math.sin(angle) * speed - 2.5; // Leve impulso ascendente
+          this.size = Math.random() * 4.5 + 1.8;
+          this.alpha = 1.0;
+          this.gravity = 0.16;
+          this.drag = 0.97;
+          this.decay = Math.random() * 0.016 + 0.008;
         } else {
-          // Órbita normal con leve atracción hacia el centro
-          this.distance -= 0.2;
-          if (this.distance < 60) this.distance = 150 + Math.random() * 100;
+          // Destellos lentos gravitando alrededor del broche cerrado
+          const angle = Math.random() * Math.PI * 2;
+          const radius = Math.random() * 90 + 20;
+          this.x = w / 2 + Math.cos(angle) * radius;
+          this.y = h / 2 + Math.sin(angle) * radius;
+          this.vx = (Math.random() - 0.5) * 0.3;
+          this.vy = (Math.random() - 0.5) * 0.3 - 0.15;
+          this.size = Math.random() * 2 + 0.6;
+          this.alpha = Math.random() * 0.6 + 0.15;
+          this.gravity = 0;
+          this.drag = 1.0;
+          this.decay = Math.random() * 0.006 + 0.002;
         }
 
-        this.angle += this.speed;
-        this.x = this.targetX + Math.cos(this.angle) * this.distance;
-        this.y = this.targetY + Math.sin(this.angle) * this.distance;
+        const colors = ['#D4B87A', '#C5A059', '#F0E8D0', '#FAFAF8', '#8E9F93'];
+        this.color = colors[Math.floor(Math.random() * colors.length)];
+      }
+
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        this.vy += this.gravity;
+        this.vx *= this.drag;
+        this.vy *= this.drag;
+        this.alpha -= this.decay;
+        if (this.alpha <= 0) {
+          this.active = false;
+        }
       }
 
       draw(c: CanvasRenderingContext2D) {
         c.save();
         c.globalAlpha = this.alpha;
-        c.fillStyle = '#D4B87A';
+        c.fillStyle = this.color;
         c.shadowBlur = 8;
-        c.shadowColor = '#C5A059';
+        c.shadowColor = this.color;
         c.beginPath();
         c.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         c.fill();
@@ -118,74 +135,101 @@ export function IntroBrooch({ onOpen }: IntroBroochProps) {
       }
     }
 
-    const particles: Particle[] = [];
-    const particleCount = 80;
-    for (let i = 0; i < particleCount; i++) {
-      particles.push(new Particle(canvas.width, canvas.height));
+    let particles: Particle[] = [];
+    const ambientCount = 35;
+
+    // Generar partículas ambientales iniciales
+    for (let i = 0; i < ambientCount; i++) {
+      particles.push(new Particle(canvas.width, canvas.height, false));
     }
 
-    let convergeActive = false;
     let animationId: number;
-
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      particles.forEach((p) => {
-        p.update(convergeActive, canvas.width, canvas.height);
-        p.draw(ctx);
-      });
+      
+      // Añadir destellos ambientales si no ha sido abierto
+      if (particles.filter(p => !p.gravity).length < ambientCount && !sobreCompletoRef.current?.style.opacity) {
+        particles.push(new Particle(canvas.width, canvas.height, false));
+      }
+
+      for (let i = particles.length - 1; i >= 0; i--) {
+        const p = particles[i];
+        p.update();
+        if (p.active) {
+          p.draw(ctx);
+        } else {
+          particles.splice(i, 1);
+        }
+      }
+      
       animationId = requestAnimationFrame(animate);
     };
     animate();
 
-    // Timeline de GSAP para la secuencia de entrada del broche
-    const entryTl = gsap.timeline({
-      onStart: () => {
-        // Iniciar convergencia de partículas al final de la entrada
-        gsap.delayedCall(1, () => {
-          convergeActive = true;
-        });
-      }
+    // Animación de entrada inicial del broche
+    gsap.set(sobreCompletoRef.current, { opacity: 1 });
+    gsap.set(broochRef.current, { scale: 0, opacity: 0, rotate: -35 });
+    gsap.set(titleRef.current, { opacity: 0, y: -25 });
+
+    const introTl = gsap.timeline({ delay: 0.2 });
+    introTl.to(broochRef.current, {
+      scale: 1,
+      opacity: 1,
+      rotate: 0,
+      duration: 1.6,
+      ease: 'elastic.out(1, 0.75)',
+    })
+    .to(titleRef.current, {
+      opacity: 1,
+      y: 0,
+      duration: 1.0,
+      ease: 'power3.out',
+    }, '-=0.8');
+
+    // Pulsación suave continua para incentivar el click
+    gsap.to(broochRef.current, {
+      scale: 1.04,
+      duration: 2.0,
+      yoyo: true,
+      repeat: -1,
+      ease: 'power1.inOut',
+      delay: 1.8,
     });
 
-    // 1. Ocultar broche e indicaciones inicialmente
-    gsap.set([broochLeft.current, broochRight.current], { scale: 0.7, opacity: 0 });
-    gsap.set(titleRef.current, { opacity: 0, y: -20 });
-    gsap.set(clickHintRef.current, { opacity: 0, scale: 0.9 });
-
-    // 2. Revelar broche y títulos en stagers
-    entryTl.to(titleRef.current, { opacity: 1, y: 0, duration: 1.5, delay: 0.5 })
-           .to([broochLeft.current, broochRight.current], {
-             scale: 1,
-             opacity: 1,
-             duration: 1.8,
-             stagger: 0.1,
-             ease: 'power3.out'
-           }, '-=0.8')
-           .to(clickHintRef.current, {
-             opacity: 1,
-             scale: 1,
-             duration: 1.2,
-             ease: 'expo.out'
-           }, '-=0.5');
+    // Añadir trigger de explosión al elemento DOM
+    (canvas as any).triggerBurst = () => {
+      for (let i = 0; i < 90; i++) {
+        particles.push(new Particle(canvas.width, canvas.height, true));
+      }
+    };
 
     return () => {
       window.removeEventListener('resize', resizeCanvas);
       cancelAnimationFrame(animationId);
-      entryTl.kill();
+      introTl.kill();
     };
   }, [hasCheckedSession, isOpen]);
 
   const handleOpen = () => {
     if (isOpen) return;
 
-    // Reproducir sonido de apertura
+    // Matar animaciones previas del broche
+    gsap.killTweensOf(broochRef.current);
+
+    // Explosión de partículas en canvas
+    const canvas = canvasRef.current;
+    if (canvas && (canvas as any).triggerBurst) {
+      (canvas as any).triggerBurst();
+    }
+
+    // Sonido sutil de apertura
     const sound = new Audio('/audio/open.mp3');
     sound.volume = 0.4;
     sound.play().catch(() => {
-      console.warn('[IntroBrooch] Audio bloqueado en interacción.');
+      console.warn('[IntroBrooch] Audio bloqueado por el navegador.');
     });
 
-    // Animación de separación del broche y fade-out de la intro
+    // Timeline GSAP coordinado para abrir el sobre físico
     const exitTl = gsap.timeline({
       onComplete: () => {
         setIsOpen(true);
@@ -194,17 +238,49 @@ export function IntroBrooch({ onOpen }: IntroBroochProps) {
       }
     });
 
-    exitTl.to(clickHintRef.current, { opacity: 0, y: 20, duration: 0.5 })
-          .to(titleRef.current, { opacity: 0, y: -20, duration: 0.5 }, '<')
-          .to(broochLeft.current, { x: -200, opacity: 0, duration: 1.2, ease: 'power3.in' }, '-=0.2')
-          .to(broochRight.current, { x: 200, opacity: 0, duration: 1.2, ease: 'power3.in' }, '<')
-          .to(canvasRef.current, { opacity: 0, duration: 1 }, '-=0.8')
-          .to(containerRef.current, {
-            opacity: 0,
-            pointerEvents: 'none',
-            duration: 1,
-            ease: 'power2.inOut'
-          }, '-=0.5');
+    // 1. Ocultar el sobre completo estático de inmediato para revelar las capas traseras
+    exitTl.to(sobreCompletoRef.current, {
+      opacity: 0,
+      duration: 0.15,
+      ease: 'none',
+    })
+    // 2. Animar el broche central (escala gigante, rotación libre y fade out)
+    .to(broochRef.current, {
+      scale: 1.7,
+      opacity: 0,
+      rotate: 12,
+      duration: 0.8,
+      ease: 'power2.out',
+    }, '<')
+    // 3. Desvanecer título
+    .to(titleRef.current, {
+      opacity: 0,
+      y: -30,
+      duration: 0.5,
+      ease: 'power3.in',
+    }, '<')
+    // 4. Desplazamiento lateral de las dos mitades del sobre
+    .to(leftFlapRef.current, {
+      xPercent: -105,
+      duration: 1.8,
+      ease: 'power3.inOut',
+    }, '-=0.3')
+    .to(rightFlapRef.current, {
+      xPercent: 105,
+      duration: 1.8,
+      ease: 'power3.inOut',
+    }, '<')
+    // 5. Fade out del canvas y contenedor
+    .to(canvasRef.current, {
+      opacity: 0,
+      duration: 0.8,
+    }, '-=1.0')
+    .to(containerRef.current, {
+      opacity: 0,
+      pointerEvents: 'none',
+      duration: 0.8,
+      ease: 'power2.inOut',
+    }, '-=0.5');
   };
 
   if (!hasCheckedSession || isOpen) return null;
@@ -216,7 +292,7 @@ export function IntroBrooch({ onOpen }: IntroBroochProps) {
         position: 'fixed',
         inset: 0,
         backgroundColor: 'var(--color-black)',
-        zIndex: 'calc(var(--z-loader) - 1)',
+        zIndex: 9999, // Supera todos los elementos
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -224,135 +300,131 @@ export function IntroBrooch({ onOpen }: IntroBroochProps) {
         overflow: 'hidden',
       }}
     >
-      {/* Canvas para partículas doradas */}
+      {/* 1. Fondo completo del Sobre Cerrado inicial */}
+      <div
+        ref={sobreCompletoRef}
+        style={{
+          position: 'absolute',
+          inset: 0,
+          backgroundImage: 'url(/images/sobre_completo_textura.png)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          zIndex: 2,
+          pointerEvents: 'none',
+          opacity: 0,
+          transform: 'scale(1.15)', // Escalado adaptado
+        }}
+      />
+
+      {/* 2. Capa Lateral Izquierda (Se desliza a la izquierda) */}
+      <div
+        ref={leftFlapRef}
+        style={{
+          position: 'absolute',
+          inset: 0,
+          backgroundImage: 'url(/images/sobre_izquierdo_textura.png)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          zIndex: 1,
+          pointerEvents: 'none',
+          transform: 'scale(1.15)',
+        }}
+      />
+
+      {/* 3. Capa Lateral Derecha (Se desliza a la derecha) */}
+      <div
+        ref={rightFlapRef}
+        style={{
+          position: 'absolute',
+          inset: 0,
+          backgroundImage: 'url(/images/sobre_derecho_textura2.png)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          zIndex: 1,
+          pointerEvents: 'none',
+          transform: 'scale(1.15)',
+        }}
+      />
+
+      {/* Canvas para explosión de destellos */}
       <canvas
         ref={canvasRef}
         style={{
           position: 'absolute',
           inset: 0,
           pointerEvents: 'none',
+          zIndex: 10,
         }}
       />
 
-      {/* Título superior */}
+      {/* Textos Informativos de Invitación */}
       <div
         ref={titleRef}
         style={{
           position: 'absolute',
           top: '15%',
           textAlign: 'center',
-          zIndex: 10,
+          zIndex: 15,
         }}
       >
-        <span
+        <SplitTextReveal
+          text="Te invitamos a celebrar"
+          as="span"
+          type="words"
+          scrollTrigger={false}
+          delay={0.6}
+          duration={1.0}
+          stagger={0.06}
           style={{
             fontFamily: 'var(--font-mono)',
             fontSize: '0.75rem',
             color: 'var(--color-gold)',
             letterSpacing: '0.2em',
             textTransform: 'uppercase',
+            display: 'block',
           }}
-        >
-          Te invitamos a celebrar
-        </span>
-        <h2
+        />
+        <SplitTextReveal
+          text="Mis XV Años"
+          as="h2"
+          type="chars"
+          scrollTrigger={false}
+          delay={0.9}
+          duration={1.2}
+          stagger={0.04}
           style={{
             fontFamily: 'var(--font-display)',
-            fontSize: '2rem',
+            fontSize: '2.2rem',
             color: 'var(--color-cream)',
             marginTop: '0.5rem',
             letterSpacing: '0.05em',
           }}
-        >
-          Mis XV Años
-        </h2>
+        />
       </div>
 
-      {/* Broche SVG Central */}
-      <div
-        style={{
-          position: 'relative',
-          width: '240px',
-          height: '240px',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        {/* Mitad izquierda del broche */}
-        <svg
-          ref={broochLeft}
-          width="120"
-          height="240"
-          viewBox="0 0 120 240"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          style={{ transformOrigin: 'right center' }}
-        >
-          <path
-            d="M120 20C90 20 50 60 50 120C50 180 90 220 120 220V240C70 240 20 190 20 120C20 50 70 0 120 0V20Z"
-            fill="url(#goldGradLeft)"
-          />
-          <circle cx="90" cy="120" r="10" fill="var(--color-gold)" />
-          <path d="M120 70C100 70 80 90 80 120C80 150 100 170 120 170V190C90 190 60 160 60 120C60 80 90 50 120 50V70Z" fill="url(#goldGradLeft)" opacity="0.6"/>
-          <defs>
-            <linearGradient id="goldGradLeft" x1="20" y1="120" x2="120" y2="120" gradientUnits="userSpaceOnUse">
-              <stop offset="0%" stopColor="var(--color-gold-dark)" />
-              <stop offset="50%" stopColor="var(--color-gold-light)" />
-              <stop offset="100%" stopColor="var(--color-gold)" />
-            </linearGradient>
-          </defs>
-        </svg>
-
-        {/* Mitad derecha del broche */}
-        <svg
-          ref={broochRight}
-          width="120"
-          height="240"
-          viewBox="0 0 120 240"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          style={{ transformOrigin: 'left center' }}
-        >
-          <path
-            d="M0 20C30 20 70 60 70 120C70 180 30 220 0 220V240C50 240 100 190 100 120C100 50 50 0 0 0V20Z"
-            fill="url(#goldGradRight)"
-          />
-          <circle cx="30" cy="120" r="10" fill="var(--color-gold)" />
-          <path d="M0 70C20 70 40 90 40 120C40 150 20 170 0 170V190C30 190 60 160 60 120C60 80 30 50 0 50V70Z" fill="url(#goldGradRight)" opacity="0.6"/>
-          <defs>
-            <linearGradient id="goldGradRight" x1="0" y1="120" x2="100" y2="120" gradientUnits="userSpaceOnUse">
-              <stop offset="0%" stopColor="var(--color-gold)" />
-              <stop offset="50%" stopColor="var(--color-gold-light)" />
-              <stop offset="100%" stopColor="var(--color-gold-dark)" />
-            </linearGradient>
-          </defs>
-        </svg>
-      </div>
-
-      {/* Botón táctil / clic para abrir */}
+      {/* Broche / Wax Seal Clickable Central */}
       <button
-        ref={clickHintRef}
+        ref={broochRef}
         onClick={handleOpen}
         aria-label="Abrir invitación"
+        data-cursor-hover
         style={{
-          marginTop: '2rem',
-          padding: '1rem 2rem',
+          position: 'relative',
+          zIndex: 20,
+          width: 'min(380px, 75vw)',
+          height: 'min(380px, 75vw)',
           backgroundColor: 'transparent',
-          border: '1px solid var(--color-gold)',
-          color: 'var(--color-gold)',
-          borderRadius: 'var(--radius-md)',
-          fontFamily: 'var(--font-mono)',
-          fontSize: '0.8rem',
-          letterSpacing: '0.1em',
-          textTransform: 'uppercase',
-          backdropFilter: 'blur(4px)',
-          transition: 'all 0.3s ease',
-          zIndex: 10,
+          border: 'none',
+          padding: 0,
+          backgroundImage: 'url(/images/logo_brochev2.png)',
+          backgroundSize: 'contain',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          cursor: 'none', // Delega al CustomCursor
+          outline: 'none',
+          willChange: 'transform, opacity',
         }}
-      >
-        Toque para abrir
-      </button>
+      />
     </div>
   );
 }

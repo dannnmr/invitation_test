@@ -1,6 +1,7 @@
 'use client';
 
 import { useScrollReveal } from '@/hooks/useScrollReveal';
+import { SplitTextReveal } from '@/components/core/SplitTextReveal';
 
 interface ItineraryItemProps {
   time: string;
@@ -176,18 +177,26 @@ export function Itinerary() {
           marginBottom: '4rem',
         }}
       >
-        <span
+        <SplitTextReveal
+          text="El Evento"
+          as="span"
+          type="words"
           style={{
             fontFamily: 'var(--font-mono)',
             fontSize: '0.75rem',
             color: 'var(--color-gold)',
             letterSpacing: '0.2em',
             textTransform: 'uppercase',
+            display: 'block',
           }}
-        >
-          El Evento
-        </span>
-        <h2
+        />
+        <SplitTextReveal
+          text="Itinerario"
+          as="h2"
+          type="chars"
+          stagger={0.04}
+          rotate={5}
+          skewY={3}
           style={{
             fontFamily: 'var(--font-display)',
             fontSize: 'clamp(2.2rem, 5vw, 3.5rem)',
@@ -196,9 +205,7 @@ export function Itinerary() {
             fontWeight: 300,
             marginTop: '0.5rem',
           }}
-        >
-          Itinerario
-        </h2>
+        />
       </div>
 
       {/* Contenedor de la línea de tiempo */}

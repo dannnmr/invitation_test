@@ -5,6 +5,7 @@ import { gsap } from '@/lib/gsap';
 import { formatEventDate } from '@/lib/utils';
 import type { InvitationConfig } from '@/types/invitation';
 import { defaultInvitationConfig } from '@/config/invitation.config';
+import { SplitTextReveal } from '@/components/core/SplitTextReveal';
 
 interface HeroProps {
   config?: InvitationConfig;
@@ -18,9 +19,6 @@ interface HeroProps {
 export function Hero({ config = defaultInvitationConfig }: HeroProps) {
   const sectionRef = useRef<HTMLDivElement>(null);
   const imageRef   = useRef<HTMLDivElement>(null);
-  const titleRef   = useRef<HTMLHeadingElement>(null);
-  const dateRef    = useRef<HTMLParagraphElement>(null);
-  const subtitleRef = useRef<HTMLParagraphElement>(null);
 
   const { quinceañera, event } = config;
 
@@ -41,26 +39,8 @@ export function Hero({ config = defaultInvitationConfig }: HeroProps) {
       },
     });
 
-    // Animación de entrada inicial del texto del Hero
-    const introTl = gsap.timeline({ delay: 0.2 });
-    introTl.fromTo(titleRef.current, 
-      { opacity: 0, y: 50 },
-      { opacity: 1, y: 0, duration: 1.5, ease: 'expo.out' }
-    )
-    .fromTo(subtitleRef.current,
-      { opacity: 0, y: 20 },
-      { opacity: 1, y: 0, duration: 1.2, ease: 'expo.out' },
-      '-=1.0'
-    )
-    .fromTo(dateRef.current,
-      { opacity: 0, y: 20 },
-      { opacity: 1, y: 0, duration: 1.2, ease: 'expo.out' },
-      '-=0.8'
-    );
-
     return () => {
       parallax.kill();
-      introTl.kill();
     };
   }, []);
 
@@ -96,7 +76,7 @@ export function Hero({ config = defaultInvitationConfig }: HeroProps) {
         aria-hidden="true"
       />
 
-      {/* Contenido Editorial Textual */}
+      {/* Contenido Editorial Textual con SplitTextReveal */}
       <div
         style={{
           position: 'relative',
@@ -104,13 +84,21 @@ export function Hero({ config = defaultInvitationConfig }: HeroProps) {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          gap: '1.5rem',
+          gap: '1rem',
           padding: '0 2rem',
           textAlign: 'center',
         }}
       >
-        <p
-          ref={subtitleRef}
+        <SplitTextReveal
+          text="Mis Quince Años"
+          as="p"
+          type="words"
+          scrollTrigger={false}
+          delay={0.2}
+          duration={1.0}
+          stagger={0.08}
+          yPercent={100}
+          skewY={2}
           style={{
             fontFamily: 'var(--font-mono)',
             fontSize: 'clamp(0.7rem, 2vw, 0.9rem)',
@@ -118,12 +106,19 @@ export function Hero({ config = defaultInvitationConfig }: HeroProps) {
             letterSpacing: '0.2em',
             textTransform: 'uppercase',
           }}
-        >
-          Mis Quince Años
-        </p>
+        />
 
-        <h1
-          ref={titleRef}
+        <SplitTextReveal
+          text={quinceañera.name}
+          as="h1"
+          type="chars"
+          scrollTrigger={false}
+          delay={0.4}
+          duration={1.5}
+          stagger={0.06}
+          yPercent={100}
+          rotate={8}
+          skewY={5}
           style={{
             fontFamily: 'var(--font-display)',
             fontSize: 'clamp(4.5rem, 12vw, 8rem)',
@@ -133,22 +128,26 @@ export function Hero({ config = defaultInvitationConfig }: HeroProps) {
             lineHeight: 0.9,
             letterSpacing: '-0.02em',
           }}
-        >
-          {quinceañera.name}
-        </h1>
+        />
 
-        <p
-          ref={dateRef}
+        <SplitTextReveal
+          text={formatEventDate(event.date)}
+          as="p"
+          type="words"
+          scrollTrigger={false}
+          delay={1.0}
+          duration={1.2}
+          stagger={0.05}
+          yPercent={80}
+          skewY={0}
           style={{
             fontFamily: 'var(--font-mono)',
             fontSize: 'clamp(0.8rem, 2.5vw, 1.1rem)',
             color: 'var(--color-cream-muted)',
             letterSpacing: '0.08em',
-            marginTop: '1rem',
+            marginTop: '0.5rem',
           }}
-        >
-          {formatEventDate(event.date)}
-        </p>
+        />
       </div>
 
       {/* Indicador de Scroll Animado */}
@@ -198,19 +197,6 @@ export function Hero({ config = defaultInvitationConfig }: HeroProps) {
             }}
           />
         </div>
-        <style jsx global>{`
-          @keyframes scrollLine {
-            0% {
-              transform: translateY(-100%);
-            }
-            70% {
-              transform: translateY(200%);
-            }
-            100% {
-              transform: translateY(200%);
-            }
-          }
-        `}</style>
       </div>
     </section>
   );

@@ -1,10 +1,11 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { supabase } from '@/lib/supabase';
+import { supabase, isSupabaseConfigured } from '@/lib/supabase';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import { useCursorMagnet } from '@/hooks/useCursorMagnet';
 import type { InvitationConfig } from '@/types/invitation';
+import { SplitTextReveal } from '@/components/core/SplitTextReveal';
 import { defaultInvitationConfig } from '@/config/invitation.config';
 
 interface MusicSuggestionsProps {
@@ -43,6 +44,11 @@ export function MusicSuggestions({ config = defaultInvitationConfig }: MusicSugg
 
   // Intentar cargar canciones reales desde Supabase si existe
   useEffect(() => {
+    if (!isSupabaseConfigured) {
+      console.info('[MusicSuggestions] Supabase no configurado. Utilizando canciones de demo locales.');
+      return;
+    }
+
     let active = true;
     async function fetchSongs() {
       try {
@@ -89,6 +95,23 @@ export function MusicSuggestions({ config = defaultInvitationConfig }: MusicSugg
     setErrorMessage(null);
 
     const suggestionString = `${songTitle.trim()} - ${songArtist.trim()}`;
+
+    if (!isSupabaseConfigured) {
+      // Simular agregado en local inmediatamente para evitar llamadas fallidas de red
+      const newSong: SongSuggestion = {
+        id: Math.random().toString(),
+        guest_name: guestName,
+        song_title: songTitle,
+        song_artist: songArtist
+      };
+      setSuggestions(prev => [newSong, ...prev]);
+      setSubmitSuccess(true);
+      setSongTitle('');
+      setSongArtist('');
+      setIsSubmitting(false);
+      setTimeout(() => setSubmitSuccess(false), 3000);
+      return;
+    }
 
     try {
       // Intentar guardar en Supabase rsvps como sugerencia (o una tabla songs si estuviera creada)
@@ -160,18 +183,26 @@ export function MusicSuggestions({ config = defaultInvitationConfig }: MusicSugg
         {/* Lado izquierdo: Formulario de sugerencia */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', textAlign: 'left' }}>
           <div>
-            <span
+            <SplitTextReveal
+              text="Ambiente de Fiesta"
+              as="span"
+              type="words"
               style={{
                 fontFamily: 'var(--font-mono)',
                 fontSize: '0.75rem',
                 color: 'var(--color-gold)',
                 letterSpacing: '0.2em',
                 textTransform: 'uppercase',
+                display: 'block',
               }}
-            >
-              Ambiente de Fiesta
-            </span>
-            <h2
+            />
+            <SplitTextReveal
+              text="¿Qué canción no debe faltar?"
+              as="h2"
+              type="chars"
+              stagger={0.03}
+              rotate={4}
+              skewY={2}
               style={{
                 fontFamily: 'var(--font-display)',
                 fontSize: '2.5rem',
@@ -180,9 +211,7 @@ export function MusicSuggestions({ config = defaultInvitationConfig }: MusicSugg
                 fontWeight: 300,
                 marginTop: '0.5rem',
               }}
-            >
-              ¿Qué canción no debe faltar?
-            </h2>
+            />
             <p
               style={{
                 fontFamily: 'var(--font-display)',

@@ -6,6 +6,7 @@ import { QRCodeSVG } from 'qrcode.react';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import type { InvitationConfig } from '@/types/invitation';
 import { defaultInvitationConfig } from '@/config/invitation.config';
+import { SplitTextReveal } from '@/components/core/SplitTextReveal';
 
 interface TicketsProps {
   config?: InvitationConfig;
@@ -58,18 +59,26 @@ export function Tickets({ config = defaultInvitationConfig }: TicketsProps) {
         }}
       >
         <div style={{ textAlign: 'center' }}>
-          <span
+          <SplitTextReveal
+            text="Acceso Personal"
+            as="span"
+            type="words"
             style={{
               fontFamily: 'var(--font-mono)',
               fontSize: '0.75rem',
               color: 'var(--color-gold)',
               letterSpacing: '0.2em',
               textTransform: 'uppercase',
+              display: 'block',
             }}
-          >
-            Acceso Personal
-          </span>
-          <h2
+          />
+          <SplitTextReveal
+            text="Tus Pases Digitales"
+            as="h2"
+            type="chars"
+            stagger={0.04}
+            rotate={5}
+            skewY={3}
             style={{
               fontFamily: 'var(--font-display)',
               fontSize: 'clamp(2.2rem, 5vw, 3.5rem)',
@@ -78,9 +87,7 @@ export function Tickets({ config = defaultInvitationConfig }: TicketsProps) {
               fontWeight: 300,
               marginTop: '0.5rem',
             }}
-          >
-            Tus Pases Digitales
-          </h2>
+          />
         </div>
 
         {/* Estilo CSS para la línea de escaneo láser */}

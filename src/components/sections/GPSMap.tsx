@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import { useCursorMagnet } from '@/hooks/useCursorMagnet';
 import type { InvitationConfig } from '@/types/invitation';
+import { SplitTextReveal } from '@/components/core/SplitTextReveal';
 import { defaultInvitationConfig } from '@/config/invitation.config';
 
 // Importar Mapbox en el cliente únicamente para evitar fallos de SSR
@@ -152,18 +153,26 @@ export function GPSMap({ config = defaultInvitationConfig }: GPSMapProps) {
           gap: '1rem',
         }}
       >
-        <span
+        <SplitTextReveal
+          text="Ubicación"
+          as="span"
+          type="words"
           style={{
             fontFamily: 'var(--font-mono)',
             fontSize: '0.75rem',
             color: 'var(--color-gold)',
             letterSpacing: '0.2em',
             textTransform: 'uppercase',
+            display: 'block',
           }}
-        >
-          Ubicación
-        </span>
-        <h2
+        />
+        <SplitTextReveal
+          text={venue.name}
+          as="h2"
+          type="chars"
+          stagger={0.04}
+          rotate={5}
+          skewY={3}
           style={{
             fontFamily: 'var(--font-display)',
             fontSize: 'clamp(2.2rem, 5vw, 3.5rem)',
@@ -171,9 +180,7 @@ export function GPSMap({ config = defaultInvitationConfig }: GPSMapProps) {
             color: 'var(--color-cream)',
             fontWeight: 300,
           }}
-        >
-          {venue.name}
-        </h2>
+        />
         <p
           style={{
             fontFamily: 'var(--font-display)',

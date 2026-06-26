@@ -2,6 +2,7 @@
 
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import type { InvitationConfig } from '@/types/invitation';
+import { SplitTextReveal } from '@/components/core/SplitTextReveal';
 import { defaultInvitationConfig } from '@/config/invitation.config';
 
 interface DressCodeProps {
@@ -55,19 +56,27 @@ export function DressCode({ config = defaultInvitationConfig }: DressCodeProps) 
           gap: '1rem',
         }}
       >
-        <span
+        <SplitTextReveal
+          text="Código de Vestimenta"
+          as="span"
+          type="words"
           style={{
             fontFamily: 'var(--font-mono)',
             fontSize: '0.75rem',
             color: 'var(--color-gold)',
             letterSpacing: '0.2em',
             textTransform: 'uppercase',
+            display: 'block',
           }}
-        >
-          Código de Vestimenta
-        </span>
+        />
         
-        <h2
+        <SplitTextReveal
+          text={dressCode.description}
+          as="h2"
+          type="chars"
+          stagger={0.05}
+          rotate={5}
+          skewY={3}
           style={{
             fontFamily: 'var(--font-display)',
             fontSize: 'clamp(2.2rem, 5vw, 3.5rem)',
@@ -75,9 +84,7 @@ export function DressCode({ config = defaultInvitationConfig }: DressCodeProps) 
             color: 'var(--color-cream)',
             fontWeight: 300,
           }}
-        >
-          {dressCode.description}
-        </h2>
+        />
 
         {dressCode.notes && (
           <p
