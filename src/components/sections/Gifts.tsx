@@ -73,18 +73,6 @@ function GiftCard({ storeName, url }: { storeName: string; url: string }) {
       >
         Ver Mesa
       </a>
-
-      {/* Efectos de Hover Reveal mediante estilos globales embebidos */}
-      <style jsx global>{`
-        .gift-card:hover {
-          border-color: var(--color-gold) !important;
-          transform: translateY(-4px);
-        }
-        .gift-card a:hover {
-          background-color: var(--color-gold) !important;
-          color: var(--color-black) !important;
-        }
-      `}</style>
     </div>
   );
 }

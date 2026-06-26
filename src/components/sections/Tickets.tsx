@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { QRCodeSVG } from 'qrcode.react';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
@@ -28,9 +29,11 @@ export function Tickets({ config = defaultInvitationConfig }: TicketsProps) {
   });
 
   // Generar URL única para validación QR
-  const qrValidationUrl = typeof window !== 'undefined'
-    ? `${window.location.origin}/verify?id=${config.id}&n=${encodeURIComponent(guestName)}`
-    : `https://invitation-system.com/verify?id=${config.id}`;
+  const [qrValidationUrl, setQrValidationUrl] = useState(`https://invitation-system.com/verify?id=${config.id}`);
+
+  useEffect(() => {
+    setQrValidationUrl(`${window.location.origin}/verify?id=${config.id}&n=${encodeURIComponent(guestName)}`);
+  }, [config.id, guestName]);
 
   return (
     <section

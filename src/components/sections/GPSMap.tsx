@@ -31,7 +31,9 @@ export function GPSMap({ config = defaultInvitationConfig }: GPSMapProps) {
   const [mapError, setMapError] = useState(false);
 
   useEffect(() => {
-    setMapboxToken(process.env.NEXT_PUBLIC_MAPBOX_TOKEN || null);
+    const token = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
+    const isValid = !!token && token !== 'your_mapbox_token' && token.trim() !== '';
+    setMapboxToken(isValid ? token : null);
   }, []);
 
   const revealRef = useScrollReveal<HTMLDivElement>({
@@ -233,6 +235,7 @@ export function GPSMap({ config = defaultInvitationConfig }: GPSMapProps) {
             {/* Pin de Mapa Animado Mock */}
             <div
               ref={pinRef}
+              className="pulse-glow-marker"
               style={{
                 width: '64px',
                 height: '64px',
@@ -242,7 +245,6 @@ export function GPSMap({ config = defaultInvitationConfig }: GPSMapProps) {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                animation: 'pulseGlow 2s infinite ease-in-out',
                 zIndex: 2,
               }}
             >
@@ -294,18 +296,6 @@ export function GPSMap({ config = defaultInvitationConfig }: GPSMapProps) {
                 <path d="M14 3h7v7h-2V6.41l-9 9-1.41-1.41 9-9H14V3Zm-2 16H5V7h7V5H5c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-7h-2v7Z"/>
               </svg>
             </a>
-
-            <style jsx global>{`
-              @keyframes pulseGlow {
-                0% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(197, 160, 89, 0.4); }
-                70% { transform: scale(1.05); box-shadow: 0 0 20px 10px rgba(197, 160, 89, 0); }
-                100% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(197, 160, 89, 0); }
-              }
-              .gift-card a:hover {
-                background-color: var(--color-gold) !important;
-                color: var(--color-black) !important;
-              }
-            `}</style>
           </div>
         ) : (
           /* Contenedor oficial para Mapbox GL JS */
