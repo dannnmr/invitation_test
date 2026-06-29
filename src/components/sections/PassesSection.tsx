@@ -419,7 +419,7 @@ export function PassesSection({ config }: PassesSectionProps) {
                 }}
               >
                 <Image
-                  src="/images/decorativas_v2/ny_skyline.png"
+                  src="/images/decorativas_v2/fondo_newyork.png"
                   alt="Watermark New York Skyline"
                   fill
                   sizes="(max-width: 768px) 80px, 160px"

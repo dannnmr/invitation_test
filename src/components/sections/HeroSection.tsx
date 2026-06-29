@@ -75,7 +75,7 @@ export function HeroSection({ config, isRevealed }: HeroSectionProps) {
         }}
       >
         <img
-          src="/images/decorativas_v2/ny_skyline.png"
+          src="/images/decorativas_v2/bg_newyork_rosa.png"
           alt="New York Skyline"
           style={{
             width: '100%',

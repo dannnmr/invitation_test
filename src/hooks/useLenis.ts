@@ -21,6 +21,7 @@ export function useLenis() {
     });
 
     lenisRef.current = lenis;
+    (window as any).lenis = lenis;
 
     // Conectar Lenis con GSAP ScrollTrigger
     lenis.on('scroll', ScrollTrigger.update);

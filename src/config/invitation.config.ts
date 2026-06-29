@@ -11,7 +11,7 @@ export const defaultInvitationConfig: InvitationConfig = {
     name: 'Luciana',
     fullName: 'Luciana Daza Sánchez',
     age: 15,
-    photoUrl: '/images/decorativas_v2/ny_skyline.png',
+    photoUrl: '/images/decorativas_v2/fondo_newyork.png',
     photoAlt: 'Luciana Daza Sánchez en su sesión de fotos de XV años',
   },
   event: {

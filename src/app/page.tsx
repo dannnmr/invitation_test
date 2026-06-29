@@ -42,11 +42,21 @@ export default function HomePage() {
   useEffect(() => {
     if (showEnvelope) {
       document.body.style.overflow = 'hidden';
+      if ((window as any).lenis) {
+        (window as any).lenis.stop();
+        (window as any).lenis.scrollTo(0, { immediate: true });
+      }
     } else {
       document.body.style.overflow = '';
+      if ((window as any).lenis) {
+        (window as any).lenis.start();
+      }
     }
     return () => {
       document.body.style.overflow = '';
+      if ((window as any).lenis) {
+        (window as any).lenis.start();
+      }
     };
   }, [showEnvelope]);
 
