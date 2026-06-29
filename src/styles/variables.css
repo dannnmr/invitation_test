@@ -16,7 +16,7 @@
   --color-ny-black:        #111111;
 
   /* Tipografía */
-  --font-display:  'Cormorant Garamond', Georgia, serif;
+  --font-display:  var(--font-pinyon), 'Pinyon Script', cursive;
   --font-mono:     'DM Mono', 'Courier New', monospace;
   --font-sans:     'Inter', system-ui, sans-serif;
   --font-pinyon:   var(--font-pinyon), 'Pinyon Script', cursive;
