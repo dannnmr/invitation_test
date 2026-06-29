@@ -13,19 +13,15 @@ interface PassesSectionProps {
 }
 
 export function PassesSection({ config }: PassesSectionProps) {
-  const [activeOption, setActiveOption] = useState(1);
-  return (
-    <div style={{ position: 'relative' }}>
-      <SectionVariantSwitcher activeOption={activeOption} onChange={setActiveOption} optionsCount={2} />
-      {activeOption === 1 && <PassesOption1 config={config} />}
-      {activeOption === 2 && <PassesOption2 config={config} />}
-    </div>
-  );
+  return <PassesOption1 config={config} />;
 }
 
 function PassesOption1({ config }: PassesSectionProps) {
   const { passes, quinceañera, event } = config;
   if (!passes) return null;
+
+  const dayNumber = event.date.getDate();
+  const shortMonth = event.date.toLocaleDateString('es-ES', { month: 'short' });
 
   return (
     <section style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#0a0a0a', padding: '2rem', overflow: 'hidden' }}>
@@ -36,19 +32,19 @@ function PassesOption1({ config }: PassesSectionProps) {
         transition={{ duration: 3, repeat: Infinity, repeatType: 'reverse', ease: 'easeInOut' }}
         style={{ transformOrigin: 'top center', position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center' }}
       >
-        {/* Cuerda / Lanyard */}
+        {/* Lanyard */}
         <div style={{ width: '15px', height: '150px', backgroundColor: '#222', backgroundImage: 'repeating-linear-gradient(45deg, #222, #222 5px, #111 5px, #111 10px)', borderLeft: '1px solid #333', borderRight: '1px solid #333', position: 'relative', zIndex: 1 }} />
         
-        {/* Gancho Metálico */}
+        {/* Clip */}
         <div style={{ width: '30px', height: '40px', border: '4px solid #aaa', borderRadius: '15px', position: 'relative', top: '-10px', zIndex: 2, backgroundColor: 'transparent' }} />
         
-        {/* Tarjeta VIP */}
+        {/* VIP Card */}
         <div style={{ 
-          width: '280px', 
-          height: '420px', 
+          width: '320px', 
+          height: '480px', 
           backgroundColor: '#151515', 
-          borderRadius: '10px', 
-          border: '2px solid #d4af37', 
+          borderRadius: '12px', 
+          border: '1px solid rgba(244, 114, 182, 0.3)', 
           boxShadow: '0 20px 50px rgba(0,0,0,0.8), inset 0 0 20px rgba(0,0,0,0.5)', 
           position: 'relative', 
           top: '-20px', 
@@ -56,25 +52,53 @@ function PassesOption1({ config }: PassesSectionProps) {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          padding: '2rem 1rem'
+          padding: '2rem 1.5rem',
+          overflow: 'hidden'
         }}>
-          {/* Perforación superior */}
-          <div style={{ position: 'absolute', top: '15px', width: '60px', height: '15px', backgroundColor: '#0a0a0a', borderRadius: '10px', border: '1px solid #333' }} />
-
-          <h2 style={{ fontFamily: 'var(--font-sans)', fontSize: '2.5rem', fontWeight: 900, color: '#fff', letterSpacing: '4px', marginTop: '2rem' }}>VIP PASS</h2>
-          <div style={{ width: '100%', height: '1px', backgroundColor: '#333', margin: '1rem 0' }} />
-
-          <p style={{ fontFamily: 'var(--font-dm-mono)', color: '#d4af37', fontSize: '0.8rem', letterSpacing: '2px' }}>{passes.topLabel || 'ACCESS GRANTED'}</p>
-          
-          <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '2rem', color: '#fff', margin: '1.5rem 0', textAlign: 'center' }}>{quinceañera.name}</h3>
-
-          <div style={{ backgroundColor: '#fff', padding: '10px', borderRadius: '5px', margin: '1rem 0' }}>
-            <div style={{ width: '150px', height: '50px', backgroundImage: 'repeating-linear-gradient(90deg, #000, #000 3px, transparent 3px, transparent 6px)', backgroundSize: '100% 100%' }} />
+          {/* Background image watermark */}
+          <div style={{ position: 'absolute', inset: 0, opacity: 0.1, pointerEvents: 'none' }}>
+            <Image src="/images/decorativas_v2/fondo_newyork.png" alt="NY Background" fill className="object-cover grayscale" />
           </div>
 
-          <p style={{ fontFamily: 'var(--font-dm-mono)', color: '#888', fontSize: '0.7rem', marginTop: 'auto', textAlign: 'center' }}>
-            DATE: {event.date.toLocaleDateString('es-ES')}<br/>
-            PASSES: {passes.quantity}
+          {/* Hole punch */}
+          <div style={{ position: 'absolute', top: '15px', width: '60px', height: '15px', backgroundColor: '#0a0a0a', borderRadius: '10px', border: '1px solid #333', zIndex: 10 }} />
+
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '1.5rem', zIndex: 5 }}>
+            <Compass className="w-6 h-6 text-pink-400 stroke-[1.5]" />
+            <h2 style={{ fontFamily: 'var(--font-sans)', fontSize: '2rem', fontWeight: 900, color: 'var(--color-gold)', letterSpacing: '4px', margin: 0 }}>VIP PASS</h2>
+          </div>
+          
+          <div style={{ width: '100%', height: '1px', backgroundColor: 'rgba(244,114,182,0.3)', margin: '1rem 0', zIndex: 5 }} />
+
+          <p style={{ fontFamily: 'var(--font-dm-mono)', color: 'var(--color-cream-muted)', fontSize: '0.8rem', letterSpacing: '2px', zIndex: 5, textTransform: 'uppercase' }}>
+            {passes.topLabel || 'ACCESS GRANTED'}
+          </p>
+          
+          <h3 style={{ fontFamily: 'var(--font-pinyon)', fontSize: '3rem', color: '#fff', margin: '1.5rem 0', textAlign: 'center', zIndex: 5 }}>
+            {quinceañera.name}
+          </h3>
+
+          <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', marginBottom: '1.5rem', zIndex: 5, borderTop: '1px dashed #444', borderBottom: '1px dashed #444', padding: '1rem 0' }}>
+            <div style={{ textAlign: 'center' }}>
+              <span style={{ fontFamily: 'var(--font-dm-mono)', fontSize: '0.65rem', color: 'var(--color-gold-dark)', display: 'block' }}>DATE</span>
+              <span style={{ fontFamily: 'var(--font-sans)', fontSize: '1rem', color: '#fff', fontWeight: 'bold' }}>{dayNumber} {shortMonth.toUpperCase()}</span>
+            </div>
+            <div style={{ textAlign: 'center' }}>
+              <span style={{ fontFamily: 'var(--font-dm-mono)', fontSize: '0.65rem', color: 'var(--color-gold-dark)', display: 'block' }}>TIME</span>
+              <span style={{ fontFamily: 'var(--font-sans)', fontSize: '1rem', color: '#fff', fontWeight: 'bold' }}>{event.ceremonyTime} Hrs</span>
+            </div>
+            <div style={{ textAlign: 'center' }}>
+              <span style={{ fontFamily: 'var(--font-dm-mono)', fontSize: '0.65rem', color: 'var(--color-gold-dark)', display: 'block' }}>ADMIT</span>
+              <span style={{ fontFamily: 'var(--font-sans)', fontSize: '1rem', color: '#fff', fontWeight: 'bold' }}>{passes.quantity}</span>
+            </div>
+          </div>
+
+          <div style={{ backgroundColor: '#fff', padding: '10px', borderRadius: '5px', marginTop: 'auto', zIndex: 5, width: '100%', display: 'flex', justifyContent: 'center' }}>
+            <div style={{ width: '100%', height: '50px', backgroundImage: 'repeating-linear-gradient(90deg, #000, #000 3px, transparent 3px, transparent 7px)', backgroundSize: '100% 100%' }} />
+          </div>
+          
+          <p style={{ fontFamily: 'var(--font-dm-mono)', color: '#888', fontSize: '0.65rem', marginTop: '0.5rem', zIndex: 5, letterSpacing: '2px' }}>
+            VALID FOR ONE ENTRY
           </p>
 
         </div>

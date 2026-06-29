@@ -11,16 +11,7 @@ interface RSVPSectionProps {
 }
 
 export function RSVPSection({ config }: RSVPSectionProps) {
-  const [activeOption, setActiveOption] = useState(1);
-  return (
-    <div style={{ position: 'relative' }}>
-      <SectionVariantSwitcher activeOption={activeOption} onChange={setActiveOption} optionsCount={4} />
-      {activeOption === 1 && <RSVPOption1 config={config} />}
-      {activeOption === 2 && <RSVPOption2 config={config} />}
-      {activeOption === 3 && <RSVPOption3 config={config} />}
-      {activeOption === 4 && <RSVPOption4 config={config} />}
-    </div>
-  );
+  return <RSVPOption4 config={config} />;
 }
 
 function RSVPOption1({ config }: RSVPSectionProps) {

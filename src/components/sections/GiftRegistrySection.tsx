@@ -7,15 +7,7 @@ import { useState } from 'react';
 import { SectionVariantSwitcher } from '@/components/ui/SectionVariantSwitcher';
 
 export function GiftRegistrySection() {
-  const [activeOption, setActiveOption] = useState(1);
-  return (
-    <div style={{ position: 'relative' }}>
-      <SectionVariantSwitcher activeOption={activeOption} onChange={setActiveOption} optionsCount={3} />
-      {activeOption === 1 && <GiftOption1 />}
-      {activeOption === 2 && <GiftOption2 />}
-      {activeOption === 3 && <GiftOption3 />}
-    </div>
-  );
+  return <GiftOption1 />;
 }
 
 function GiftOption1() {

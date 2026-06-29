@@ -12,16 +12,7 @@ interface CountdownSectionProps {
 }
 
 export function CountdownSection({ config }: CountdownSectionProps) {
-  const [activeOption, setActiveOption] = useState(1);
-  return (
-    <div style={{ position: 'relative' }}>
-      <SectionVariantSwitcher activeOption={activeOption} onChange={setActiveOption} optionsCount={4} />
-      {activeOption === 1 && <CountdownOption1 config={config} />}
-      {activeOption === 2 && <CountdownOption2 config={config} />}
-      {activeOption === 3 && <CountdownOption3 config={config} />}
-      {activeOption === 4 && <CountdownOption4 config={config} />}
-    </div>
-  );
+  return <CountdownOption4 config={config} />;
 }
 
 function CountdownOption1({ config }: CountdownSectionProps) {
@@ -233,13 +224,13 @@ function CountdownOption4({ config }: CountdownSectionProps) {
     <section
       aria-label="Cuenta regresiva para el evento"
       style={{
-        minHeight:      '100vh',
+        minHeight:      'auto',
         display:        'flex',
         flexDirection:  'column',
         alignItems:     'center',
         justifyContent: 'center',
-        gap:            'clamp(2rem, 4vw, 3rem)',
-        padding:        'clamp(3rem, 6vw, 5rem) clamp(1.5rem, 4vw, 3rem)',
+        gap:            'clamp(1rem, 2vw, 2rem)',
+        padding:        '3rem 1rem',
         position:       'relative',
         overflow:       'hidden',
         backgroundColor: 'var(--color-black)',

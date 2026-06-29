@@ -11,16 +11,7 @@ interface ParentsSectionProps {
 }
 
 export function ParentsSection({ config }: ParentsSectionProps) {
-  const [activeOption, setActiveOption] = useState(1);
-  if (!config.parents) return null;
-  return (
-    <div style={{ position: 'relative' }}>
-      <SectionVariantSwitcher activeOption={activeOption} onChange={setActiveOption} optionsCount={3} />
-      {activeOption === 1 && <ParentsOption1 config={config} />}
-      {activeOption === 2 && <ParentsOption2 config={config} />}
-      {activeOption === 3 && <ParentsOption3 config={config} />}
-    </div>
-  );
+  return <ParentsOption3 config={config} />;
 }
 
 function ParentsOption1({ config }: ParentsSectionProps) {
@@ -32,12 +23,6 @@ function ParentsOption1({ config }: ParentsSectionProps) {
         <div style={{ border: '2px solid #d4af37', padding: '4rem 2rem', textAlign: 'center', backgroundColor: '#151515', backgroundImage: 'radial-gradient(#222 1px, transparent 1px)', backgroundSize: '20px 20px' }}>
           
           <h2 style={{ fontFamily: 'var(--font-pinyon)', fontSize: '3rem', color: '#d4af37' }}>{parents.topLabel || 'Con la bendición de mis padres'}</h2>
-          
-          {parents.invitationText && (
-            <p style={{ fontFamily: 'var(--font-sans)', fontStyle: 'italic', color: '#aaa', margin: '2rem 0', fontSize: '0.9rem' }}>
-              "{parents.invitationText}"
-            </p>
-          )}
 
           <div style={{ margin: '3rem 0' }}>
             <span style={{ fontFamily: 'var(--font-dm-mono)', fontSize: '0.7rem', color: '#888', letterSpacing: '4px', textTransform: 'uppercase' }}>Mis Padres</span>
@@ -84,11 +69,7 @@ function ParentsOption2({ config }: ParentsSectionProps) {
           {parents.topLabel || 'Con la bendición de mis padres'}
         </h2>
         
-        {parents.invitationText && (
-          <p style={{ fontFamily: 'var(--font-sans)', color: '#bbb', margin: '2rem auto', maxWidth: '400px', fontSize: '1rem', fontStyle: 'italic' }}>
-            "{parents.invitationText}"
-          </p>
-        )}
+    
 
         <div style={{ marginTop: '3rem' }}>
           <p style={{ fontFamily: 'var(--font-display)', fontSize: '2.5rem', color: '#fff' }}>{parents.fatherName}</p>
@@ -206,22 +187,7 @@ function ParentsOption3({ config }: ParentsSectionProps) {
             gap: '2.5rem',
           }}
         >
-          {parents.invitationText && (
-            <p
-              className="reveal-item"
-              style={{
-                fontFamily: 'var(--font-sans)',
-                fontSize: 'clamp(0.9rem, 2vw, 1.15rem)',
-                color: 'var(--color-cream)',
-                lineHeight: 1.7,
-                maxWidth: '520px',
-                marginBottom: '1rem',
-                fontStyle: 'italic',
-              }}
-            >
-              "{parents.invitationText}"
-            </p>
-          )}
+    
 
           <div className="reveal-item" style={{ width: '100%' }}>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>

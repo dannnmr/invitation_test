@@ -25,16 +25,7 @@ const ItineraryIcon = ({ iconName }: { iconName?: string }) => {
 };
 
 export function ItinerarySection({ config }: ItinerarySectionProps) {
-  const [activeOption, setActiveOption] = useState(1);
-  return (
-    <div style={{ position: 'relative' }}>
-      <SectionVariantSwitcher activeOption={activeOption} onChange={setActiveOption} optionsCount={4} />
-      {activeOption === 1 && <ItineraryOption1 config={config} />}
-      {activeOption === 2 && <ItineraryOption2 config={config} />}
-      {activeOption === 3 && <ItineraryOption3 config={config} />}
-      {activeOption === 4 && <ItineraryOption4 config={config} />}
-    </div>
-  );
+  return <ItineraryOption1 config={config} />;
 }
 
 function ItineraryOption1({ config }: ItinerarySectionProps) {
@@ -64,23 +55,23 @@ function ItineraryOption1({ config }: ItinerarySectionProps) {
   }, []);
 
   return (
-    <section ref={containerRef} style={{ padding: '5rem 1.5rem', backgroundColor: '#050505', color: '#fff', position: 'relative' }}>
+    <section ref={containerRef} style={{ padding: '5rem 1.5rem', backgroundColor: '#fdfbf7', color: '#111', position: 'relative' }}>
       <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
-        <h2 style={{ fontFamily: 'var(--font-dm-mono)', color: '#fbcfe8', letterSpacing: '2px', fontSize: '0.8rem' }}>TRANSIT ROUTE</h2>
+        <h2 style={{ fontFamily: 'var(--font-dm-mono)', color: '#8b0000', letterSpacing: '2px', fontSize: '0.8rem' }}>TRANSIT ROUTE</h2>
       </div>
       <div style={{ position: 'relative', maxWidth: '600px', margin: '0 auto', paddingLeft: '40px' }}>
         {/* Vía */}
-        <div style={{ position: 'absolute', left: '15px', top: 0, bottom: 0, width: '2px', backgroundColor: '#333' }} />
+        <div style={{ position: 'absolute', left: '15px', top: 0, bottom: 0, width: '2px', backgroundColor: '#ddd' }} />
         {/* Punto en tránsito */}
-        <div ref={dotRef} style={{ position: 'absolute', left: '9px', width: '14px', height: '14px', borderRadius: '50%', backgroundColor: '#f472b6', boxShadow: '0 0 15px #f472b6', zIndex: 10, transform: 'translateY(-50%)' }} />
+        <div ref={dotRef} style={{ position: 'absolute', left: '9px', width: '14px', height: '14px', borderRadius: '50%', backgroundColor: '#f472b6', boxShadow: '0 0 15px rgba(244, 114, 182, 0.5)', zIndex: 10, transform: 'translateY(-50%)' }} />
 
         {itinerary?.map((item, idx) => (
           <div key={idx} style={{ position: 'relative', paddingBottom: '3rem' }}>
-            <div style={{ position: 'absolute', left: '-29px', top: '5px', width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#fff', border: '2px solid #000', zIndex: 5 }} />
+            <div style={{ position: 'absolute', left: '-29px', top: '5px', width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#fdfbf7', border: '2px solid #aaa', zIndex: 5 }} />
             <div style={{ display: 'flex', flexDirection: 'column' }}>
-              <span style={{ fontFamily: 'var(--font-dm-mono)', color: '#fbcfe8', fontSize: '0.8rem' }}>{item.time}</span>
-              <h3 style={{ fontFamily: 'var(--font-sans)', fontSize: '1.2rem', fontWeight: 'bold', margin: '0.5rem 0' }}>{item.title}</h3>
-              <p style={{ color: '#888', fontSize: '0.9rem' }}>{item.description}</p>
+              <span style={{ fontFamily: 'var(--font-dm-mono)', color: '#8b0000', fontSize: '0.8rem' }}>{item.time}</span>
+              <h3 style={{ fontFamily: 'var(--font-sans)', fontSize: '1.2rem', fontWeight: 'bold', margin: '0.5rem 0', color: '#111' }}>{item.title}</h3>
+              <p style={{ color: '#666', fontSize: '0.9rem' }}>{item.description}</p>
             </div>
           </div>
         ))}
