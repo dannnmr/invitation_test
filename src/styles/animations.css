@@ -68,19 +68,6 @@
   animation: shimmer 4s linear infinite;
 }
 
-/* Animación de latido y línea de scroll */
-@keyframes scrollLine {
-  0% {
-    transform: translateY(-100%);
-  }
-  70% {
-    transform: translateY(200%);
-  }
-  100% {
-    transform: translateY(200%);
-  }
-}
-
 /* Reduce animaciones si el usuario lo prefiere */
 @media (prefers-reduced-motion: reduce) {
   *,

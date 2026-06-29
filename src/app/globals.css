@@ -46,39 +46,3 @@ body {
 .font-mono {
   font-family: var(--font-mono);
 }
-
-/* Efectos de Hover para Mesa de Regalos */
-.gift-card {
-  transition: border-color 0.4s ease, transform 0.4s ease;
-}
-
-.gift-card:hover {
-  border-color: var(--color-gold) !important;
-  transform: translateY(-4px);
-}
-
-.gift-card a:hover {
-  background-color: var(--color-gold) !important;
-  color: var(--color-black) !important;
-}
-
-/* Animación de latido para el marcador de mapa de fallback */
-@keyframes pulseGlow {
-  0% {
-    transform: scale(0.9);
-    box-shadow: 0 0 0 0 rgba(197, 160, 89, 0.4);
-  }
-  70% {
-    transform: scale(1.05);
-    box-shadow: 0 0 20px 10px rgba(197, 160, 89, 0);
-  }
-  100% {
-    transform: scale(0.9);
-    box-shadow: 0 0 0 0 rgba(197, 160, 89, 0);
-  }
-}
-
-.pulse-glow-marker {
-  animation: pulseGlow 2s infinite ease-in-out;
-}
-

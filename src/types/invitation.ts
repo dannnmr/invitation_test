@@ -29,17 +29,32 @@ export interface InvitationConfig {
     notes?: string;
   };
   giftRegistry?: {
-    stores: Array<{
-      name: string;
-      url: string;
-      logo?: string;
-    }>;
+    stores: GiftStore[];
   };
   music?: {
     ambientTrack?: string;
     playlistUrl?: string;
   };
   rsvpDeadline: Date;
+  itinerary?: ItineraryItem[];
+  parents?: {
+    topLabel: string;
+    fatherName: string;
+    motherName: string;
+    godparents?: string[];
+    invitationText: string;
+  };
+  passes?: {
+    topLabel: string;
+    mainTitle: string;
+    ticketLabel: string;
+    admitText: string;
+    quantity: string;
+    unitText: string;
+  };
+  googleSheets?: {
+    webhookUrl: string;
+  };
 }
 
 export interface RSVPSubmission {
@@ -69,4 +84,30 @@ export interface CursorState {
   isHovering: boolean;
   isClicking: boolean;
   label?: string;
+}
+
+export interface RSVPFormData {
+  guestName:           string;
+  guestCount:          number;
+  dietaryRestrictions: string;
+}
+
+export type RSVPFormState =
+  | 'idle'        // Formulario vacío
+  | 'submitting'  // Esperando respuesta de Supabase
+  | 'success'     // Confirmado correctamente
+  | 'error';      // Error de red o validación
+
+export interface ItineraryItem {
+  time:        string;
+  title:       string;
+  description: string;
+  icon?:       string; // emoji o caracter decorativo
+}
+
+export interface GiftStore {
+  name:    string;
+  url:     string;
+  logo?:   string;
+  note?:   string;
 }

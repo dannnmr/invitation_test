@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Cormorant_Garamond, DM_Mono, Inter } from 'next/font/google';
+import { Cormorant_Garamond, DM_Mono, Inter, Pinyon_Script } from 'next/font/google';
 import { SmoothScroll }    from '@/components/core/SmoothScroll';
 import { CustomCursor }    from '@/components/core/CustomCursor';
 import { AudioController } from '@/components/core/AudioController';
@@ -29,6 +29,13 @@ const inter = Inter({
   display: 'swap',
 });
 
+const pinyon = Pinyon_Script({
+  subsets: ['latin'],
+  weight: ['400'],
+  variable: '--font-pinyon',
+  display: 'swap',
+});
+
 /* ── Metadata ─────────────────────────────────────────────────── */
 
 export const metadata: Metadata = {
@@ -53,7 +60,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html
       lang="es"
-      className={`${cormorant.variable} ${dmMono.variable} ${inter.variable}`}
+      className={`${cormorant.variable} ${dmMono.variable} ${inter.variable} ${pinyon.variable}`}
     >
       <body>
         <SmoothScroll>
@@ -61,7 +68,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
           <CustomCursor />
 
           {/* Control de audio ambient */}
-          <AudioController src="/audio/ambient.mp3" />
+          <AudioController src="/audio/who_loves_the_sun.mp3" />
 
           {/* Transiciones entre páginas */}
           <PageTransition>

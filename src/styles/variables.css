@@ -1,19 +1,25 @@
 :root {
-  /* Paleta principal */
-  --color-black:        #0A0005;
-  --color-black-soft:   #120A17;
-  --color-surface:      #1A0F20;
-  --color-gold:         #C5A059;
-  --color-gold-light:   #D4B87A;
-  --color-gold-dark:    #9A7A3E;
-  --color-cream:        #F0E8D0;
-  --color-cream-muted:  #C8BFA8;
-  --color-white:        #FAFAF8;
+  /* Paleta principal (Nueva York Elegante y Vibrante) */
+  --color-black:        #FAFAFA;       /* Perla */
+  --color-black-soft:   #F5F5F5;
+  --color-surface:      #FFFFFF;
+  --color-gold:         #F8C8DC;       /* Rosa pastel Luciana */
+  --color-gold-light:   #FBCFE8;       /* Rosa claro */
+  --color-gold-dark:    #B5838D;       /* Rosa polvoriento elegante */
+  --color-cream:        #1A1A1A;       /* Negro texto */
+  --color-cream-muted:  #4B5563;
+  --color-white:        #FFFFFF;
+  
+  /* Detalles Metálicos */
+  --color-gold-metallic:   #D4AF37;
+  --color-silver-metallic: #C0C0C0;
+  --color-ny-black:        #111111;
 
   /* Tipografía */
   --font-display:  'Cormorant Garamond', Georgia, serif;
   --font-mono:     'DM Mono', 'Courier New', monospace;
   --font-sans:     'Inter', system-ui, sans-serif;
+  --font-pinyon:   var(--font-pinyon), 'Pinyon Script', cursive;
 
   /* Sizing */
   --radius-sm:  4px;
@@ -33,6 +39,6 @@
   --z-base:    0;
   --z-content: 10;
   --z-overlay: 50;
-  --z-cursor:  9999;
+  --z-cursor:  100;
   --z-loader:  200;
 }

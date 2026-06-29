@@ -28,10 +28,10 @@ export function CustomCursor() {
     const moveRingY = gsap.quickTo(ring, 'y', { duration: 0.15, ease: 'power3' });
 
     function onMouseMove(e: MouseEvent) {
-      moveDotX(e.clientX - 4);
-      moveDotY(e.clientY - 4);
-      moveRingX(e.clientX - 20);
-      moveRingY(e.clientY - 20);
+      moveDotX(e.clientX);
+      moveDotY(e.clientY);
+      moveRingX(e.clientX);
+      moveRingY(e.clientY);
     }
 
     function onMouseEnterInteractive() {
@@ -104,8 +104,8 @@ export function CustomCursor() {
         aria-hidden="true"
         style={{
           position: 'fixed',
-          top: 0,
-          left: 0,
+          top: -4,
+          left: -4,
           width: 8,
           height: 8,
           borderRadius: '50%',
@@ -113,6 +113,7 @@ export function CustomCursor() {
           pointerEvents: 'none',
           zIndex: 'var(--z-cursor)',
           mixBlendMode: 'difference',
+          transform: 'translate(-50%, -50%)',
         }}
       />
 
@@ -122,14 +123,15 @@ export function CustomCursor() {
         aria-hidden="true"
         style={{
           position: 'fixed',
-          top: 0,
-          left: 0,
+          top: -20,
+          left: -20,
           width: 40,
           height: 40,
           borderRadius: '50%',
           border: '1px solid var(--color-gold)',
           pointerEvents: 'none',
           zIndex: 'var(--z-cursor)',
+          transform: 'translate(-50%, -50%)',
           opacity: 0.8,
         }}
       />

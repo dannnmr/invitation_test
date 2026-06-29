@@ -21,4 +21,5 @@ if (!isValidUrl || !isValidKey) {
 }
 
 export const isSupabaseConfigured = isValidUrl && isValidKey;
+
 export const supabase = createClient(supabaseUrl, supabaseKey);
