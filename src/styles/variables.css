@@ -19,7 +19,6 @@
   --font-display:  var(--font-pinyon), 'Pinyon Script', cursive;
   --font-mono:     'DM Mono', 'Courier New', monospace;
   --font-sans:     'Inter', system-ui, sans-serif;
-  --font-pinyon:   var(--font-pinyon), 'Pinyon Script', cursive;
 
   /* Sizing */
   --radius-sm:  4px;

@@ -1,9 +1,9 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import Image from 'next/image';
 import { useParticles }          from '@/hooks/useParticles';
 import { useEnvelopeAnimation }  from '@/hooks/useEnvelopeAnimation';
-import { EnvelopeSVG }           from './EnvelopeSVG';
 
 interface EnvelopeScreenProps {
   /** Ref del contenedor del contenido principal — se revela al abrir */
@@ -12,32 +12,21 @@ interface EnvelopeScreenProps {
   onComplete: () => void;
 }
 
-/**
- * Pantalla de apertura completa.
- *
- * Capas (de atrás hacia adelante):
- * 1. Canvas de partículas doradas (fijo, fondo)
- * 2. Overlay negro semitransparente
- * 3. SVG del sobre centrado
- * 4. Texto de instrucción "Toca para abrir"
- *
- * Al hacer click/touch: playOpenSequence() orquesta todo.
- */
 export function EnvelopeScreen({ contentRef, onComplete }: EnvelopeScreenProps) {
-  const envelopeRef   = useRef<SVGSVGElement>(null);
-  const topFlapRef    = useRef<SVGPathElement>(null);
-  const bottomFlapRef = useRef<SVGPathElement>(null);
-  const brochRef      = useRef<SVGGElement>(null);
-  const overlayRef    = useRef<HTMLDivElement>(null);
-  const hintRef       = useRef<HTMLParagraphElement>(null);
+  const envelopeBaseRef = useRef<HTMLImageElement>(null);
+  const leftFlapRef     = useRef<HTMLImageElement>(null);
+  const rightFlapRef    = useRef<HTMLImageElement>(null);
+  const brochRef        = useRef<HTMLImageElement>(null);
+  const overlayRef      = useRef<HTMLDivElement>(null);
+  const hintRef         = useRef<HTMLParagraphElement>(null);
 
   const { canvasRef, converge } = useParticles({ count: 80, color: '#F472B6' });
 
   const { playOpenSequence } = useEnvelopeAnimation(
     {
-      envelopeRef,
-      topFlapRef,
-      bottomFlapRef,
+      envelopeBaseRef,
+      leftFlapRef,
+      rightFlapRef,
       brochRef,
       particlesRef: canvasRef,
       overlayRef,
@@ -101,21 +90,62 @@ export function EnvelopeScreen({ contentRef, onComplete }: EnvelopeScreenProps) 
         }}
       />
 
-      {/* Sobre SVG */}
+      {/* Contenedor de las imágenes del sobre */}
       <div
         style={{
           position: 'relative',
           zIndex: 1,
           width: '90vw',
-          maxWidth: 360,
-          padding: '1rem',
+          maxWidth: 600,
+          aspectRatio: '16/9', // Ajustar según las proporciones reales
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
         }}
       >
-        <EnvelopeSVG
-          ref={envelopeRef}
-          topFlapRef={topFlapRef}
-          bottomFlapRef={bottomFlapRef}
-          brochRef={brochRef}
+        {/* Base del sobre completo - se oculta al abrir */}
+        <Image
+          ref={envelopeBaseRef}
+          src="/images/invitation/sobre_completo_negro.png"
+          alt="Sobre negro"
+          fill
+          priority
+          style={{ objectFit: 'contain' }}
+        />
+
+        {/* Mitad Izquierda */}
+        <Image
+          ref={leftFlapRef}
+          src="/images/invitation/sobre_izquierdo.png"
+          alt="Mitad izquierda del sobre"
+          fill
+          priority
+          style={{ objectFit: 'contain' }}
+        />
+
+        {/* Mitad Derecha */}
+        <Image
+          ref={rightFlapRef}
+          src="/images/invitation/sobre_derecho.png"
+          alt="Mitad derecha del sobre"
+          fill
+          priority
+          style={{ objectFit: 'contain' }}
+        />
+
+        {/* Broche */}
+        <Image
+          ref={brochRef}
+          src="/images/invitation/broche_inez.png"
+          alt="Broche de sello"
+          width={150}
+          height={150}
+          priority
+          style={{
+            position: 'absolute',
+            zIndex: 10,
+            objectFit: 'contain',
+          }}
         />
       </div>
 

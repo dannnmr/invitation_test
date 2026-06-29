@@ -1,7 +1,7 @@
 'use client';
 
-import { useRef, useState }         from 'react';
-import { PageLoader }               from '@/components/core/PageLoader';
+import { useEffect, useRef, useState } from 'react';
+
 import { EnvelopeScreen }           from '@/components/sections/EnvelopeScreen';
 import { HeroSection }              from '@/components/sections/HeroSection';
 import { ParentsSection }           from '@/components/sections/ParentsSection';
@@ -20,16 +20,17 @@ import { useEnvelopeSession }       from '@/hooks/useEnvelopeSession';
 import { defaultInvitationConfig }  from '@/config/invitation.config';
 
 export default function HomePage() {
-  const [isLoading,  setIsLoading]  = useState(true);
   const [isRevealed, setIsRevealed] = useState(false);
 
   const { showEnvelope, markAsOpened } = useEnvelopeSession();
   const contentRef = useRef<HTMLDivElement>(null);
 
-  function handleLoaderComplete() {
-    setIsLoading(false);
-    if (!showEnvelope) setIsRevealed(true);
-  }
+  // Use an effect to reveal immediately if envelope shouldn't be shown
+  useEffect(() => {
+    if (!showEnvelope) {
+      setIsRevealed(true);
+    }
+  }, [showEnvelope]);
 
   function handleEnvelopeComplete() {
     markAsOpened();
@@ -38,11 +39,7 @@ export default function HomePage() {
 
   return (
     <>
-      {isLoading && (
-        <PageLoader onComplete={handleLoaderComplete} />
-      )}
-
-      {!isLoading && showEnvelope && (
+      {showEnvelope && (
         <EnvelopeScreen
           contentRef={contentRef}
           onComplete={handleEnvelopeComplete}

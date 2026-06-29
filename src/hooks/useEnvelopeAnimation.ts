@@ -4,13 +4,13 @@ import { useCallback, useRef } from 'react';
 import { gsap } from '@/lib/gsap';
 
 interface EnvelopeRefs {
-  envelopeRef:    React.RefObject<SVGSVGElement | null>;
-  topFlapRef:     React.RefObject<SVGPathElement | null>;
-  bottomFlapRef:  React.RefObject<SVGPathElement | null>;
-  brochRef:       React.RefObject<SVGGElement | null>;
-  particlesRef:   React.RefObject<HTMLCanvasElement | null>;
-  overlayRef:     React.RefObject<HTMLDivElement | null>;
-  contentRef:     React.RefObject<HTMLDivElement | null>;
+  envelopeBaseRef: React.RefObject<HTMLImageElement | null>;
+  leftFlapRef:     React.RefObject<HTMLImageElement | null>;
+  rightFlapRef:    React.RefObject<HTMLImageElement | null>;
+  brochRef:        React.RefObject<HTMLImageElement | null>;
+  particlesRef:    React.RefObject<HTMLCanvasElement | null>;
+  overlayRef:      React.RefObject<HTMLDivElement | null>;
+  contentRef:      React.RefObject<HTMLDivElement | null>;
 }
 
 interface UseEnvelopeAnimationReturn {
@@ -42,24 +42,24 @@ export function useEnvelopeAnimation(
     hasPlayed.current = true;
 
     const {
-      envelopeRef,
-      topFlapRef,
-      bottomFlapRef,
+      envelopeBaseRef,
+      leftFlapRef,
+      rightFlapRef,
       brochRef,
       particlesRef,
       overlayRef,
       contentRef,
     } = refs;
 
-    const envelope   = envelopeRef.current;
-    const topFlap    = topFlapRef.current;
-    const bottomFlap = bottomFlapRef.current;
+    const envelopeBase = envelopeBaseRef.current;
+    const leftFlap   = leftFlapRef.current;
+    const rightFlap  = rightFlapRef.current;
     const broch      = brochRef.current;
     const canvas     = particlesRef.current;
     const overlay    = overlayRef.current;
     const content    = contentRef.current;
 
-    if (!envelope || !topFlap || !bottomFlap || !overlay || !content) return;
+    if (!envelopeBase || !leftFlap || !rightFlap || !overlay || !content) return;
 
     // Preparar el contenido — oculto con clip-path
     gsap.set(content, {
@@ -81,45 +81,38 @@ export function useEnvelopeAnimation(
       });
     }
 
-    // 2. Solapa superior — rotar hacia arriba (perspectiva 3D)
-    tl.to(topFlap, {
-      rotateX: -180,
-      duration: 0.5,
-      ease: 'power2.inOut',
-      transformOrigin: 'center bottom',
-      transformPerspective: 600,
-    }, broch ? '-=0.1' : '0');
+    // 2. Sobre completo inicial - desaparecer para que no se vea doble con las aletas
+    tl.set(envelopeBase, { opacity: 0 }, broch ? '-=0.1' : '0');
 
-    // 3. Solapa inferior — rotar hacia abajo
-    tl.to(bottomFlap, {
-      rotateX: 180,
-      duration: 0.5,
-      ease: 'power2.inOut',
-      transformOrigin: 'center top',
-      transformPerspective: 600,
-    }, '-=0.4');
-
-    // 4. Sobre completo — escalar y desvanecer
-    tl.to(envelope, {
-      scale: 1.08,
+    // 3. Solapa izquierda — deslizar hacia la izquierda
+    tl.to(leftFlap, {
+      xPercent: -100,
       opacity: 0,
-      duration: 0.4,
-      ease: 'power2.in',
+      duration: 0.8,
+      ease: 'power2.inOut',
     }, '-=0.1');
+
+    // 4. Solapa derecha — deslizar hacia la derecha
+    tl.to(rightFlap, {
+      xPercent: 100,
+      opacity: 0,
+      duration: 0.8,
+      ease: 'power2.inOut',
+    }, '<'); // Animación simultánea
 
     // 5. Overlay — fade out
     tl.to(overlay, {
       opacity: 0,
-      duration: 0.3,
+      duration: 0.5,
       ease: 'power1.out',
-    }, '-=0.1');
+    }, '-=0.4');
 
     // 6. Contenido — clip-path se expande revelando la invitación
     tl.to(content, {
       clipPath: 'inset(0% 0% 0% 0%)',
       duration: 1.0,
       ease: 'expo.inOut',
-    }, '-=0.2');
+    }, '-=0.6');
 
     // 7. Canvas de partículas — fade out
     if (canvas) {
