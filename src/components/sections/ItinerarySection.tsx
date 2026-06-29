@@ -4,16 +4,13 @@ import { useEffect, useRef, useState } from 'react';
 import { gsap } from '@/lib/gsap';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import { Martini, Camera, Utensils, Music, Cake, Sparkles } from 'lucide-react';
+import { SectionVariantSwitcher } from '@/components/ui/SectionVariantSwitcher';
 import type { InvitationConfig } from '@/types/invitation';
 
 interface ItinerarySectionProps {
   config: InvitationConfig;
 }
 
-/**
- * Componente que mapea de forma segura los emojis/valores a íconos vectoriales Lucide.
- * Evita solicitar emojis como URLs relativas al servidor.
- */
 const ItineraryIcon = ({ iconName }: { iconName?: string }) => {
   const className = 'w-5 h-5 text-[#F8C8DC] stroke-[1.5]';
   if (!iconName) return <Sparkles className={className} />;
@@ -27,15 +24,137 @@ const ItineraryIcon = ({ iconName }: { iconName?: string }) => {
   return <Sparkles className={className} />;
 };
 
-/**
- * Sección de Itinerario.
- * 
- * Características:
- * - Timeline vertical central en pantallas de escritorio, lateral en móviles.
- * - Línea central dorada que se dibuja conforme el usuario baja por la página (GSAP ScrollTrigger).
- * - Elementos del itinerario que entran con animación staggered y se alternan a los lados.
- */
 export function ItinerarySection({ config }: ItinerarySectionProps) {
+  const [activeOption, setActiveOption] = useState(1);
+  return (
+    <div style={{ position: 'relative' }}>
+      <SectionVariantSwitcher activeOption={activeOption} onChange={setActiveOption} optionsCount={4} />
+      {activeOption === 1 && <ItineraryOption1 config={config} />}
+      {activeOption === 2 && <ItineraryOption2 config={config} />}
+      {activeOption === 3 && <ItineraryOption3 config={config} />}
+      {activeOption === 4 && <ItineraryOption4 config={config} />}
+    </div>
+  );
+}
+
+function ItineraryOption1({ config }: ItinerarySectionProps) {
+  const { itinerary } = config;
+  const containerRef = useRef<HTMLDivElement>(null);
+  const dotRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!containerRef.current || !dotRef.current) return;
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        dotRef.current,
+        { top: '0%' },
+        {
+          top: '100%',
+          ease: 'none',
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: 'top center',
+            end: 'bottom center',
+            scrub: true,
+          },
+        }
+      );
+    }, containerRef);
+    return () => ctx.revert();
+  }, []);
+
+  return (
+    <section ref={containerRef} style={{ padding: '5rem 1.5rem', backgroundColor: '#050505', color: '#fff', position: 'relative' }}>
+      <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
+        <h2 style={{ fontFamily: 'var(--font-dm-mono)', color: '#fbcfe8', letterSpacing: '2px', fontSize: '0.8rem' }}>TRANSIT ROUTE</h2>
+      </div>
+      <div style={{ position: 'relative', maxWidth: '600px', margin: '0 auto', paddingLeft: '40px' }}>
+        {/* Vía */}
+        <div style={{ position: 'absolute', left: '15px', top: 0, bottom: 0, width: '2px', backgroundColor: '#333' }} />
+        {/* Punto en tránsito */}
+        <div ref={dotRef} style={{ position: 'absolute', left: '9px', width: '14px', height: '14px', borderRadius: '50%', backgroundColor: '#f472b6', boxShadow: '0 0 15px #f472b6', zIndex: 10, transform: 'translateY(-50%)' }} />
+
+        {itinerary?.map((item, idx) => (
+          <div key={idx} style={{ position: 'relative', paddingBottom: '3rem' }}>
+            <div style={{ position: 'absolute', left: '-29px', top: '5px', width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#fff', border: '2px solid #000', zIndex: 5 }} />
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
+              <span style={{ fontFamily: 'var(--font-dm-mono)', color: '#fbcfe8', fontSize: '0.8rem' }}>{item.time}</span>
+              <h3 style={{ fontFamily: 'var(--font-sans)', fontSize: '1.2rem', fontWeight: 'bold', margin: '0.5rem 0' }}>{item.title}</h3>
+              <p style={{ color: '#888', fontSize: '0.9rem' }}>{item.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function ItineraryOption2({ config }: ItinerarySectionProps) {
+  const { itinerary } = config;
+  return (
+    <section style={{ padding: '5rem 1.5rem', backgroundColor: '#0a0a0a', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <h2 style={{ fontFamily: 'var(--font-sans)', color: '#d4af37', fontSize: '1.5rem', textTransform: 'uppercase', letterSpacing: '4px', marginBottom: '4rem' }}>Itinerary Pass</h2>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem', width: '100%', maxWidth: '400px' }}>
+        {itinerary?.map((item, idx) => (
+          <div key={idx} style={{
+            position: 'relative',
+            backgroundColor: '#d4af37',
+            clipPath: 'polygon(0 0, 85% 0, 100% 15%, 100% 100%, 0 100%)',
+            padding: '1.5rem',
+            color: '#000',
+            boxShadow: '0 10px 30px rgba(0,0,0,0.5)'
+          }}>
+            <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '15px', backgroundColor: '#111' }} />
+            <div style={{ marginTop: '1rem', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+              <div>
+                <h3 style={{ fontFamily: 'var(--font-sans)', fontWeight: 900, fontSize: '1.2rem', textTransform: 'uppercase' }}>{item.title}</h3>
+                <p style={{ fontFamily: 'var(--font-sans)', fontSize: '0.8rem', opacity: 0.8, marginTop: '0.5rem' }}>{item.description}</p>
+              </div>
+              <span style={{ fontFamily: 'var(--font-dm-mono)', fontWeight: 'bold', backgroundColor: '#000', color: '#d4af37', padding: '4px 8px', fontSize: '0.8rem' }}>{item.time}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function ItineraryOption3({ config }: ItinerarySectionProps) {
+  const { itinerary } = config;
+  return (
+    <section style={{ 
+      padding: '5rem 1.5rem', 
+      backgroundColor: '#111', 
+      position: 'relative',
+      boxShadow: 'inset 40px 0 100px -20px #000, inset -40px 0 100px -20px #000',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center'
+    }}>
+      <h2 style={{ fontFamily: 'var(--font-dm-mono)', color: '#fbcfe8', letterSpacing: '5px', fontSize: '0.8rem', opacity: 0.6, marginBottom: '4rem' }}>THE TUNNEL</h2>
+      <div style={{ position: 'relative', width: '100%', maxWidth: '500px', paddingLeft: '40px' }}>
+        {/* Neon Light Tube */}
+        <div style={{ position: 'absolute', left: '18px', top: 0, bottom: 0, width: '4px', backgroundColor: '#fff', boxShadow: '0 0 20px 5px #f472b6, 0 0 40px #f472b6' }} />
+        
+        {itinerary?.map((item, idx) => (
+          <div key={idx} style={{ position: 'relative', paddingBottom: '4rem' }}>
+            <div style={{ position: 'absolute', left: '-27px', top: '5px', width: '14px', height: '14px', borderRadius: '50%', backgroundColor: '#fff', boxShadow: '0 0 15px #fff' }} />
+            <div style={{ backgroundColor: 'rgba(20,20,20,0.8)', padding: '1.5rem', borderRadius: '8px', border: '1px solid #333' }}>
+              <span style={{ fontFamily: 'var(--font-dm-mono)', color: '#f472b6', fontSize: '0.9rem', textShadow: '0 0 5px #f472b6' }}>{item.time}</span>
+              <h3 style={{ fontFamily: 'var(--font-sans)', fontSize: '1.3rem', color: '#fff', margin: '0.5rem 0' }}>{item.title}</h3>
+              <p style={{ color: '#aaa', fontSize: '0.9rem' }}>{item.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+/**
+ * Opción 4: Diseño Original
+ */
+function ItineraryOption4({ config }: ItinerarySectionProps) {
   const { itinerary } = config;
   const [isMobile, setIsMobile] = useState(false);
 

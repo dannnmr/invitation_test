@@ -7,17 +7,148 @@ import { Send, CheckCircle2, RotateCw, Sparkles } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 import { submitToGoogleSheets } from '@/lib/googleSheets';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
+import { SectionVariantSwitcher } from '@/components/ui/SectionVariantSwitcher';
+
+export function MusicSection() {
+  const [activeOption, setActiveOption] = useState(1);
+  return (
+    <div style={{ position: 'relative' }}>
+      <SectionVariantSwitcher activeOption={activeOption} onChange={setActiveOption} optionsCount={3} />
+      {activeOption === 1 && <MusicOption1 />}
+      {activeOption === 2 && <MusicOption2 />}
+      {activeOption === 3 && <MusicOption3 />}
+    </div>
+  );
+}
+
+function MusicOption1() {
+  const [song, setSong] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!song) return;
+    setIsSubmitting(true);
+    setTimeout(() => { setIsSubmitting(false); setSong(''); }, 1500);
+  };
+
+  return (
+    <section style={{ height: '100vh', display: 'flex', alignItems: 'center', backgroundColor: '#0a0a0a', color: '#fff', position: 'relative', overflow: 'hidden' }}>
+      
+      {/* Disco Gigante Girando */}
+      <div style={{ position: 'absolute', right: '-20vw', top: '50%', transform: 'translateY(-50%)', width: '80vh', height: '80vh', borderRadius: '50%', backgroundColor: '#111', border: '10px solid #222', boxShadow: '0 0 50px rgba(0,0,0,0.8)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1 }}>
+        <div style={{ width: '90%', height: '90%', borderRadius: '50%', background: 'conic-gradient(#111, #222, #111, #222, #111)', animation: 'spin 10s linear infinite' }}>
+          <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: '30%', height: '30%', borderRadius: '50%', backgroundColor: '#f472b6', border: '4px solid #fff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <div style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: '#000' }} />
+          </div>
+        </div>
+      </div>
+
+      <div style={{ position: 'relative', zIndex: 2, marginLeft: '10vw', maxWidth: '500px' }}>
+        <h2 style={{ fontFamily: 'var(--font-pinyon)', fontSize: 'clamp(4rem, 8vw, 6rem)', color: '#fff', lineHeight: 1 }}>The<br/>Playlist</h2>
+        <p style={{ fontFamily: 'var(--font-dm-mono)', color: '#aaa', marginTop: '1rem', letterSpacing: '2px', fontSize: '0.9rem' }}>SUGGEST A SONG</p>
+
+        <form onSubmit={handleSubmit} style={{ marginTop: '3rem', display: 'flex', gap: '1rem', borderBottom: '2px solid #555', paddingBottom: '0.5rem' }}>
+          <input 
+            type="text" 
+            value={song}
+            onChange={(e) => setSong(e.target.value)}
+            placeholder="Song name or artist..."
+            style={{ flex: 1, backgroundColor: 'transparent', border: 'none', color: '#fff', outline: 'none', fontFamily: 'var(--font-sans)', fontSize: '1.2rem' }}
+          />
+          <button type="submit" disabled={isSubmitting} style={{ background: 'none', border: 'none', color: '#f472b6', cursor: 'pointer', fontFamily: 'var(--font-sans)', fontWeight: 'bold' }}>
+            {isSubmitting ? '...' : 'ADD'}
+          </button>
+        </form>
+      </div>
+      <style dangerouslySetInnerHTML={{ __html: `
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+      `}} />
+    </section>
+  );
+}
+
+function MusicOption2() {
+  const [song, setSong] = useState('');
+  const [faderValue, setFaderValue] = useState(0);
+
+  const handleFaderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = Number(e.target.value);
+    setFaderValue(val);
+    if (val === 100 && song) {
+      setTimeout(() => {
+        setSong('');
+        setFaderValue(0);
+      }, 1000);
+    }
+  };
+
+  return (
+    <section style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#181818', padding: '2rem' }}>
+      <div style={{ width: '100%', maxWidth: '500px', backgroundColor: '#222', padding: '3rem 2rem', borderRadius: '15px', border: '4px solid #111', boxShadow: 'inset 0 0 20px rgba(0,0,0,0.8), 0 30px 60px rgba(0,0,0,0.6)', display: 'flex', flexDirection: 'column', gap: '3rem' }}>
+        
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <h2 style={{ fontFamily: 'Helvetica', fontWeight: 900, color: '#ddd', fontSize: '1.5rem', letterSpacing: '5px' }}>MIXER</h2>
+          <div style={{ display: 'flex', gap: '5px' }}>
+            {[1,2,3,4,5].map(i => <div key={i} style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: i < 4 ? '#2ecc71' : (i === 4 ? '#f1c40f' : '#e74c3c'), opacity: faderValue > (i * 20) ? 1 : 0.2 }} />)}
+          </div>
+        </div>
+
+        <input 
+          type="text" 
+          value={song}
+          onChange={(e) => setSong(e.target.value)}
+          placeholder="TYPE SONG HERE..."
+          style={{ width: '100%', backgroundColor: '#111', border: '2px solid #333', color: '#0f0', padding: '1rem', fontFamily: 'var(--font-dm-mono)', fontSize: '1rem', borderRadius: '5px', outline: 'none', boxShadow: 'inset 0 0 10px rgba(0,0,0,0.5)' }}
+        />
+
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem' }}>
+          <span style={{ fontFamily: 'var(--font-dm-mono)', color: '#888', fontSize: '0.7rem' }}>SLIDE UP TO SEND</span>
+          {/* Fader Track */}
+          <div style={{ position: 'relative', width: '40px', height: '150px', backgroundColor: '#111', borderRadius: '20px', border: '2px solid #000', display: 'flex', justifyContent: 'center' }}>
+            <div style={{ width: '4px', height: '100%', backgroundColor: '#000' }} />
+            <input 
+              type="range" 
+              min="0" max="100" 
+              value={faderValue}
+              onChange={handleFaderChange}
+              style={{
+                position: 'absolute',
+                width: '150px',
+                height: '40px',
+                transform: 'rotate(-90deg)',
+                top: '55px',
+                appearance: 'none',
+                background: 'transparent',
+                outline: 'none',
+                cursor: 'pointer'
+              }}
+            />
+            {/* Custom thumb styles using dangerouslySetInnerHTML to target the range thumb pseudo-elements since React inline styles can't do it */}
+            <style dangerouslySetInnerHTML={{ __html: `
+              input[type=range]::-webkit-slider-thumb {
+                appearance: none;
+                width: 40px;
+                height: 60px;
+                background: linear-gradient(90deg, #555, #888, #555);
+                border: 2px solid #111;
+                border-radius: 5px;
+                cursor: pointer;
+                box-shadow: 0 5px 10px rgba(0,0,0,0.8);
+              }
+            `}} />
+          </div>
+        </div>
+
+      </div>
+    </section>
+  );
+}
 
 /**
- * Sección de Playlist / Sugerencias de música.
- * 
- * Contiene:
- * - Tocadiscos de vinilo interactivo que gira continuamente.
- * - Formulario premium para sugerir canciones de fiesta.
- * - Ecualizador gráfico animado.
- * - Sincronización Supabase (tabla 'canciones') + Google Sheets.
+ * Opción 3: Diseño Original (Vinilo Giratorio)
  */
-export function MusicSection() {
+export function MusicOption3() {
   const [song, setSong] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);

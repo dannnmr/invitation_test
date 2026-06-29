@@ -1,9 +1,10 @@
 'use client';
 
-import { useRef }           from 'react';
+import { useState, useRef }           from 'react';
 import dynamic              from 'next/dynamic';
 import { useScrollReveal }  from '@/hooks/useScrollReveal';
 import { useCursorMagnet }  from '@/hooks/useCursorMagnet';
+import { SectionVariantSwitcher } from '@/components/ui/SectionVariantSwitcher';
 import type { InvitationConfig } from '@/types/invitation';
 
 // Dynamic import del mapa — evita SSR
@@ -44,23 +45,137 @@ interface LocationSectionProps {
   config: InvitationConfig;
 }
 
-/**
- * Sección de ubicación del evento.
- *
- * Layout desktop (>768px):
- * ┌────────────────────┬─────────────────────┐
- * │  Info del venue    │   Mapa Mapbox        │
- * │  ─────────────     │   dark + pin dorado  │
- * │  Nombre            │                      │
- * │  Dirección         │                      │
- * │  Ceremonia 18:00   │                      │
- * │  Recepción 20:00   │                      │
- * │  [Cómo llegar →]   │                      │
- * └────────────────────┴─────────────────────┘
- *
- * Layout mobile (<768px): mapa arriba, info abajo (stack vertical)
- */
 export function LocationSection({ config }: LocationSectionProps) {
+  const [activeOption, setActiveOption] = useState(1);
+  return (
+    <div style={{ position: 'relative' }}>
+      <SectionVariantSwitcher activeOption={activeOption} onChange={setActiveOption} optionsCount={4} />
+      {activeOption === 1 && <LocationOption1 config={config} />}
+      {activeOption === 2 && <LocationOption2 config={config} />}
+      {activeOption === 3 && <LocationOption3 config={config} />}
+      {activeOption === 4 && <LocationOption4 config={config} />}
+    </div>
+  );
+}
+
+function LocationOption1({ config }: LocationSectionProps) {
+  const { venue } = config.event;
+  return (
+    <section style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#111', padding: '2rem' }}>
+      {/* Poste del cartel */}
+      <div style={{ position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <div style={{ width: '12px', height: '100px', backgroundColor: '#333', background: 'linear-gradient(90deg, #222 0%, #444 50%, #222 100%)', borderRadius: '4px 4px 0 0' }} />
+        
+        {/* Cartel Verde */}
+        <div style={{ 
+          backgroundColor: '#0d3b24', 
+          border: '4px solid #111', 
+          borderRadius: '8px', 
+          padding: '2rem 3rem',
+          boxShadow: '0 20px 50px rgba(0,0,0,0.8), inset 0 0 0 4px #0d3b24, inset 0 0 0 6px rgba(255,255,255,0.8)',
+          position: 'relative',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: '1rem'
+        }}>
+          {/* Soportes metálicos */}
+          <div style={{ position: 'absolute', top: '-10px', left: '50%', transform: 'translateX(-50%)', display: 'flex', gap: '60px' }}>
+            <div style={{ width: '8px', height: '15px', backgroundColor: '#666', borderRadius: '2px' }} />
+            <div style={{ width: '8px', height: '15px', backgroundColor: '#666', borderRadius: '2px' }} />
+          </div>
+
+          <h2 style={{ fontFamily: 'Helvetica, Arial, sans-serif', fontWeight: 700, fontSize: 'clamp(2rem, 5vw, 3.5rem)', color: '#fff', textTransform: 'uppercase', letterSpacing: '2px', margin: 0 }}>
+            {venue.name}
+          </h2>
+          <div style={{ width: '100%', height: '2px', backgroundColor: 'rgba(255,255,255,0.5)' }} />
+          <p style={{ fontFamily: 'Helvetica, Arial, sans-serif', color: '#fff', fontSize: '1rem', opacity: 0.9, fontWeight: 500 }}>
+            {venue.address}
+          </p>
+
+          <a href={venue.mapsUrl} target="_blank" rel="noopener noreferrer" style={{ marginTop: '1.5rem', fontFamily: 'var(--font-dm-mono)', color: '#0d3b24', backgroundColor: '#fff', padding: '10px 20px', borderRadius: '20px', textDecoration: 'none', fontWeight: 'bold', fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '1px' }}>
+            OPEN IN MAPS
+          </a>
+        </div>
+        
+        <div style={{ width: '12px', height: '150px', backgroundColor: '#333', background: 'linear-gradient(90deg, #222 0%, #444 50%, #222 100%)' }} />
+      </div>
+    </section>
+  );
+}
+
+function LocationOption2({ config }: LocationSectionProps) {
+  const { venue } = config.event;
+  return (
+    <section style={{ height: '100vh', display: 'flex', backgroundColor: '#000', position: 'relative', overflow: 'hidden' }}>
+      <div style={{ position: 'absolute', inset: 0, opacity: 0.6 }}>
+        <MapboxMap coordinates={venue.coordinates} venueName={venue.name} zoom={14} />
+      </div>
+
+      {/* Neon Route SVG overlay */}
+      <svg style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', pointerEvents: 'none', zIndex: 10 }}>
+        <path d="M 100 800 Q 300 600 500 700 T 900 400" fill="transparent" stroke="#f472b6" strokeWidth="6" strokeLinecap="round" filter="drop-shadow(0 0 10px #f472b6) drop-shadow(0 0 20px #f472b6)" opacity="0.8" />
+        <circle cx="900" cy="400" r="10" fill="#fff" filter="drop-shadow(0 0 10px #fff)" />
+      </svg>
+
+      <div style={{ position: 'absolute', bottom: '10%', left: '10%', right: '10%', padding: '2rem', backgroundColor: 'rgba(10,10,10,0.85)', backdropFilter: 'blur(10px)', border: '1px solid rgba(244,114,182,0.3)', borderRadius: '15px', zIndex: 20, display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '2rem' }}>
+        <div>
+          <span style={{ fontFamily: 'var(--font-dm-mono)', color: '#fbcfe8', letterSpacing: '2px', fontSize: '0.8rem', textTransform: 'uppercase' }}>DESTINATION</span>
+          <h2 style={{ fontFamily: 'var(--font-sans)', fontSize: '2rem', color: '#fff', margin: '0.5rem 0' }}>{venue.name}</h2>
+          <p style={{ color: '#aaa', fontSize: '0.9rem' }}>{venue.address}</p>
+        </div>
+        <a href={venue.mapsUrl} target="_blank" rel="noopener noreferrer" style={{ padding: '15px 30px', backgroundColor: '#f472b6', color: '#000', fontFamily: 'var(--font-sans)', fontWeight: 'bold', borderRadius: '30px', textDecoration: 'none', boxShadow: '0 0 20px rgba(244,114,182,0.4)' }}>
+          START ROUTE
+        </a>
+      </div>
+    </section>
+  );
+}
+
+function LocationOption3({ config }: LocationSectionProps) {
+  const { venue } = config.event;
+  return (
+    <section style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#181818', padding: '2rem' }}>
+      <div style={{ width: '100%', maxWidth: '800px', backgroundColor: '#000', borderRadius: '4px', overflow: 'hidden', boxShadow: '0 30px 60px rgba(0,0,0,0.8)' }}>
+        {/* Superior band */}
+        <div style={{ height: '20px', backgroundColor: '#333', borderBottom: '2px solid #000' }} />
+        
+        {/* Contenido Letrero */}
+        <div style={{ padding: '3rem', display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', flexWrap: 'wrap' }}>
+            {/* Metro bubbles */}
+            <div style={{ display: 'flex', gap: '10px' }}>
+              <div style={{ width: '50px', height: '50px', borderRadius: '50%', backgroundColor: '#ff595e', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.8rem', fontWeight: 'bold', fontFamily: 'Helvetica' }}>D</div>
+              <div style={{ width: '50px', height: '50px', borderRadius: '50%', backgroundColor: '#ffca3a', color: '#000', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.8rem', fontWeight: 'bold', fontFamily: 'Helvetica' }}>F</div>
+              <div style={{ width: '50px', height: '50px', borderRadius: '50%', backgroundColor: '#8ac926', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.8rem', fontWeight: 'bold', fontFamily: 'Helvetica' }}>M</div>
+            </div>
+            
+            <h2 style={{ fontFamily: 'Helvetica, Arial, sans-serif', fontWeight: 700, fontSize: 'clamp(1.5rem, 4vw, 2.5rem)', color: '#fff', letterSpacing: '-1px' }}>
+              Station <br/> <span style={{ color: '#aaa', fontSize: '0.8em' }}>{venue.name}</span>
+            </h2>
+          </div>
+
+          <div style={{ height: '4px', backgroundColor: '#fff', margin: '1rem 0' }} />
+
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: '2rem' }}>
+            <p style={{ fontFamily: 'Helvetica, Arial, sans-serif', color: '#fff', fontSize: '1.2rem', fontWeight: 500 }}>
+              Exit at: <br/> <span style={{ color: '#aaa', fontSize: '1rem' }}>{venue.address}</span>
+            </p>
+
+            <a href={venue.mapsUrl} target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', color: '#fff', textDecoration: 'none', fontFamily: 'Helvetica', fontWeight: 'bold', border: '2px solid #fff', padding: '10px 20px', borderRadius: '30px' }}>
+              Map & Directions ➔
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/**
+ * Opción 4: Mapa Dark (Diseño Original)
+ */
+function LocationOption4({ config }: LocationSectionProps) {
   const { event } = config;
 
   // Refs para reveals al scroll

@@ -1,21 +1,92 @@
 'use client';
 
+import { useState } from 'react';
 import Image from 'next/image';
 import { Compass } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
+import { SectionVariantSwitcher } from '@/components/ui/SectionVariantSwitcher';
 import type { InvitationConfig } from '@/types/invitation';
 
 interface PassesSectionProps {
   config: InvitationConfig;
 }
 
-/**
- * Sección de Pases de Acceso / Pases Digitales.
- * Recrea el diseño de Boarding Pass (pase de abordar) de Ericka en color perlado-rosa
- * con un leopardo acostado sobre el pase y micro-detalles troquelados.
- */
 export function PassesSection({ config }: PassesSectionProps) {
+  const [activeOption, setActiveOption] = useState(1);
+  return (
+    <div style={{ position: 'relative' }}>
+      <SectionVariantSwitcher activeOption={activeOption} onChange={setActiveOption} optionsCount={2} />
+      {activeOption === 1 && <PassesOption1 config={config} />}
+      {activeOption === 2 && <PassesOption2 config={config} />}
+    </div>
+  );
+}
+
+function PassesOption1({ config }: PassesSectionProps) {
+  const { passes, quinceañera, event } = config;
+  if (!passes) return null;
+
+  return (
+    <section style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#0a0a0a', padding: '2rem', overflow: 'hidden' }}>
+      
+      <motion.div 
+        initial={{ rotate: -5 }}
+        animate={{ rotate: 5 }}
+        transition={{ duration: 3, repeat: Infinity, repeatType: 'reverse', ease: 'easeInOut' }}
+        style={{ transformOrigin: 'top center', position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center' }}
+      >
+        {/* Cuerda / Lanyard */}
+        <div style={{ width: '15px', height: '150px', backgroundColor: '#222', backgroundImage: 'repeating-linear-gradient(45deg, #222, #222 5px, #111 5px, #111 10px)', borderLeft: '1px solid #333', borderRight: '1px solid #333', position: 'relative', zIndex: 1 }} />
+        
+        {/* Gancho Metálico */}
+        <div style={{ width: '30px', height: '40px', border: '4px solid #aaa', borderRadius: '15px', position: 'relative', top: '-10px', zIndex: 2, backgroundColor: 'transparent' }} />
+        
+        {/* Tarjeta VIP */}
+        <div style={{ 
+          width: '280px', 
+          height: '420px', 
+          backgroundColor: '#151515', 
+          borderRadius: '10px', 
+          border: '2px solid #d4af37', 
+          boxShadow: '0 20px 50px rgba(0,0,0,0.8), inset 0 0 20px rgba(0,0,0,0.5)', 
+          position: 'relative', 
+          top: '-20px', 
+          zIndex: 3,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          padding: '2rem 1rem'
+        }}>
+          {/* Perforación superior */}
+          <div style={{ position: 'absolute', top: '15px', width: '60px', height: '15px', backgroundColor: '#0a0a0a', borderRadius: '10px', border: '1px solid #333' }} />
+
+          <h2 style={{ fontFamily: 'var(--font-sans)', fontSize: '2.5rem', fontWeight: 900, color: '#fff', letterSpacing: '4px', marginTop: '2rem' }}>VIP PASS</h2>
+          <div style={{ width: '100%', height: '1px', backgroundColor: '#333', margin: '1rem 0' }} />
+
+          <p style={{ fontFamily: 'var(--font-dm-mono)', color: '#d4af37', fontSize: '0.8rem', letterSpacing: '2px' }}>{passes.topLabel || 'ACCESS GRANTED'}</p>
+          
+          <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '2rem', color: '#fff', margin: '1.5rem 0', textAlign: 'center' }}>{quinceañera.name}</h3>
+
+          <div style={{ backgroundColor: '#fff', padding: '10px', borderRadius: '5px', margin: '1rem 0' }}>
+            <div style={{ width: '150px', height: '50px', backgroundImage: 'repeating-linear-gradient(90deg, #000, #000 3px, transparent 3px, transparent 6px)', backgroundSize: '100% 100%' }} />
+          </div>
+
+          <p style={{ fontFamily: 'var(--font-dm-mono)', color: '#888', fontSize: '0.7rem', marginTop: 'auto', textAlign: 'center' }}>
+            DATE: {event.date.toLocaleDateString('es-ES')}<br/>
+            PASSES: {passes.quantity}
+          </p>
+
+        </div>
+      </motion.div>
+    </section>
+  );
+}
+
+/**
+ * Opción 2: Diseño Original (Pase Horizontal Perlado)
+ */
+export function PassesOption2({ config }: PassesSectionProps) {
   const { passes, event, quinceañera } = config;
 
   const dayName = event.date.toLocaleDateString('es-ES', { weekday: 'long' });

@@ -93,13 +93,9 @@ export function EnvelopeScreen({ contentRef, onComplete }: EnvelopeScreenProps) 
       {/* Contenedor de las imágenes del sobre */}
       <div
         style={{
-          position: 'relative',
+          position: 'absolute',
+          inset: 0,
           zIndex: 1,
-          width: '100vw',
-          height: '100vh',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
           overflow: 'hidden'
         }}
       >
@@ -143,6 +139,9 @@ export function EnvelopeScreen({ contentRef, onComplete }: EnvelopeScreenProps) 
           priority
           style={{
             position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
             zIndex: 10,
             objectFit: 'contain',
           }}
@@ -154,8 +153,12 @@ export function EnvelopeScreen({ contentRef, onComplete }: EnvelopeScreenProps) 
         ref={hintRef}
         aria-hidden="true"
         style={{
-          position: 'relative',
-          zIndex: 1,
+          position: 'absolute',
+          bottom: '10%',
+          left: 0,
+          width: '100%',
+          textAlign: 'center',
+          zIndex: 2,
           fontFamily: 'var(--font-dm-mono)',
           fontSize: '0.7rem',
           color: 'var(--color-gold)',

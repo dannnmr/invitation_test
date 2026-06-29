@@ -8,6 +8,7 @@ import { useScrollReveal }  from '@/hooks/useScrollReveal';
 import { ScrollIndicator }  from '@/components/ui/ScrollIndicator';
 import { formatEventDate }  from '@/lib/utils';
 import type { InvitationConfig } from '@/types/invitation';
+import { transform } from 'framer-motion';
 
 interface HeroSectionProps {
   config: InvitationConfig;
@@ -150,84 +151,28 @@ export function HeroSection({ config, isRevealed }: HeroSectionProps) {
           {firstName}
         </h1>
 
-        {/* Apellido — con delay */}
+        {/* Frase / Cita */}
         <p
           ref={surnameRef as React.RefObject<HTMLParagraphElement>}
           style={{
-            fontFamily:   'var(--font-display)',
-            fontSize:     'clamp(1.5rem, 4vw, 3.5rem)',
-            fontStyle:    'italic',
+            fontFamily:   'var(--font-inter)',
+            fontSize:     'clamp(0.9rem, 1.5vw, 1.2rem)',
             fontWeight:   300,
-            color:        'var(--color-cream-muted)',
-            lineHeight:   1.1,
+            color:        'var(--color-cream)',
+            lineHeight:   1.6,
             marginBottom: 'clamp(1.5rem, 3vw, 2.5rem)',
             overflow:     'hidden',
+            maxWidth:     '500px',
+            opacity:      isRevealed ? 1 : 0,
+            transition:   'opacity 0.8s ease 0.8s',
           }}
         >
-          {lastName}
+          {config.parents?.invitationText}
         </p>
-
-        {/* Separador dorado */}
-        <div
-          aria-hidden="true"
-          style={{
-            width:           isRevealed ? '3rem' : 0,
-            height:          1,
-            backgroundColor: 'var(--color-gold)',
-            marginBottom:    'clamp(1rem, 2vw, 1.5rem)',
-            transition:      'width 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.8s',
-            opacity:         0.6,
-          }}
-        />
-
-        {/* Detalles — fecha y lugar */}
-        <div ref={detailsRef}>
-          <p
-            style={{
-              fontFamily:    'var(--font-dm-mono)',
-              fontSize:      'clamp(0.7rem, 1.3vw, 0.85rem)',
-              color:         'var(--color-cream-muted)',
-              letterSpacing: '0.08em',
-              marginBottom:  '0.4rem',
-            }}
-          >
-            {formatEventDate(event.date)}
-          </p>
-
-          <p
-            style={{
-              fontFamily:    'var(--font-dm-mono)',
-              fontSize:      'clamp(0.7rem, 1.3vw, 0.85rem)',
-              color:         'var(--color-gold)',
-              letterSpacing: '0.08em',
-              opacity:       0.8,
-            }}
-          >
-            {event.ceremonyTime} · {event.venue.name}
-          </p>
-        </div>
       </div>
 
       {/* ── Scroll indicator ───────────────────────────────────── */}
       {isRevealed && <ScrollIndicator />}
-
-      {/* ── Número de sección decorativo ───────────────────────── */}
-      <span
-        aria-hidden="true"
-        style={{
-          position:      'absolute',
-          right:         'clamp(1.5rem, 4vw, 3rem)',
-          bottom:        '2.5rem',
-          fontFamily:    'var(--font-dm-mono)',
-          fontSize:      '0.65rem',
-          color:         'var(--color-gold)',
-          letterSpacing: '0.15em',
-          opacity:       0.3,
-          writingMode:   'vertical-rl',
-        }}
-      >
-        01 / HERO
-      </span>
     </section>
   );
 }
