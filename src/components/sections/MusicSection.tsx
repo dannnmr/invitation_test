@@ -1,14 +1,5 @@
 'use client';
 
-import { useState } from 'react';
-import Image from 'next/image';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Send, CheckCircle2, RotateCw, Sparkles } from 'lucide-react';
-import { supabase } from '@/lib/supabase';
-import { submitToGoogleSheets } from '@/lib/googleSheets';
-import { useScrollReveal } from '@/hooks/useScrollReveal';
-import { SectionVariantSwitcher } from '@/components/ui/SectionVariantSwitcher';
-
 import { useState, useRef } from 'react';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import { supabase } from '@/lib/supabase';
