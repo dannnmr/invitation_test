@@ -15,12 +15,14 @@ export function useEnvelopeSession() {
   const [showEnvelope, setShowEnvelope] = useState<boolean | null>(null);
 
   useEffect(() => {
-    const alreadyOpened = sessionStorage.getItem(SESSION_KEY) === 'true';
-    setShowEnvelope(!alreadyOpened);
+    // Al comentar esta línea y el sessionStorage.setItem, 
+    // hacemos que el sobre siempre aparezca al recargar la página.
+    // const alreadyOpened = sessionStorage.getItem(SESSION_KEY) === 'true';
+    setShowEnvelope(true);
   }, []);
 
   function markAsOpened() {
-    sessionStorage.setItem(SESSION_KEY, 'true');
+    // sessionStorage.setItem(SESSION_KEY, 'true');
     setShowEnvelope(false);
   }
 

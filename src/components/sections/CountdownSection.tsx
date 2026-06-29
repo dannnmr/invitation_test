@@ -114,43 +114,24 @@ export function CountdownSection({ config }: CountdownSectionProps) {
           ref={gridRef}
           style={{
             display:    'flex',
-            gap:        'clamp(0.75rem, 2vw, 1.5rem)',
+            gap:        'clamp(0.5rem, 2.5vw, 1.5rem)',
             alignItems: 'flex-start',
             flexWrap:   'wrap',
             justifyContent: 'center',
+            maxWidth:   '100%',
           }}
         >
           <div data-flip-digit>
             <FlipDigit value={days}    label="Días"   />
           </div>
 
-          {/* Separador */}
-          <span
-            aria-hidden="true"
-            style={{
-              fontFamily:  'var(--font-dm-mono)',
-              fontSize:    'clamp(2rem, 6vw, 4rem)',
-              color:       'var(--color-gold)',
-              opacity:     0.3,
-              lineHeight:  1,
-              marginTop:   'clamp(16px, 3vw, 28px)',
-              userSelect:  'none',
-            }}
-          >
-            :
-          </span>
-
           <div data-flip-digit>
             <FlipDigit value={hours}   label="Horas"  />
           </div>
 
-          <span aria-hidden="true" style={{ fontFamily: 'var(--font-dm-mono)', fontSize: 'clamp(2rem, 6vw, 4rem)', color: 'var(--color-gold)', opacity: 0.3, lineHeight: 1, marginTop: 'clamp(16px, 3vw, 28px)', userSelect: 'none' }}>:</span>
-
           <div data-flip-digit>
             <FlipDigit value={minutes} label="Minutos" />
           </div>
-
-          <span aria-hidden="true" style={{ fontFamily: 'var(--font-dm-mono)', fontSize: 'clamp(2rem, 6vw, 4rem)', color: 'var(--color-gold)', opacity: 0.3, lineHeight: 1, marginTop: 'clamp(16px, 3vw, 28px)', userSelect: 'none' }}>:</span>
 
           <div data-flip-digit>
             <FlipDigit value={seconds} label="Segundos" />

@@ -27,9 +27,27 @@ export default function HomePage() {
 
   // Use an effect to reveal immediately if envelope shouldn't be shown
   useEffect(() => {
+    // Evitar que el navegador restaure el scroll anterior
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
+    // Forzar el scroll al inicio siempre que cargue la página
+    window.scrollTo(0, 0);
+
     if (!showEnvelope) {
       setIsRevealed(true);
     }
+  }, [showEnvelope]);
+
+  useEffect(() => {
+    if (showEnvelope) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
   }, [showEnvelope]);
 
   function handleEnvelopeComplete() {

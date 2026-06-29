@@ -95,12 +95,12 @@ export function EnvelopeScreen({ contentRef, onComplete }: EnvelopeScreenProps) 
         style={{
           position: 'relative',
           zIndex: 1,
-          width: '90vw',
-          maxWidth: 600,
-          aspectRatio: '16/9', // Ajustar según las proporciones reales
+          width: '100vw',
+          height: '100vh',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
+          overflow: 'hidden'
         }}
       >
         {/* Base del sobre completo - se oculta al abrir */}
@@ -110,7 +110,7 @@ export function EnvelopeScreen({ contentRef, onComplete }: EnvelopeScreenProps) 
           alt="Sobre negro"
           fill
           priority
-          style={{ objectFit: 'contain' }}
+          style={{ objectFit: 'cover' }}
         />
 
         {/* Mitad Izquierda */}
@@ -120,7 +120,7 @@ export function EnvelopeScreen({ contentRef, onComplete }: EnvelopeScreenProps) 
           alt="Mitad izquierda del sobre"
           fill
           priority
-          style={{ objectFit: 'contain' }}
+          style={{ objectFit: 'cover' }}
         />
 
         {/* Mitad Derecha */}
@@ -130,7 +130,7 @@ export function EnvelopeScreen({ contentRef, onComplete }: EnvelopeScreenProps) 
           alt="Mitad derecha del sobre"
           fill
           priority
-          style={{ objectFit: 'contain' }}
+          style={{ objectFit: 'cover' }}
         />
 
         {/* Broche */}
