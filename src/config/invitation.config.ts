@@ -31,46 +31,51 @@ export const defaultInvitationConfig: InvitationConfig = {
   },
   dressCode: {
     description: 'Código de Vestimenta Elegante',
-    colors: ['#FAF5F6', '#E2E8F0', '#111111', '#D4AF37'], // Rosa suave, plateado, negro y dorado
-    notes: 'Los destellos y detalles en dorado y plateado combinan con el brillo de la noche.',
+    colors: [
+      '/images/decorativas_v2/textura_rosa1.png',
+      '/images/decorativas_v2/textura_rosa2.png',
+      '/images/decorativas_v2/textura_rosa 3.png',
+      '/images/decorativas_v2/textura_rosa4.png'
+    ],
+    notes: 'Colores reservados: Queda estrictamente prohibido el uso del color rosa pastel o tonalidades similares.',
   },
   giftRegistry: {
     stores: [],
   },
   music: {
-    ambientTrack: '/audio/who_loves_the_sun.mp3',
+    ambientTrack: '/audio/flashing_lights.mp3',
   },
   rsvpDeadline: new Date('2026-07-20T23:59:59'),
   itinerary: [
     {
       time: '19:00',
       title: 'Bienvenida',
-      description: 'Inicio de la recepción y bienvenida de invitados.',
-      icon: '🥂',
+      description: 'Recepción y bienvenida de invitados.',
+      icon: '/images/decorativas_v2/martini_rosa.png',
     },
     {
       time: '20:30',
       title: 'Ingreso De La Quinceañera',
       description: 'Gran entrada y vals tradicional.',
-      icon: '📸',
+      icon: '/images/decorativas_v2/estatua_brillos.png',
     },
     {
       time: '21:00',
       title: 'Cena',
       description: 'Cena de gala en honor a la quinceañera.',
-      icon: '🍽️',
+      icon: '/images/decorativas_v2/cubiertos.png',
     },
     {
       time: '21:30',
       title: 'Fiesta',
-      description: 'Apertura de la pista de baile y diversión al estilo Manhattan.',
-      icon: '🪩',
+      description: 'Apertura de la pista de baile y diversión.',
+      icon: '/images/decorativas_v2/fiesta.png',
     },
     {
       time: '01:00',
       title: 'Torta',
       description: 'Brindis final y momento de cantar el cumpleaños.',
-      icon: '🎂',
+      icon: '/images/decorativas_v2/torta_rosa.png',
     },
   ],
   parents: {

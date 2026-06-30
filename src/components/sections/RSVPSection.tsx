@@ -1,9 +1,8 @@
 'use client';
 
 import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useRSVPForm } from '@/hooks/useRSVPForm';
-import { useScrollReveal } from '@/hooks/useScrollReveal';
-import { SectionVariantSwitcher } from '@/components/ui/SectionVariantSwitcher';
 import type { InvitationConfig } from '@/types/invitation';
 
 interface RSVPSectionProps {
@@ -11,558 +10,130 @@ interface RSVPSectionProps {
 }
 
 export function RSVPSection({ config }: RSVPSectionProps) {
-  return <RSVPOption4 config={config} />;
-}
-
-function RSVPOption1({ config }: RSVPSectionProps) {
   const [confirmedName, setConfirmedName] = useState('');
-  const { formData, formState, errorMessage, submitBtnRef, handleChange, handleSubmit } = useRSVPForm({
-    invitationId: config.id,
-    onSuccess: (name) => setConfirmedName(name),
-  });
-
-  const isSuccess = formState === 'success';
+  const { formData, formState, errorMessage, submitBtnRef, handleChange, handleSubmit } = useRSVPForm({ invitationId: config.id, onSuccess: setConfirmedName });
 
   return (
-    <section style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#eef2f5', padding: '2rem' }}>
-      <div style={{ display: 'flex', width: '100%', maxWidth: '700px', backgroundColor: '#fff', borderRadius: '10px', boxShadow: '0 20px 50px rgba(0,0,0,0.1)', overflow: 'hidden', position: 'relative' }}>
-        
-        {/* Lado Principal del Boleto */}
-        <div style={{ flex: 1, padding: '3rem', position: 'relative' }}>
-          <h2 style={{ fontFamily: 'var(--font-sans)', fontWeight: 800, fontSize: '2rem', color: '#111', textTransform: 'uppercase', letterSpacing: '2px' }}>ADMIT ONE</h2>
-          <p style={{ fontFamily: 'var(--font-sans)', color: '#666', marginTop: '1rem', fontSize: '0.9rem' }}>Please RSVP by June 16th to secure your entry.</p>
+    <section style={{ backgroundColor: '#fdfbf7', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '3rem 1.5rem', position: 'relative', overflow: 'hidden' }}>
+      
+      {/* Sin fondo degradado por solicitud del usuario */}
 
-          {!isSuccess ? (
-            <form onSubmit={(e) => { e.preventDefault(); handleSubmit(); }} style={{ marginTop: '2rem', display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-              <div>
-                <label style={{ display: 'block', fontFamily: 'var(--font-dm-mono)', fontSize: '0.7rem', color: '#888', textTransform: 'uppercase', marginBottom: '0.5rem' }}>GUEST NAME</label>
-                <input 
-                  type="text" 
-                  value={formData.guestName}
-                  onChange={(e) => handleChange('guestName', e.target.value)}
-                  placeholder="Enter full name"
-                  disabled={formState === 'submitting'}
-                  style={{ width: '100%', padding: '0.8rem', border: '1px solid #ccc', borderRadius: '4px', fontFamily: 'var(--font-sans)', fontSize: '1rem', outline: 'none' }}
-                />
-              </div>
-              {errorMessage && <p style={{ color: '#e74c3c', fontSize: '0.8rem' }}>{errorMessage}</p>}
-            </form>
-          ) : (
-            <div style={{ marginTop: '2rem' }}>
-              <h3 style={{ fontFamily: 'var(--font-pinyon)', fontSize: '3rem', color: '#d4af37' }}>Confirmed</h3>
-              <p style={{ fontFamily: 'var(--font-sans)', color: '#111', fontSize: '1rem' }}>See you there, {confirmedName}!</p>
-            </div>
-          )}
-        </div>
-
-        {/* Línea Perforada */}
-        <div style={{ width: '20px', display: 'flex', flexDirection: 'column', alignItems: 'center', backgroundImage: 'linear-gradient(#ccc 50%, transparent 50%)', backgroundSize: '100% 20px', backgroundRepeat: 'repeat-y' }} />
-
-        {/* Stub (Trozo arrancable) */}
-        <div style={{ 
-          width: '200px', 
-          backgroundColor: '#fafafa', 
-          padding: '2rem', 
-          display: 'flex', 
-          flexDirection: 'column', 
-          justifyContent: 'center', 
-          alignItems: 'center',
-          transition: 'transform 1s ease-in-out, opacity 1s ease-in-out',
-          transform: isSuccess ? 'translateY(100px) rotate(10deg)' : 'translateY(0)',
-          opacity: isSuccess ? 0 : 1
-        }}>
-          {!isSuccess && (
-            <button 
-              onClick={(e) => { e.preventDefault(); handleSubmit(); }}
-              disabled={formState === 'submitting'}
-              style={{ width: '80px', height: '80px', borderRadius: '50%', backgroundColor: '#111', color: '#fff', border: 'none', cursor: 'pointer', fontFamily: 'var(--font-dm-mono)', fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '1px', boxShadow: '0 5px 15px rgba(0,0,0,0.2)' }}
-            >
-              {formState === 'submitting' ? '...' : 'TEAR'}
-            </button>
-          )}
-          <span style={{ fontFamily: 'var(--font-display)', fontSize: '4rem', color: '#eee', writingMode: 'vertical-rl', transform: 'rotate(180deg)', marginTop: '2rem' }}>VIP</span>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function RSVPOption2({ config }: RSVPSectionProps) {
-  const [confirmedName, setConfirmedName] = useState('');
-  const { formData, formState, errorMessage, submitBtnRef, handleChange, handleSubmit } = useRSVPForm({
-    invitationId: config.id,
-    onSuccess: (name) => setConfirmedName(name),
-  });
-
-  const isSuccess = formState === 'success';
-
-  return (
-    <section style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#181818', padding: '2rem' }}>
-      <div style={{ width: '100%', maxWidth: '450px', backgroundColor: '#222', borderRadius: '15px', padding: '3rem', border: '2px solid #333', boxShadow: '0 30px 60px rgba(0,0,0,0.8)', textAlign: 'center', position: 'relative' }}>
-        
-        <h2 style={{ fontFamily: 'var(--font-pinyon)', fontSize: '4rem', color: '#d4af37', marginBottom: '1rem' }}>R.S.V.P</h2>
-        <p style={{ fontFamily: 'var(--font-sans)', color: '#888', fontSize: '0.9rem', marginBottom: '2rem' }}>Tu presencia es nuestro mayor regalo.</p>
-
-        {!isSuccess ? (
-          <form onSubmit={(e) => { e.preventDefault(); handleSubmit(); }} style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', alignItems: 'center' }}>
-            <input 
-              type="text" 
-              value={formData.guestName}
-              onChange={(e) => handleChange('guestName', e.target.value)}
-              placeholder="Nombre y Apellido"
-              disabled={formState === 'submitting'}
-              style={{ width: '100%', padding: '1rem', backgroundColor: 'transparent', border: 'none', borderBottom: '1px solid #555', color: '#fff', fontFamily: 'var(--font-sans)', fontSize: '1.2rem', textAlign: 'center', outline: 'none' }}
-            />
-            {errorMessage && <p style={{ color: '#e74c3c', fontSize: '0.8rem' }}>{errorMessage}</p>}
-            
-            <button 
-              type="submit"
-              disabled={formState === 'submitting'}
-              style={{ 
-                marginTop: '2rem', 
-                width: '100px', 
-                height: '100px', 
-                borderRadius: '50%', 
-                backgroundColor: '#8b0000', 
-                color: '#fff', 
-                border: '4px solid #5a0000', 
-                cursor: 'pointer', 
-                fontFamily: 'var(--font-pinyon)', 
-                fontSize: '2rem', 
-                boxShadow: 'inset 0 0 20px rgba(0,0,0,0.5), 0 10px 20px rgba(0,0,0,0.5)',
-                transition: 'transform 0.2s',
-                transform: formState === 'submitting' ? 'scale(0.95)' : 'scale(1)'
-              }}
-            >
-              Seal
-            </button>
-            <span style={{ fontFamily: 'var(--font-dm-mono)', fontSize: '0.7rem', color: '#555', textTransform: 'uppercase', letterSpacing: '2px', marginTop: '1rem' }}>Click to Stamp</span>
-          </form>
-        ) : (
-          <div style={{ marginTop: '3rem', animation: 'fadeIn 1s ease' }}>
-            <div style={{ width: '120px', height: '120px', borderRadius: '50%', backgroundColor: '#8b0000', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '5px solid #5a0000', boxShadow: '0 10px 30px rgba(139,0,0,0.4)' }}>
-              <span style={{ fontFamily: 'var(--font-pinyon)', fontSize: '3rem', color: '#fff' }}>M</span>
-            </div>
-            <h3 style={{ fontFamily: 'var(--font-sans)', fontSize: '1.5rem', color: '#fff', marginTop: '2rem' }}>¡Confirmado!</h3>
-            <p style={{ fontFamily: 'var(--font-sans)', color: '#aaa', fontSize: '1rem', marginTop: '0.5rem' }}>Gracias, {confirmedName}.</p>
-          </div>
-        )}
-      </div>
-    </section>
-  );
-}
-
-function RSVPOption3({ config }: RSVPSectionProps) {
-  const [confirmedName, setConfirmedName] = useState('');
-  const { formData, formState, errorMessage, submitBtnRef, handleChange, handleSubmit } = useRSVPForm({
-    invitationId: config.id,
-    onSuccess: (name) => setConfirmedName(name),
-  });
-
-  const isSuccess = formState === 'success';
-
-  return (
-    <section style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#1a1a1a', padding: '2rem' }}>
-      {/* Tablet Container */}
-      <div style={{ 
-        width: '100%', 
-        maxWidth: '400px', 
-        height: '600px', 
-        backgroundColor: '#000', 
-        borderRadius: '30px', 
-        border: '12px solid #333', 
-        boxShadow: '0 30px 60px rgba(0,0,0,0.5), inset 0 0 10px rgba(255,255,255,0.1)', 
-        position: 'relative',
-        display: 'flex',
-        flexDirection: 'column',
-        overflow: 'hidden'
-      }}>
-        {/* Tablet Top Bezel */}
-        <div style={{ height: '30px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-          <div style={{ width: '40px', height: '4px', backgroundColor: '#222', borderRadius: '5px' }} />
-        </div>
-
-        {/* Tablet Screen */}
-        <div style={{ flex: 1, backgroundColor: '#fff', borderTop: '2px solid #444', padding: '2rem', display: 'flex', flexDirection: 'column' }}>
-          
-          <h2 style={{ fontFamily: 'var(--font-sans)', fontWeight: 800, fontSize: '1.5rem', color: '#111', textTransform: 'uppercase', letterSpacing: '1px', borderBottom: '2px solid #111', paddingBottom: '0.5rem' }}>GUEST LIST APP</h2>
-          
-          <p style={{ fontFamily: 'var(--font-sans)', color: '#666', fontSize: '0.9rem', marginTop: '1rem' }}>Enter guest details to confirm attendance.</p>
-
-          {!isSuccess ? (
-            <form onSubmit={(e) => { e.preventDefault(); handleSubmit(); }} style={{ marginTop: 'auto', marginBottom: 'auto', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                <label style={{ fontFamily: 'var(--font-dm-mono)', fontSize: '0.7rem', color: '#888', textTransform: 'uppercase' }}>Full Name</label>
-                <input 
-                  type="text" 
-                  value={formData.guestName}
-                  onChange={(e) => handleChange('guestName', e.target.value)}
-                  placeholder="e.g. John Doe"
-                  disabled={formState === 'submitting'}
-                  style={{ width: '100%', padding: '1rem', backgroundColor: '#f5f5f5', border: '1px solid #ddd', borderRadius: '8px', fontFamily: 'var(--font-sans)', fontSize: '1rem', outline: 'none' }}
-                />
-              </div>
-              {errorMessage && <p style={{ color: '#e74c3c', fontSize: '0.8rem' }}>{errorMessage}</p>}
-              
-              <button 
-                type="submit"
-                disabled={formState === 'submitting'}
-                style={{ 
-                  marginTop: '1rem', 
-                  width: '100%', 
-                  padding: '1rem', 
-                  backgroundColor: '#111', 
-                  color: '#fff', 
-                  border: 'none', 
-                  borderRadius: '8px', 
-                  cursor: 'pointer', 
-                  fontFamily: 'var(--font-sans)', 
-                  fontWeight: 800,
-                  fontSize: '1rem', 
-                  textTransform: 'uppercase',
-                  letterSpacing: '2px'
-                }}
-              >
-                {formState === 'submitting' ? 'Processing...' : 'CHECK IN'}
-              </button>
-            </form>
-          ) : (
-            <div style={{ marginTop: 'auto', marginBottom: 'auto', textAlign: 'center' }}>
-              <div style={{ width: '60px', height: '60px', borderRadius: '50%', backgroundColor: '#2ecc71', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
-              </div>
-              <h3 style={{ fontFamily: 'var(--font-sans)', fontSize: '1.5rem', color: '#111', marginTop: '1rem' }}>Guest Checked In</h3>
-              <p style={{ fontFamily: 'var(--font-sans)', color: '#666', fontSize: '1rem', marginTop: '0.5rem' }}>{confirmedName} is confirmed.</p>
-            </div>
-          )}
-
-        </div>
-
-        {/* Tablet Home Button */}
-        <div style={{ height: '50px', display: 'flex', justifyContent: 'center', alignItems: 'center', borderTop: '2px solid #444' }}>
-          <div style={{ width: '35px', height: '35px', borderRadius: '50%', border: '2px solid #444' }} />
-        </div>
-
-      </div>
-    </section>
-  );
-}
-
-/**
- * Opción 4: Diseño original de RSVP
- */
-function RSVPOption4({ config }: RSVPSectionProps) {
-  const [confirmedName, setConfirmedName] = useState('');
-
-  const {
-    formData,
-    formState,
-    errorMessage,
-    submitBtnRef,
-    handleChange,
-    handleSubmit,
-  } = useRSVPForm({
-    invitationId: config.id,
-    onSuccess: (name) => {
-      setConfirmedName(name);
-    },
-  });
-
-  const sectionRef = useScrollReveal<HTMLDivElement>({ y: 30 });
-  const formBoxRef = useScrollReveal<HTMLDivElement>({ y: 20, delay: 0.15 });
-
-  const isSuccess = formState === 'success';
-
-  return (
-    <section
-      ref={sectionRef}
-      aria-label="Confirmación de asistencia (RSVP)"
-      style={{
-        minHeight: '100vh',
-        backgroundColor: 'var(--color-black)',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: 'clamp(4rem, 8vw, 6rem) clamp(1.5rem, 4vw, 3rem)',
-        position: 'relative',
-        overflow: 'hidden',
-      }}
-    >
-      {/* Detalle decorativo de fondo */}
-      <div
-        aria-hidden="true"
+      <motion.div 
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-100px' }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         style={{
-          position: 'absolute',
-          top: '10%',
-          left: '5%',
-          width: '300px',
-          height: '300px',
-          borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(244, 114, 182, 0.04) 0%, transparent 70%)',
-          pointerEvents: 'none',
-        }}
-      />
-      <div
-        aria-hidden="true"
-        style={{
-          position: 'absolute',
-          bottom: '10%',
-          right: '5%',
-          width: '350px',
-          height: '350px',
-          borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(244, 114, 182, 0.02) 0%, transparent 70%)',
-          pointerEvents: 'none',
-        }}
-      />
-
-      <div
-        ref={formBoxRef}
-        style={{
-          width: '100%',
-          maxWidth: '540px',
-          backgroundColor: 'var(--color-surface)',
-          border: '1px solid rgba(244, 114, 182, 0.15)',
-          borderRadius: '16px',
-          padding: 'clamp(2rem, 5vw, 3.5rem) clamp(1.5rem, 4vw, 2.5rem)',
-          backdropFilter: 'blur(10px)',
-          WebkitBackdropFilter: 'blur(10px)',
-          boxShadow: '0 20px 50px rgba(0, 0, 0, 0.03)',
-          transition: 'all 0.5s ease',
-          position: 'relative',
-          zIndex: 10,
+          width: '100%', maxWidth: '420px',
+          // Tinte rosado muy sutil integrado al cristal
+          background: 'linear-gradient(135deg, rgba(255, 245, 248, 0.95) 0%, rgba(255, 255, 255, 0.6) 100%)',
+          border: '1px solid rgba(248, 200, 220, 0.6)', borderRadius: '30px',
+          padding: '2.5rem 1.5rem', boxShadow: '0 20px 60px rgba(181, 131, 141, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.8)',
+          backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)', position: 'relative', zIndex: 10
         }}
       >
-        {!isSuccess ? (
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              handleSubmit();
-            }}
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '2rem',
-            }}
-          >
-            {/* Cabecera */}
-            <div style={{ textAlign: 'center' }}>
-              <span
-                style={{
-                  fontFamily: 'var(--font-dm-mono)',
-                  fontSize: '0.7rem',
-                  color: 'var(--color-gold)',
-                  letterSpacing: '0.25em',
-                  textTransform: 'uppercase',
-                  opacity: 0.8,
-                  display: 'block',
-                  marginBottom: '0.25rem',
-                }}
-              >
+        {/* Destello de cristal en el borde superior */}
+        <div style={{ position: 'absolute', top: 0, left: '20%', right: '20%', height: '1.5px', background: 'linear-gradient(90deg, transparent, rgba(255,255,255,1), transparent)' }} />
+
+        {formState !== 'success' ? (
+          <form onSubmit={(e) => { e.preventDefault(); handleSubmit(); }} style={{ display: 'flex', flexDirection: 'column', gap: '2.5rem' }}>
+            
+            {/* Header */}
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              style={{ textAlign: 'center' }}
+            >
+              <span style={{ fontFamily: 'var(--font-dm-mono)', fontSize: '0.65rem', color: '#B5838D', letterSpacing: '0.3em', textTransform: 'uppercase', fontWeight: 600, display: 'block', marginBottom: '1rem' }}>
                 Lista de Invitados
               </span>
-              <h2
-                style={{
-                  fontFamily: 'var(--font-pinyon)',
-                  fontSize: 'clamp(3.5rem, 8vw, 5rem)',
-                  fontWeight: 300,
-                  color: 'var(--color-gold-dark)',
-                  lineHeight: 1.1,
-                  marginBottom: '0.75rem',
-                }}
-              >
+              <h2 style={{ fontFamily: 'var(--font-vibes)', fontSize: 'clamp(4rem, 9vw, 6rem)', fontWeight: 400, color: '#111', lineHeight: 1, marginBottom: '0.5rem' }}>
                 RSVP
               </h2>
-              <p
-                style={{
-                  fontFamily: 'var(--font-sans)',
-                  fontSize: '0.8rem',
-                  color: 'var(--color-cream-muted)',
-                  lineHeight: 1.5,
-                  maxWidth: '380px',
-                  margin: '0 auto',
-                }}
-              >
+              <p style={{ fontFamily: 'var(--font-sans)', fontSize: '0.7rem', color: '#666', letterSpacing: '1px', textTransform: 'uppercase', lineHeight: 1.6, maxWidth: '380px', margin: '0 auto' }}>
                 Por favor, confírmanos tu presencia antes del 16 de Junio.
               </p>
-            </div>
-
-            {/* Input Nombre */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-              <label
-                htmlFor="guestName"
-                style={{
-                  fontFamily: 'var(--font-dm-mono)',
-                  fontSize: '0.7rem',
-                  color: 'var(--color-cream-muted)',
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.1em',
-                }}
-              >
-                Nombre Completo
-              </label>
-              <input
-                id="guestName"
-                type="text"
-                value={formData.guestName}
-                onChange={(e) => handleChange('guestName', e.target.value)}
-                placeholder="Ej. Daniela Hernandez"
-                disabled={formState === 'submitting'}
-                style={{
-                  backgroundColor: 'var(--color-black-soft)',
-                  border: '1px solid rgba(244, 114, 182, 0.2)',
-                  borderRadius: '4px',
-                  padding: '0.85rem 1rem',
-                  color: 'var(--color-cream)',
-                  fontFamily: 'var(--font-sans)',
-                  fontSize: '0.95rem',
-                  outline: 'none',
-                  transition: 'border-color 0.3s, background-color 0.3s',
-                }}
-                onFocus={(e) => {
-                  e.currentTarget.style.borderColor = 'var(--color-gold)';
-                  e.currentTarget.style.backgroundColor = '#FFFFFF';
-                }}
-                onBlur={(e) => {
-                  e.currentTarget.style.borderColor = 'rgba(244, 114, 182, 0.2)';
-                  e.currentTarget.style.backgroundColor = 'var(--color-black-soft)';
-                }}
-              />
-            </div>
-
-            {/* Error Message */}
-            {errorMessage && (
-              <p
-                style={{
-                  color: '#e06666',
-                  fontSize: '0.8rem',
-                  fontFamily: 'var(--font-sans)',
-                  textAlign: 'center',
-                  marginTop: '-0.5rem',
-                }}
-              >
-                {errorMessage}
-              </p>
-            )}
-
-            {/* Submit Button */}
-            <button
-              ref={submitBtnRef}
-              type="submit"
-              disabled={formState === 'submitting'}
-              style={{
-                backgroundColor: 'var(--color-gold)',
-                border: '1px solid var(--color-gold)',
-                borderRadius: '4px',
-                color: 'var(--color-black)',
-                cursor: formState === 'submitting' ? 'not-allowed' : 'pointer',
-                fontFamily: 'var(--font-dm-mono)',
-                fontSize: '0.8rem',
-                fontWeight: 600,
-                letterSpacing: '0.2em',
-                padding: '1rem',
-                textTransform: 'uppercase',
-                transition: 'all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1)',
-                outline: 'none',
-                position: 'relative',
-                overflow: 'hidden',
-              }}
-              onMouseEnter={(e) => {
-                if (formState !== 'submitting') {
-                  e.currentTarget.style.backgroundColor = 'transparent';
-                  e.currentTarget.style.color = 'var(--color-gold)';
-                  e.currentTarget.style.boxShadow = '0 0 15px rgba(244, 114, 182, 0.3)';
-                }
-              }}
-              onMouseLeave={(e) => {
-                if (formState !== 'submitting') {
-                  e.currentTarget.style.backgroundColor = 'var(--color-gold)';
-                  e.currentTarget.style.color = 'var(--color-black)';
-                  e.currentTarget.style.boxShadow = 'none';
-                }
+            </motion.div>
+            
+            {/* Input Lineal Minimalista */}
+            <motion.div 
+              initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: 0.3 }}
+              style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', position: 'relative' }}
+            >
+              <label style={{ fontFamily: 'var(--font-dm-mono)', fontSize: '0.65rem', color: '#B5838D', textTransform: 'uppercase', letterSpacing: '0.15em', fontWeight: 600 }}>Nombre Completo</label>
+              <div style={{ position: 'relative' }}>
+                <input type="text" value={formData.guestName} onChange={(e) => handleChange('guestName', e.target.value)} placeholder="Ej. Daniela Hernandez" disabled={formState === 'submitting'}
+                  style={{ 
+                    width: '100%', backgroundColor: 'transparent', border: 'none', 
+                    borderBottom: '2px solid rgba(181, 131, 141, 0.3)', // Solo línea inferior solicitada
+                    padding: '0.5rem 0', color: '#111', fontFamily: 'var(--font-sans)', fontSize: '1rem', outline: 'none', transition: 'all 0.3s' 
+                  }}
+                  onFocus={(e) => { e.currentTarget.style.borderBottomColor = '#B5838D'; e.currentTarget.style.boxShadow = '0 10px 15px -10px rgba(181, 131, 141, 0.4)'; }} 
+                  onBlur={(e) => { e.currentTarget.style.borderBottomColor = 'rgba(181, 131, 141, 0.3)'; e.currentTarget.style.boxShadow = 'none'; }}
+                />
+              </div>
+            </motion.div>
+            
+            <AnimatePresence>
+              {errorMessage && (
+                <motion.p initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} style={{ color: '#e06666', fontSize: '0.8rem', fontFamily: 'var(--font-sans)', textAlign: 'center', margin: '-1rem 0 0 0' }}>
+                  {errorMessage}
+                </motion.p>
+              )}
+            </AnimatePresence>
+            
+            {/* Botón Editorial de Alto Contraste */}
+            <motion.button 
+              ref={submitBtnRef} type="submit" disabled={formState === 'submitting'}
+              whileHover={{ scale: 1.02, boxShadow: '0 15px 30px rgba(17, 17, 17, 0.2)' }} whileTap={{ scale: 0.98 }}
+              initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.4 }}
+              style={{ 
+                position: 'relative', overflow: 'hidden',
+                backgroundColor: '#111', // Negro puro editorial
+                border: '1px solid #111', borderRadius: '50px', color: '#F8C8DC', // Texto en Rosa Hero
+                cursor: 'pointer', fontFamily: 'var(--font-dm-mono)', fontSize: '0.85rem', letterSpacing: '0.2em', padding: '1rem', 
+                textTransform: 'uppercase', width: '100%', boxShadow: '0 10px 20px rgba(0, 0, 0, 0.1)' 
               }}
             >
-              {formState === 'submitting' ? 'Enviando...' : 'Confirmar Asistencia'}
-            </button>
+              {/* Shimmer Rosa Brillante encima para ese toque premium */}
+              <motion.div 
+                animate={{ x: ['-100%', '200%'] }} transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
+                style={{ position: 'absolute', top: 0, left: 0, width: '50%', height: '100%', background: 'linear-gradient(90deg, transparent, rgba(248, 200, 220, 0.15), transparent)', transform: 'skewX(-20deg)', zIndex: 1 }}
+              />
+              <span style={{ position: 'relative', zIndex: 2, fontWeight: 700 }}>{formState === 'submitting' ? 'Enviando...' : 'Confirmar Asistencia'}</span>
+            </motion.button>
           </form>
         ) : (
-          <div
-            style={{
-              textAlign: 'center',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '1rem',
-              alignItems: 'center',
-              animation: 'fadeIn 0.8s ease forwards',
-            }}
+          /* Mensaje de Éxito Consolidado */
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5, type: 'spring' }}
+            style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', gap: '1rem', alignItems: 'center', padding: '1rem 0' }}
           >
-            {/* Icono de Check */}
-            <div
-              style={{
-                width: '60px',
-                height: '60px',
-                borderRadius: '50%',
-                border: '1px solid rgba(244, 114, 182, 0.3)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                color: 'var(--color-gold)',
-                fontSize: '1.75rem',
-                marginBottom: '0.5rem',
-              }}
+            <motion.div 
+              initial={{ rotate: -90, opacity: 0 }}
+              animate={{ rotate: 0, opacity: 1 }}
+              transition={{ delay: 0.2, duration: 0.5, type: 'spring' }}
+              style={{ width: '70px', height: '70px', borderRadius: '50%', border: '2px solid rgba(181, 131, 141, 0.6)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#B5838D', fontSize: '2rem', marginBottom: '0.5rem', boxShadow: '0 0 30px rgba(181, 131, 141, 0.2)', background: 'rgba(255, 255, 255, 0.5)' }}
             >
               ✓
-            </div>
-
-            <span
-              style={{
-                fontFamily: 'var(--font-dm-mono)',
-                fontSize: '0.7rem',
-                color: 'var(--color-gold-dark)',
-                letterSpacing: '0.3em',
-                textTransform: 'uppercase',
-                fontWeight: 700,
-              }}
-            >
+            </motion.div>
+            <span style={{ fontFamily: 'var(--font-dm-mono)', fontSize: '0.7rem', color: '#B5838D', letterSpacing: '0.3em', textTransform: 'uppercase', fontWeight: 700 }}>
               ¡Te esperamos!
             </span>
-
-            <h2
-              style={{
-                fontFamily: 'var(--font-pinyon)',
-                fontSize: 'clamp(3rem, 7vw, 4.5rem)',
-                fontWeight: 300,
-                color: 'var(--color-gold-dark)',
-                lineHeight: 1.1,
-              }}
-            >
+            <h2 style={{ fontFamily: 'var(--font-vibes)', fontSize: 'clamp(3rem, 7vw, 4.5rem)', fontWeight: 300, color: '#111', lineHeight: 1 }}>
               Confirmado
             </h2>
-
-            <div
-              style={{
-                width: '40px',
-                height: '1px',
-                backgroundColor: 'rgba(244, 114, 182, 0.3)',
-                margin: '0.5rem 0',
-              }}
-            />
-
-            <p
-              style={{
-                fontFamily: 'var(--font-sans)',
-                fontSize: '0.85rem',
-                color: 'var(--color-cream-muted)',
-                lineHeight: 1.6,
-                maxWidth: '360px',
-              }}
-            >
-              Tu respuesta ha sido guardada. Nos hace muy felices saber que nos acompañarás en esta noche inolvidable.
+            <div style={{ width: '40px', height: '1.5px', backgroundColor: '#B5838D', margin: '0.5rem 0' }} />
+            <p style={{ fontFamily: 'var(--font-sans)', fontSize: '0.85rem', color: '#555', lineHeight: 1.6, maxWidth: '360px' }}>
+              Gracias {confirmedName}, tu respuesta ha sido guardada. Nos hace muy felices saber que nos acompañarás.
             </p>
-          </div>
+          </motion.div>
         )}
-      </div>
+      </motion.div>
     </section>
   );
 }

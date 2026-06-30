@@ -57,12 +57,13 @@ export function HeroSection({ config, isRevealed }: HeroSectionProps) {
       aria-label={`Hero — XV Años de ${quinceañera.fullName}`}
       style={{
         position: 'relative',
-        height: '100vh',
+        height: '100svh',
+        minHeight: '100vh',
         width: '100%',
         overflow: 'hidden',
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'flex-start',
+        justifyContent: 'center',
       }}
     >
       {/* ── Foto con parallax / Background ────────────────────── */}
@@ -71,12 +72,15 @@ export function HeroSection({ config, isRevealed }: HeroSectionProps) {
         aria-hidden="true"
         style={{
           position: 'absolute',
-          inset: '-15% 0',   // Espacio extra para el parallax
+          top: '-20%',
+          bottom: '-20%',
+          left: '-10%',
+          right: '-10%',
           zIndex: 0,
         }}
       >
         <img
-          src="/images/decorativas_v2/bg_newyork_rosa.png"
+          src="/images/decorativas_v2/bg-option4.png"
           alt="New York Skyline"
           style={{
             width: '100%',
@@ -92,40 +96,99 @@ export function HeroSection({ config, isRevealed }: HeroSectionProps) {
             position: 'absolute',
             inset: 0,
             background: `
-              linear-gradient(
-                to right,
-                rgba(250, 250, 250, 0.96) 0%,
-                rgba(250, 250, 250, 0.85) 45%,
-                rgba(250, 250, 250, 0.25) 100%
-              ),
-              linear-gradient(
-                to top,
-                rgba(250, 250, 250, 0.85) 0%,
-                transparent 60%
+              radial-gradient(
+                circle at center,
+                rgba(253, 251, 247, 0.55) 0%,
+                rgba(253, 251, 247, 0.2) 50%,
+                rgba(253, 251, 247, 0.01) 100%
               )
             `,
           }}
         />
       </div>
 
+      <style>{`
+        @keyframes heroFloat {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(15px); }
+        }
+        @keyframes heroFloatAlt {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-12px); }
+        }
+        @keyframes silverShimmer {
+          0% { background-position: -200% center; }
+          100% { background-position: 200% center; }
+        }
+      `}</style>
+
+      {/* ── Imágenes Decorativas Hero ────────────────────────────── */}
+      <div style={{ position: 'absolute', inset: 0, zIndex: 1, pointerEvents: 'none', overflow: 'hidden' }}>
+        {/* Superior (Colgando) */}
+        {/* <img
+          src="/images/decorativas_v2/bolas_disco_rosa.png"
+          alt="Bolas de disco"
+          style={{ position: 'absolute', top: '-5%', left: '-5%', width: 'clamp(250px, 45vw, 300px)', opacity: 0.95, animation: 'heroFloat 6s ease-in-out infinite' }}
+        />
+        <img
+          src="/images/decorativas_v2/bolas_disco_rosa.png"
+          alt="Bolas de disco"
+          style={{ position: 'absolute', top: '-5%', right: '-6%', width: 'clamp(250px, 45vw, 300px)', opacity: 0.95, animation: 'heroFloat 6s ease-in-out infinite' }}
+        /> */}
+        {/* <img
+          src="/images/decorativas_v2/bola_rosa.png"
+          alt="Bola rosa"
+          style={{ position: 'absolute', top: '-2%', right: '8%', width: 'clamp(80px, 15vw, 180px)', opacity: 0.9, animation: 'heroFloatAlt 8s ease-in-out infinite' }}
+        /> */}
+
+        {/* Inferior */}
+        <img
+          src="/images/decorativas_v2/estatua.png"
+          alt="Estatua con brillos"
+          style={{ position: 'absolute', bottom: '-5%', left: '-5%', width: 'clamp(230px, 30vw, 400px)', opacity: 0.95 }}
+        />
+        <img
+          src="/images/decorativas_v2/edificio_rosa.png"
+          alt="Edificio Rosa"
+          style={{ position: 'absolute', bottom: '-8%', right: '15%', width: 'clamp(120px, 25vw, 350px)', opacity: 0.85 }}
+        />
+        <img
+          src="/images/decorativas_v2/edificio_rosa.png"
+          alt="Edificio Rosa"
+          style={{ position: 'absolute', bottom: '-8%', right: '30%', width: 'clamp(90px, 25vw, 350px)', opacity: 0.85 }}
+        />
+        <img
+          src="/images/decorativas_v2/edificio_rosa.png"
+          alt="Estatua"
+          style={{ position: 'absolute', bottom: '-2%', right: '-10%', width: 'clamp(160px, 20vw, 250px)', opacity: 0.95 }}
+        />
+      </div>
+
       {/* ── Contenido textual ──────────────────────────────────── */}
       <div
         style={{
-          position: 'relative',
           zIndex: 2,
           padding: 'clamp(2rem, 6vw, 5rem)',
-          maxWidth: '700px',
+          maxWidth: '800px',
+          width: '100%',
+          height: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          textAlign: 'center',
         }}
       >
+        <div style={{ marginTop: 'auto', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         {/* Eyebrow — XV Años */}
         <p
           style={{
             fontFamily:    'var(--font-dm-mono)',
-            fontSize:      'clamp(0.65rem, 1.2vw, 0.8rem)',
-            color:         'var(--color-gold)',
-            letterSpacing: '0.25em',
+            fontSize:      'clamp(0.7rem, 1.2vw, 0.9rem)',
+            color:         '#555',
+            letterSpacing: '0.4em',
             textTransform: 'uppercase',
-            marginBottom:  'clamp(1rem, 2vw, 1.5rem)',
+            marginBottom:  'clamp(1.5rem, 3vw, 2.5rem)',
             opacity:       isRevealed ? 1 : 0,
             transition:    'opacity 0.6s ease 0.3s',
           }}
@@ -134,37 +197,73 @@ export function HeroSection({ config, isRevealed }: HeroSectionProps) {
           XV Años
         </p>
 
-        {/* Nombre — animado letra por letra */}
-        <h1
-          ref={nameRef as React.RefObject<HTMLHeadingElement>}
-          style={{
-            fontFamily:   'var(--font-pinyon)',
-            fontSize:     'clamp(4.5rem, 11vw, 10rem)',
-            fontWeight:   300,
-            color:        'var(--color-gold)',
-            lineHeight:   0.9,
-            marginBottom: '0.15em',
-            overflow:     'hidden',
-            textShadow:   '0 4px 10px rgba(0,0,0,0.05)',
-          }}
-        >
-          {firstName}
-        </h1>
+        <div style={{ position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
+          {/* XV de fondo (Watermark) */}
+          <span style={{
+            position: 'absolute',
+            fontFamily: 'var(--font-cormorant)',
+            fontSize: 'clamp(14rem, 40vw, 26rem)',
+            fontWeight: 500,
+            background: 'linear-gradient(90deg, #F8C8DC 0%, #F8C8DC 40%, #ffffff 50%, #C0C0C0 60%, #F8C8DC 70%, #F8C8DC 100%)',
+            backgroundSize: '200% auto',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            opacity: 0.9,
+            zIndex: -1,
+            lineHeight: 0.8,
+            userSelect: 'none',
+            pointerEvents: 'none',
+            letterSpacing: '-0.02em',
+            top: '50%',
+            transform: 'translateY(-50%)',
+            filter: 'drop-shadow(0 0 15px rgba(192, 192, 192, 0.6))',
+            animation: 'silverShimmer 6s linear infinite'
+          }}>
+            XV
+          </span>
+
+          {/* Nombre — animado letra por letra */}
+          <h1
+            ref={nameRef as React.RefObject<HTMLHeadingElement>}
+            style={{
+              fontFamily:   'var(--font-cormorant)',
+              fontSize:     'clamp(4rem, 10vw, 8rem)',
+              fontWeight:   400,
+              color:        '#111', /* Black */
+              lineHeight:   1,
+              letterSpacing: '0.1em',
+              textTransform: 'uppercase',
+              marginBottom: '0.15em',
+              textShadow: '0 2px 10px rgba(192, 192, 192, 0.3)' /* Subtle silver shadow */
+            }}
+          >
+            {firstName}
+          </h1>
+        </div>
+        </div>
 
         {/* Frase / Cita */}
         <p
           ref={surnameRef as React.RefObject<HTMLParagraphElement>}
           style={{
-            fontFamily:   'var(--font-inter)',
-            fontSize:     'clamp(0.9rem, 1.5vw, 1.2rem)',
-            fontWeight:   300,
-            color:        'var(--color-cream)',
-            lineHeight:   1.6,
-            marginBottom: 'clamp(1.5rem, 3vw, 2.5rem)',
-            overflow:     'hidden',
-            maxWidth:     '500px',
+            fontFamily:   'var(--font-cormorant)',
+            fontStyle:    'italic',
+            fontSize:     'clamp(1rem, 1.2vw, 1.4rem)',
+            fontWeight:   400,
+            color:        '#222',
+            lineHeight:   1.5,
+            marginBottom: 'clamp(2rem, 5vw, 4rem)',
+            marginTop:    'auto',
+            maxWidth:     '340px', /* Reduced width */
             opacity:      isRevealed ? 1 : 0,
             transition:   'opacity 0.8s ease 0.8s',
+            padding: '0.8rem 1.2rem', /* Reduced padding */
+            backgroundColor: 'rgba(253, 251, 247, 0.15)', /* More transparent */
+            backdropFilter: 'blur(8px)',
+            border: '1px solid rgba(192, 192, 192, 0.4)', /* Silver border */
+            borderRadius: '4px',
+            boxShadow: '0 4px 20px rgba(0,0,0,0.05)',
+            textAlign: 'center'
           }}
         >
           {config.parents?.invitationText}

@@ -155,7 +155,7 @@ export function GallerySection() {
     <section
       aria-label="Galería interactiva en vivo"
       style={{
-        backgroundColor: 'var(--color-black)',
+        backgroundColor: '#fdfbf7',
         padding: 'clamp(5rem, 10vw, 8rem) clamp(1.5rem, 4vw, 3rem)',
         position: 'relative',
         overflow: 'hidden',

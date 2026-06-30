@@ -90,35 +90,35 @@ export default function HomePage() {
         {/* 02 — Bendición de Padres y Padrinos */}
         <ParentsSection config={defaultInvitationConfig} />
 
-        {/* 03 — Cuenta Regresiva */}
-        <CountdownSection config={defaultInvitationConfig} />
-
-        {/* 04 — Itinerario */}
+        {/* 03 — Itinerario */}
         <ItinerarySection config={defaultInvitationConfig} />
 
-        {/* 05 — Ubicación */}
-        <LocationSection config={defaultInvitationConfig} />
+        {/* 04 — Cuenta Regresiva */}
+        <CountdownSection config={defaultInvitationConfig} />
+        
+        {/* 05 — Save The Date */}
+        <SaveTheDateSection />
 
-        {/* 06 — Pases de Acceso */}
-        <PassesSection config={defaultInvitationConfig} />
-
-        {/* 07 — Código de Vestimenta */}
+        {/* 06 — Código de Vestimenta */}
         <DressCodeSection config={defaultInvitationConfig} />
 
-        {/* 08 — Mesa de Regalos */}
+        {/* 07 — Mesa de Regalos */}
         <GiftRegistrySection />
+
+        {/* 08 — RSVP (Confirmación) */}
+        <RSVPSection config={defaultInvitationConfig} />
 
         {/* 09 — Sugerencias de Música */}
         <MusicSection />
 
-        {/* 10 — Galería de Fotos Mural */}
+        {/* 10 — Ubicación */}
+        <LocationSection config={defaultInvitationConfig} />
+
+        {/* 11 — Pases de Acceso */}
+        <PassesSection config={defaultInvitationConfig} />
+
+        {/* 12 — Galería de Fotos Mural */}
         <GallerySection />
-
-        {/* 11 — Save The Date */}
-        <SaveTheDateSection />
-
-        {/* 12 — RSVP (Confirmación) */}
-        <RSVPSection config={defaultInvitationConfig} />
 
         {/* 13 — Footer */}
         <FooterSection />

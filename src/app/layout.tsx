@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Cormorant_Garamond, DM_Mono, Inter, Pinyon_Script } from 'next/font/google';
+import { Cormorant_Garamond, DM_Mono, Inter, Pinyon_Script, Great_Vibes } from 'next/font/google';
 import { SmoothScroll }    from '@/components/core/SmoothScroll';
 import { CustomCursor }    from '@/components/core/CustomCursor';
 import { AudioController } from '@/components/core/AudioController';
@@ -36,14 +36,37 @@ const pinyon = Pinyon_Script({
   display: 'swap',
 });
 
+const greatVibes = Great_Vibes({
+  subsets: ['latin'],
+  weight: ['400'],
+  variable: '--font-vibes',
+  display: 'swap',
+});
+
 /* ── Metadata ─────────────────────────────────────────────────── */
 
 export const metadata: Metadata = {
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
+  ),
   title: {
     template: '%s | Invitación XV Años',
-    default: 'Invitación XV Años',
+    default: 'Mis XV Años | Luciana',
   },
-  description: 'Invitación digital para la celebración de XV años.',
+  description: 'Acompáñame a celebrar el comienzo de una nueva etapa en mi vida. ¡No faltes!',
+  openGraph: {
+    title: 'Mis XV Años | Luciana',
+    description: 'Acompáñame a celebrar el comienzo de una nueva etapa en mi vida. ¡No faltes!',
+    images: [
+      {
+        url: '/images/invitation/metada_luciana.png',
+        width: 1200,
+        height: 630,
+        alt: 'Mis XV Años - Luciana',
+      },
+    ],
+    type: 'website',
+  },
   robots: {
     index: false,   // Las invitaciones no deben indexarse en Google
     follow: false,
@@ -60,15 +83,14 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html
       lang="es"
-      className={`${cormorant.variable} ${dmMono.variable} ${inter.variable} ${pinyon.variable}`}
+      className={`${cormorant.variable} ${dmMono.variable} ${inter.variable} ${pinyon.variable} ${greatVibes.variable}`}
     >
       <body>
         <SmoothScroll>
-          {/* Cursor personalizado — fuera del page transition */}
-          <CustomCursor />
+        
 
           {/* Control de audio ambient */}
-          <AudioController src="/audio/who_loves_the_sun.mp3" />
+          <AudioController src="/audio/flashing_lights.mp3" />
 
           {/* Transiciones entre páginas */}
           <PageTransition>

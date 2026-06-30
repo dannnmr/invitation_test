@@ -24,7 +24,7 @@ function PassesOption1({ config }: PassesSectionProps) {
   const shortMonth = event.date.toLocaleDateString('es-ES', { month: 'short' });
 
   return (
-    <section style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#0a0a0a', padding: '2rem', overflow: 'hidden' }}>
+    <section style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#fdfbf7', padding: '2rem', overflow: 'hidden' }}>
       
       <motion.div 
         initial={{ rotate: -5 }}
@@ -61,7 +61,7 @@ function PassesOption1({ config }: PassesSectionProps) {
           </div>
 
           {/* Hole punch */}
-          <div style={{ position: 'absolute', top: '15px', width: '60px', height: '15px', backgroundColor: '#0a0a0a', borderRadius: '10px', border: '1px solid #333', zIndex: 10 }} />
+          <div style={{ position: 'absolute', top: '15px', width: '60px', height: '15px', backgroundColor: '#fdfbf7', borderRadius: '10px', border: '1px solid #333', zIndex: 10 }} />
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '1.5rem', zIndex: 5 }}>
             <Compass className="w-6 h-6 text-pink-400 stroke-[1.5]" />
@@ -130,7 +130,7 @@ export function PassesOption2({ config }: PassesSectionProps) {
     <section
       aria-label="Pases de acceso digital"
       style={{
-        backgroundColor: 'var(--color-black)',
+        backgroundColor: '#fdfbf7',
         padding: 'clamp(5rem, 10vw, 8rem) clamp(1.5rem, 4vw, 3rem)',
         display: 'flex',
         flexDirection: 'column',

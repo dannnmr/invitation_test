@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import type { InvitationConfig } from '@/types/invitation';
+import { Navigation } from 'lucide-react';
 
 interface LocationSectionProps {
   config: InvitationConfig;
@@ -14,103 +15,115 @@ export function LocationSection({ config }: LocationSectionProps) {
   return (
     <section style={{ 
       minHeight: '100vh', 
-      backgroundColor: '#0a0a0a', 
-      display: 'grid', 
-      gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-      overflow: 'hidden'
+      backgroundColor: '#fdfbf7', // Color perla
+      display: 'flex', alignItems: 'center', justifyContent: 'center',
+      padding: 'clamp(2rem, 5vw, 4rem) clamp(1rem, 4vw, 2rem)',
+      position: 'relative', overflow: 'hidden'
     }}>
-      {/* Lado Izquierdo: Imagen */}
-      <div style={{ position: 'relative', width: '100%', minHeight: '50vh' }}>
-        <Image 
-          src="/images/decorativas_v2/ubicacion-ny.png" 
-          alt="Ubicación New York" 
-          fill 
-          className="object-cover"
+      {/* Contenedor Ovalado (Píldora) con Animación de Entrada */}
+      <motion.div 
+        initial={{ opacity: 0, y: 50, scale: 0.95 }}
+        whileInView={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        viewport={{ once: true, margin: '-50px' }}
+        style={{
+          position: 'relative', width: '100%', maxWidth: '420px',
+          backgroundColor: '#Fcf5f2', // Rosa Hero
+          border: '1px solid #111', borderRadius: '250px',
+          padding: 'clamp(4rem, 15vw, 6rem) 2rem',
+          display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center',
+          boxShadow: '0 20px 40px rgba(17,17,17,0.08)', overflow: 'hidden'
+        }}
+      >
+        {/* Imagen de fondo sutil con animación de paneo continuo */}
+        <motion.div 
+          animate={{ backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'] }}
+          transition={{ duration: 40, repeat: Infinity, ease: 'linear' }}
+          style={{
+            position: 'absolute', inset: 0, opacity: 0.15, zIndex: 1,
+            backgroundImage: 'url("/images/decorativas_v2/ubicacion-ny.png")',
+            backgroundSize: '150% auto', // Más grande para permitir el paneo
+            mixBlendMode: 'multiply'
+          }} 
         />
-      </div>
-
-      {/* Lado Derecho: Contenido */}
-      <div style={{ 
-        display: 'flex', 
-        flexDirection: 'column', 
-        justifyContent: 'center', 
-        padding: 'clamp(2rem, 5vw, 4rem)',
-        position: 'relative',
-        zIndex: 10
-      }}>
-        {/* Información de Ubicación */}
-        <div style={{ marginBottom: '4rem' }}>
-          <p style={{ fontFamily: 'var(--font-dm-mono)', color: 'var(--color-gold)', fontSize: '0.8rem', letterSpacing: '2px', textTransform: 'uppercase', marginBottom: '1rem' }}>
-            Dónde Celebramos
-          </p>
-          <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2.5rem, 5vw, 4rem)', fontWeight: 300, color: 'var(--color-cream)', fontStyle: 'italic', marginBottom: '1.5rem', lineHeight: 1.1 }}>
-            {event.venue.name}
-          </h2>
-          <p style={{ fontFamily: 'var(--font-dm-mono)', color: 'var(--color-cream-muted)', fontSize: '1rem', lineHeight: 1.6, maxWidth: '400px' }}>
+        
+        <div style={{ position: 'relative', zIndex: 2, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1.5rem', width: '100%' }}>
+          
+          <motion.p 
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3, duration: 0.5 }}
+            viewport={{ once: true }}
+            style={{ 
+              fontFamily: 'var(--font-dm-mono)', fontSize: '0.7rem', color: '#111', backgroundColor: '#fff',
+              border: '1px solid #111', padding: '0.4rem 1rem', borderRadius: '30px', letterSpacing: '0.3em', 
+              textTransform: 'uppercase', fontWeight: 700, marginBottom: '0.5rem'
+            }}
+          >
+            El Lugar
+          </motion.p>
+          
+          {/* Nombre del Salón - Tipografía Pinyon solicitada */}
+          <motion.h2 
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.5, duration: 0.8, type: 'spring' }}
+            viewport={{ once: true }}
+            style={{ 
+              fontFamily: 'var(--font-pinyon)', 
+              fontSize: 'clamp(4rem, 12vw, 5.5rem)', // Más grande porque es fuente cursiva
+              color: '#111', 
+              lineHeight: 1, fontWeight: 400, margin: 0, display: 'flex', flexDirection: 'column', alignItems: 'center',
+              textTransform: 'capitalize' // Quitamos mayúsculas puras para que Pinyon se lea bien
+            }}
+          >
+            <span>{event.venue.name.split('(')[0].trim()}</span>
+            {event.venue.name.includes('(') && (
+              <span style={{ fontSize: '0.25em', fontFamily: 'var(--font-sans)', letterSpacing: '0.2em', marginTop: '0.5rem', fontWeight: 600, textTransform: 'uppercase' }}>
+                {event.venue.name.split('(')[1].replace(')', '').trim()}
+              </span>
+            )}
+          </motion.h2>
+          
+          <motion.p 
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ delay: 0.7 }}
+            viewport={{ once: true }}
+            style={{ fontFamily: 'var(--font-dm-mono)', fontSize: '0.8rem', color: '#111', letterSpacing: '0.2em', textTransform: 'uppercase', fontWeight: 600, marginTop: '0.5rem' }}
+          >
             {event.venue.address}
-          </p>
-        </div>
-
-        {/* Botón Giratorio "Como Llegar" */}
-        <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
-          <div style={{ position: 'relative', width: '140px', height: '140px' }}>
-            <motion.svg 
-              viewBox="0 0 100 100" 
-              style={{ width: '100%', height: '100%' }}
-              animate={{ rotate: 360 }}
-              transition={{ duration: 15, repeat: Infinity, ease: 'linear' }}
-            >
-              <path 
-                id="circleTextPath" 
-                d="M 50, 50 m -35, 0 a 35,35 0 1,1 70,0 a 35,35 0 1,1 -70,0" 
-                fill="transparent" 
-              />
-              <text style={{ fontSize: '12.5px', fill: 'var(--color-gold-dark)', fontFamily: 'var(--font-dm-mono)', letterSpacing: '1px', textTransform: 'uppercase', fontWeight: 'bold' }}>
-                <textPath href="#circleTextPath" startOffset="0%">
-                  COMO LLEGAR • COMO LLEGAR • COMO LLEGAR •
-                </textPath>
-              </text>
-            </motion.svg>
-            
-            <a 
-              href={event.venue.mapsUrl} 
-              target="_blank" 
-              rel="noopener noreferrer"
-              style={{ 
-                position: 'absolute', 
-                top: '50%', 
-                left: '50%', 
-                transform: 'translate(-50%, -50%)', 
-                backgroundColor: 'rgba(244,114,182,0.1)', 
-                border: '1px solid rgba(244,114,182,0.4)',
-                color: 'var(--color-gold)', 
-                borderRadius: '50%', 
-                width: '60px', 
-                height: '60px', 
-                display: 'flex', 
-                alignItems: 'center', 
-                justifyContent: 'center', 
-                textDecoration: 'none',
-                transition: 'all 0.3s ease'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = 'rgba(244,114,182,0.2)';
-                e.currentTarget.style.transform = 'translate(-50%, -50%) scale(1.1)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = 'rgba(244,114,182,0.1)';
-                e.currentTarget.style.transform = 'translate(-50%, -50%) scale(1)';
-              }}
-            >
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-                <circle cx="12" cy="10" r="3" />
-              </svg>
+          </motion.p>
+          
+          {/* Botón Circular del Mapa con animaciones */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.9, duration: 0.6 }}
+            viewport={{ once: true }}
+            style={{ position: 'relative', width: '140px', height: '140px', marginTop: '1.5rem' }}
+          >
+            <a href={event.venue.mapsUrl} target="_blank" rel="noopener noreferrer" style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', textDecoration: 'none' }}>
+              <motion.svg viewBox="0 0 100 100" style={{ position: 'absolute', width: '100%', height: '100%' }} animate={{ rotate: 360 }} transition={{ duration: 15, repeat: Infinity, ease: 'linear' }}>
+                <path id="circleTextPathLocation1" d="M 50, 50 m -38, 0 a 38,38 0 1,1 76,0 a 38,38 0 1,1 -76,0" fill="transparent" />
+                <text style={{ fontSize: '9px', fill: '#111', fontFamily: 'var(--font-dm-mono)', letterSpacing: '2.5px', textTransform: 'uppercase', fontWeight: 600 }}>
+                  <textPath href="#circleTextPathLocation1" startOffset="0%">
+                    RUTA AL EVENTO • MAPA GPS • UBICACIÓN • 
+                  </textPath>
+                </text>
+              </motion.svg>
+              <motion.div 
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                style={{ width: '60px', height: '60px', backgroundColor: '#111', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 4px 15px rgba(0,0,0,0.2)' }}
+              >
+                <Navigation className="w-6 h-6" color="#F8C8DC" strokeWidth={2.5} style={{ transform: 'rotate(45deg)', marginLeft: '-2px', marginBottom: '-2px' }} />
+              </motion.div>
             </a>
-          </div>
-        </div>
+          </motion.div>
 
-      </div>
+        </div>
+      </motion.div>
     </section>
   );
 }

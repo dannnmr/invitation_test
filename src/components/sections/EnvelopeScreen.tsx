@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import Image from 'next/image';
-import { useParticles }          from '@/hooks/useParticles';
+
 import { useEnvelopeAnimation }  from '@/hooks/useEnvelopeAnimation';
 
 interface EnvelopeScreenProps {
@@ -20,7 +20,7 @@ export function EnvelopeScreen({ contentRef, onComplete }: EnvelopeScreenProps) 
   const overlayRef      = useRef<HTMLDivElement>(null);
   const hintRef         = useRef<HTMLParagraphElement>(null);
 
-  const { canvasRef, converge } = useParticles({ count: 80, color: '#F472B6' });
+
 
   const { playOpenSequence } = useEnvelopeAnimation(
     {
@@ -28,7 +28,6 @@ export function EnvelopeScreen({ contentRef, onComplete }: EnvelopeScreenProps) 
       leftFlapRef,
       rightFlapRef,
       brochRef,
-      particlesRef: canvasRef,
       overlayRef,
       contentRef,
     },
@@ -36,10 +35,7 @@ export function EnvelopeScreen({ contentRef, onComplete }: EnvelopeScreenProps) 
   );
 
   function handleOpen() {
-    // Primero converger las partículas al centro
-    converge();
-    // Pequeño delay para que la convergencia sea visible
-    setTimeout(playOpenSequence, 200);
+    playOpenSequence();
   }
 
   // Hint de toque — pulsa suavemente en loop
@@ -69,26 +65,20 @@ export function EnvelopeScreen({ contentRef, onComplete }: EnvelopeScreenProps) 
       onKeyDown={(e) => e.key === 'Enter' && handleOpen()}
       style={{
         position: 'fixed',
-        inset: 0,
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
         zIndex: 'var(--z-overlay)',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
         gap: '2.5rem',
-        backgroundColor: 'var(--color-black)',
+        backgroundColor: 'transparent',
       }}
     >
-      {/* Canvas de partículas */}
-      <canvas
-        ref={canvasRef}
-        aria-hidden="true"
-        style={{
-          position: 'absolute',
-          inset: 0,
-          pointerEvents: 'none',
-        }}
-      />
+
 
       {/* Contenedor de las imágenes del sobre */}
       <div
@@ -96,13 +86,18 @@ export function EnvelopeScreen({ contentRef, onComplete }: EnvelopeScreenProps) 
           position: 'absolute',
           inset: 0,
           zIndex: 1,
-          overflow: 'hidden'
+          overflow: 'hidden',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center'
         }}
       >
+        {/* Contenedor de escala para cubrir los bordes transparentes del PNG */}
+        <div style={{ position: 'absolute', width: '100%', height: '100%', transform: 'scale(1.05)' }}>
         {/* Base del sobre completo - se oculta al abrir */}
         <Image
           ref={envelopeBaseRef}
-          src="/images/invitation/sobre_completo_negro.png"
+          src="/images/invitation/sobre_completo_rosa.png"
           alt="Sobre negro"
           fill
           priority
@@ -112,7 +107,7 @@ export function EnvelopeScreen({ contentRef, onComplete }: EnvelopeScreenProps) 
         {/* Mitad Izquierda */}
         <Image
           ref={leftFlapRef}
-          src="/images/invitation/sobre_izquierdo.png"
+          src="/images/invitation/izquierdo_sobre_rosa.png"
           alt="Mitad izquierda del sobre"
           fill
           priority
@@ -122,7 +117,7 @@ export function EnvelopeScreen({ contentRef, onComplete }: EnvelopeScreenProps) 
         {/* Mitad Derecha */}
         <Image
           ref={rightFlapRef}
-          src="/images/invitation/sobre_derecho.png"
+          src="/images/invitation/derecho_sobre_rosa.png"
           alt="Mitad derecha del sobre"
           fill
           priority
@@ -146,6 +141,7 @@ export function EnvelopeScreen({ contentRef, onComplete }: EnvelopeScreenProps) 
             objectFit: 'contain',
           }}
         />
+        </div>
       </div>
 
       {/* Hint de interacción */}

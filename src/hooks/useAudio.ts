@@ -27,6 +27,7 @@ export function useAudio({
 }: UseAudioOptions): UseAudioReturn {
   const audioRef   = useRef<HTMLAudioElement | null>(null);
   const fadeRef    = useRef<number | null>(null);
+  const hasAttemptedAutoplay = useRef(false);
   const [isPlaying, setIsPlaying] = useState(false);
 
   useEffect(() => {
@@ -112,6 +113,56 @@ export function useAudio({
       audioRef.current.volume = Math.max(0, Math.min(1, newVolume));
     }
   }, []);
+
+  // Lógica de Autoplay Inteligente (intenta reproducir, si falla espera interacción)
+  useEffect(() => {
+    if (hasAttemptedAutoplay.current) return;
+    
+    let interactionHandled = false;
+
+    const handleInteraction = () => {
+      if (interactionHandled) return;
+      interactionHandled = true;
+      if (audioRef.current && audioRef.current.paused) {
+        fadeIn();
+      }
+      cleanupListeners();
+    };
+
+    const cleanupListeners = () => {
+      window.removeEventListener('click', handleInteraction);
+      window.removeEventListener('touchstart', handleInteraction);
+      window.removeEventListener('scroll', handleInteraction);
+    };
+
+    const attemptAutoplay = () => {
+      if (hasAttemptedAutoplay.current) return;
+      hasAttemptedAutoplay.current = true;
+      
+      const audio = audioRef.current;
+      if (!audio) return;
+      
+      const playPromise = audio.play();
+      if (playPromise !== undefined) {
+        playPromise
+          .then(() => fadeIn())
+          .catch(() => {
+            // Autoplay bloqueado, esperar a la primera interacción
+            window.addEventListener('click', handleInteraction);
+            window.addEventListener('touchstart', handleInteraction, { passive: true });
+            window.addEventListener('scroll', handleInteraction, { passive: true });
+          });
+      }
+    };
+
+    // Pequeño delay para dar tiempo a la carga inicial
+    const timeoutId = setTimeout(attemptAutoplay, 800);
+
+    return () => {
+      clearTimeout(timeoutId);
+      cleanupListeners();
+    };
+  }, [fadeIn]);
 
   return { isPlaying, toggle, setVolume };
 }

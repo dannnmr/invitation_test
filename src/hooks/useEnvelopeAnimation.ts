@@ -8,7 +8,7 @@ interface EnvelopeRefs {
   leftFlapRef:     React.RefObject<HTMLImageElement | null>;
   rightFlapRef:    React.RefObject<HTMLImageElement | null>;
   brochRef:        React.RefObject<HTMLImageElement | null>;
-  particlesRef:    React.RefObject<HTMLCanvasElement | null>;
+  particlesRef?:    React.RefObject<HTMLCanvasElement | null>;
   overlayRef:      React.RefObject<HTMLDivElement | null>;
   contentRef:      React.RefObject<HTMLDivElement | null>;
 }
@@ -55,15 +55,14 @@ export function useEnvelopeAnimation(
     const leftFlap   = leftFlapRef.current;
     const rightFlap  = rightFlapRef.current;
     const broch      = brochRef.current;
-    const canvas     = particlesRef.current;
+    const canvas     = particlesRef?.current;
     const overlay    = overlayRef.current;
     const content    = contentRef.current;
 
     if (!envelopeBase || !leftFlap || !rightFlap || !overlay || !content) return;
 
-    // Preparar el contenido — oculto con clip-path
+    // Preparar el contenido — directamente visible
     gsap.set(content, {
-      clipPath: 'inset(50% 0% 50% 0%)',
       opacity: 1,
     });
 
@@ -105,14 +104,9 @@ export function useEnvelopeAnimation(
       opacity: 0,
       duration: 0.5,
       ease: 'power1.out',
-    }, '-=0.4');
-
-    // 6. Contenido — clip-path se expande revelando la invitación
-    tl.to(content, {
-      clipPath: 'inset(0% 0% 0% 0%)',
-      duration: 1.0,
-      ease: 'expo.inOut',
     }, '-=0.6');
+
+    // 6. Contenido - ya está visible, no necesitamos animar el clipPath
 
     // 7. Canvas de partículas — fade out
     if (canvas) {

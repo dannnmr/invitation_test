@@ -53,14 +53,30 @@ export function useTextReveal(
     el.textContent = '';
     el.setAttribute('aria-label', text); // Mantener accesibilidad
 
-    // Crear span por cada caracter (incluyendo espacios)
-    splitRef.current = text.split('').map((char) => {
-      const span = document.createElement('span');
-      span.textContent = char === ' ' ? '\u00A0' : char; // Non-breaking space
-      span.style.display = 'inline-block';
-      span.style.overflow = 'hidden';
-      el.appendChild(span);
-      return span;
+    const words = text.split(' ');
+    words.forEach((word, wordIndex) => {
+      const wordSpan = document.createElement('span');
+      wordSpan.style.display = 'inline-block';
+      wordSpan.style.whiteSpace = 'nowrap';
+      
+      word.split('').forEach((char) => {
+        const charSpan = document.createElement('span');
+        charSpan.textContent = char;
+        charSpan.style.display = 'inline-block';
+        // removed overflow: hidden to prevent font clipping
+        wordSpan.appendChild(charSpan);
+        splitRef.current.push(charSpan);
+      });
+      
+      el.appendChild(wordSpan);
+      
+      if (wordIndex < words.length - 1) {
+        const spaceSpan = document.createElement('span');
+        spaceSpan.innerHTML = '&nbsp;';
+        spaceSpan.style.display = 'inline-block';
+        el.appendChild(spaceSpan);
+        splitRef.current.push(spaceSpan);
+      }
     });
 
     // Estado inicial — caracteres abajo y transparentes

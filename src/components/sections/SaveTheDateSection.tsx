@@ -44,7 +44,7 @@ export function SaveTheDateSection() {
     <section
       aria-label="Save the date"
       style={{
-        backgroundColor: 'var(--color-black)',
+        backgroundColor: '#fdfbf7',
         padding: 'clamp(4rem, 8vw, 6rem) clamp(1.5rem, 4vw, 3rem)',
         display: 'flex',
         flexDirection: 'column',
@@ -60,19 +60,19 @@ export function SaveTheDateSection() {
         aria-hidden="true"
         style={{
           position: 'absolute',
-          bottom: '-10%',
-          right: '-5%',
-          width: '200px',
-          height: '200px',
-          opacity: 0.15,
+          bottom: '0%',
+          right: '-20%',
+          width: '360px',
+          height: '360px',
+          opacity: 0.30,
           pointerEvents: 'none',
         }}
       >
         <Image
-          src="/images/decorativas_v2/flor_dorada.png"
+          src="/images/decorativas_v2/estatua_brillos.png"
           alt="Flor decorativa"
           fill
-          sizes="200px"
+          sizes="300px"
           className="object-contain"
         />
       </div>
@@ -100,16 +100,18 @@ export function SaveTheDateSection() {
           {/* Main Card Contenedor */}
           <div
             style={{
-              backgroundColor: 'var(--color-surface)',
-              border: '1px solid rgba(244, 114, 182, 0.15)',
+              background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.85) 0%, rgba(253, 251, 247, 0.4) 100%)',
+              border: '1px solid rgba(248, 200, 220, 0.6)',
               borderRadius: '24px',
               overflow: 'hidden',
-              boxShadow: '0 15px 40px rgba(0, 0, 0, 0.03)',
+              boxShadow: '0 10px 40px rgba(181, 131, 141, 0.1)',
+              backdropFilter: 'blur(12px)',
+              WebkitBackdropFilter: 'blur(1px)',
               position: 'relative',
             }}
           >
-            {/* Top gold bar */}
-            <div style={{ height: '3px', background: 'linear-gradient(to right, transparent, var(--color-gold), transparent)' }} />
+            {/* Top color bar */}
+            <div style={{ height: '3px', background: 'linear-gradient(to right, transparent, #B5838D, transparent)' }} />
 
             <div
               style={{
@@ -131,7 +133,7 @@ export function SaveTheDateSection() {
                   fontWeight: 900,
                   fontSize: 'clamp(6rem, 15vw, 10rem)',
                   color: 'transparent',
-                  WebkitTextStroke: '1px rgba(244, 114, 182, 0.12)',
+                  WebkitTextStroke: '1px rgba(248, 200, 220, 0.5)', // Rosa bebé suavizado
                   userSelect: 'none',
                   pointerEvents: 'none',
                   lineHeight: 1,
@@ -150,32 +152,31 @@ export function SaveTheDateSection() {
                   zIndex: 5,
                 }}
               >
-                {/* Lado izquierdo - Fecha */}
+                {/* Lado izquierdo - Fecha (CON NUEVA TIPOGRAFIA) */}
                 <div style={{ textAlign: 'left' }}>
                   <span
                     style={{
                       fontFamily: 'var(--font-dm-mono)',
                       fontSize: '0.65rem',
-                      color: 'var(--color-gold-dark)',
+                      color: '#B5838D',
                       letterSpacing: '0.25em',
                       textTransform: 'uppercase',
                       fontWeight: 700,
                       display: 'block',
-                      marginBottom: '0.4rem',
+                      marginBottom: '0.6rem',
                     }}
                   >
                     Save the Date
                   </span>
 
-                  <div style={{ display: 'flex', alignItems: 'end', gap: '0.5rem' }}>
+                  <div style={{ display: 'flex', alignItems: 'end', gap: '0.8rem' }}>
                     <span
                       style={{
-                        fontFamily: 'var(--font-sans)',
-                        fontSize: 'clamp(3rem, 6vw, 4.5rem)',
-                        fontWeight: 900,
-                        color: 'var(--color-cream)',
-                        lineHeight: 0.9,
-                        letterSpacing: '-0.02em',
+                        fontFamily: 'var(--font-display)', // Tipografía icónica del número
+                        fontSize: 'clamp(3.5rem, 7vw, 5.5rem)',
+                        fontWeight: 400,
+                        color: '#111',
+                        lineHeight: 0.8,
                       }}
                     >
                       {dayNumber}
@@ -183,12 +184,12 @@ export function SaveTheDateSection() {
                     <div style={{ display: 'flex', flexDirection: 'column', paddingBottom: '4px' }}>
                       <span
                         style={{
-                          fontFamily: 'var(--font-sans)',
-                          fontSize: 'clamp(0.9rem, 2vw, 1.25rem)',
-                          fontWeight: 800,
-                          color: 'var(--color-cream)',
-                          textTransform: 'uppercase',
-                          letterSpacing: '0.05em',
+                          fontFamily: 'var(--font-cormorant)', // Tipografía editorial italic
+                          fontSize: 'clamp(1.5rem, 3vw, 2.2rem)',
+                          fontWeight: 400,
+                          color: '#B5838D',
+                          fontStyle: 'italic',
+                          textTransform: 'capitalize',
                           lineHeight: 1,
                         }}
                       >
@@ -197,9 +198,10 @@ export function SaveTheDateSection() {
                       <span
                         style={{
                           fontFamily: 'var(--font-dm-mono)',
-                          fontSize: '0.65rem',
-                          color: 'var(--color-cream-muted)',
+                          fontSize: '0.75rem',
+                          color: '#888',
                           letterSpacing: '0.15em',
+                          marginTop: '0.2rem'
                         }}
                       >
                         {yearNumber}
@@ -214,7 +216,7 @@ export function SaveTheDateSection() {
                     style={{
                       fontFamily: 'var(--font-dm-mono)',
                       fontSize: '0.65rem',
-                      color: 'var(--color-cream-muted)',
+                      color: '#B5838D',
                       letterSpacing: '0.2em',
                       textTransform: 'uppercase',
                       fontWeight: 700,
@@ -228,7 +230,7 @@ export function SaveTheDateSection() {
                     style={{
                       fontFamily: 'var(--font-pinyon)',
                       fontSize: 'clamp(2rem, 5vw, 3.5rem)',
-                      color: 'var(--color-gold-dark)',
+                      color: '#111',
                       lineHeight: 1,
                       display: 'block',
                     }}
@@ -240,7 +242,7 @@ export function SaveTheDateSection() {
                       fontFamily: 'var(--font-sans)',
                       fontSize: '0.65rem',
                       fontWeight: 600,
-                      color: 'var(--color-cream-muted)',
+                      color: '#B5838D',
                       letterSpacing: '0.1em',
                       textTransform: 'uppercase',
                       display: 'block',
@@ -265,12 +267,12 @@ export function SaveTheDateSection() {
               {/* Botón de Añadir */}
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.75rem', zIndex: 5 }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                  <span style={{ width: '4px', height: '4px', borderRadius: '50%', backgroundColor: 'var(--color-gold)' }} />
+                  <span style={{ width: '4px', height: '4px', borderRadius: '50%', backgroundColor: '#F8C8DC' }} />
                   <span
                     style={{
                       fontFamily: 'var(--font-dm-mono)',
                       fontSize: '0.65rem',
-                      color: 'var(--color-cream-muted)',
+                      color: '#888',
                       letterSpacing: '0.2em',
                       textTransform: 'uppercase',
                       fontWeight: 700,
@@ -282,31 +284,31 @@ export function SaveTheDateSection() {
 
                 <motion.button
                   onClick={handleAddToCalendar}
-                  whileHover={{ scale: 1.01 }}
-                  whileTap={{ scale: 0.99 }}
+                  whileHover={{ scale: 1.02, boxShadow: '0 15px 30px rgba(17, 17, 17, 0.2)' }}
+                  whileTap={{ scale: 0.98 }}
                   style={{
                     width: '100%',
+                    position: 'relative',
+                    overflow: 'hidden',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     gap: '0.75rem',
-                    padding: '0.85rem 1.5rem',
-                    borderRadius: '16px',
-                    backgroundColor: 'var(--color-gold)',
-                    border: 'none',
-                    color: 'var(--color-black)',
+                    padding: '0.70rem 1.5rem',
+                    borderRadius: '50px',
+                    backgroundColor: '#111', // Botón negro editorial
+                    border: '1px solid #111',
+                    color: '#F8C8DC',
                     cursor: 'pointer',
-                    boxShadow: '0 4px 15px rgba(244, 114, 182, 0.15)',
-                    transition: 'opacity 0.2s',
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.opacity = '0.9';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.opacity = '1';
+                    boxShadow: '0 10px 20px rgba(0, 0, 0, 0.1)',
                   }}
                 >
-                  <CalendarPlus className="w-4 h-4 text-white" />
+                  {/* Shimmer Rosa Brillante */}
+                  <motion.div 
+                    animate={{ x: ['-100%', '200%'] }} transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
+                    style={{ position: 'absolute', top: 0, left: 0, width: '50%', height: '100%', background: 'linear-gradient(90deg, transparent, rgba(248, 200, 220, 0.15), transparent)', transform: 'skewX(-20deg)', zIndex: 1 }}
+                  />
+                  <CalendarPlus className="w-5 h-5" style={{ color: '#F8C8DC', position: 'relative', zIndex: 2 }} />
                   <span
                     style={{
                       fontFamily: 'var(--font-dm-mono)',
@@ -314,7 +316,9 @@ export function SaveTheDateSection() {
                       fontWeight: 700,
                       letterSpacing: '0.15em',
                       textTransform: 'uppercase',
-                      color: 'var(--color-black)',
+                      color: '#F8C8DC',
+                      position: 'relative',
+                      zIndex: 2,
                     }}
                   >
                     Añadir al Calendario
