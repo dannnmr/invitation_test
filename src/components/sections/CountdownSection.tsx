@@ -31,6 +31,18 @@ export function CountdownSection({ config }: CountdownSectionProps) {
           start: 'top 80%',
         }
       });
+
+      // Animación del taxi: se mueve de IZQUIERDA a DERECHA basado en el scroll
+      gsap.to('.taxi-scroll', {
+        x: '120vw', // Se moverá hacia la derecha cruzando toda la pantalla
+        ease: 'none',
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: 'top 80%', // Empieza cuando la sección entra al viewport
+          end: 'bottom 20%', // Termina casi al salir
+          scrub: 2, // Scrub más alto para que el movimiento sea más suave y dure más tiempo
+        }
+      });
     }, containerRef);
     return () => ctx.revert();
   }, []);
@@ -90,6 +102,27 @@ export function CountdownSection({ config }: CountdownSectionProps) {
             </div>
           </div>
         ))}
+      </div>
+
+      {/* Taxi interactivo que se mueve con el scroll */}
+      <div 
+        className="taxi-scroll" 
+        style={{ 
+          position: 'absolute', 
+          bottom: '20px', 
+          left: '-150px', // Comienza fuera de la pantalla a la izquierda
+          width: '150px', 
+          height: '70px', 
+          zIndex: 10 
+        }}
+      >
+        <Image 
+          src="/images/decorativas_v2/taxi.png" 
+          alt="New York Taxi" 
+          fill 
+          sizes="(max-width: 768px) 150px, 150px"
+          style={{ objectFit: 'contain' }} 
+        />
       </div>
     </section>
   );

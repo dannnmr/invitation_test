@@ -14,10 +14,10 @@ export function LocationSection({ config }: LocationSectionProps) {
   
   return (
     <section style={{ 
-      minHeight: '100vh', 
+      minHeight: 'auto', // Cambiado de 100vh para reducir la altura
       backgroundColor: '#fdfbf7', // Color perla
       display: 'flex', alignItems: 'center', justifyContent: 'center',
-      padding: 'clamp(2rem, 5vw, 4rem) clamp(1rem, 4vw, 2rem)',
+      padding: '3rem 1rem', // Padding reducido
       position: 'relative', overflow: 'hidden'
     }}>
       {/* Contenedor Ovalado (Píldora) con Animación de Entrada */}
@@ -29,8 +29,9 @@ export function LocationSection({ config }: LocationSectionProps) {
         style={{
           position: 'relative', width: '100%', maxWidth: '420px',
           backgroundColor: '#Fcf5f2', // Rosa Hero
-          border: '1px solid #111', borderRadius: '250px',
-          padding: 'clamp(4rem, 15vw, 6rem) 2rem',
+          border: '1px solid rgba(244, 114, 182, 0.5)', // Borde rosa sutil
+          borderRadius: '150px', // Radio reducido para adaptarse a menor altura
+          padding: '3rem 1.5rem', // Padding vertical y horizontal reducidos significativamente
           display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center',
           boxShadow: '0 20px 40px rgba(17,17,17,0.08)', overflow: 'hidden'
         }}
@@ -47,7 +48,7 @@ export function LocationSection({ config }: LocationSectionProps) {
           }} 
         />
         
-        <div style={{ position: 'relative', zIndex: 2, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1.5rem', width: '100%' }}>
+        <div style={{ position: 'relative', zIndex: 2, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem', width: '100%' }}>
           
           <motion.p 
             initial={{ opacity: 0, y: 10 }}
@@ -55,8 +56,8 @@ export function LocationSection({ config }: LocationSectionProps) {
             transition={{ delay: 0.3, duration: 0.5 }}
             viewport={{ once: true }}
             style={{ 
-              fontFamily: 'var(--font-dm-mono)', fontSize: '0.7rem', color: '#111', backgroundColor: '#fff',
-              border: '1px solid #111', padding: '0.4rem 1rem', borderRadius: '30px', letterSpacing: '0.3em', 
+              fontFamily: 'var(--font-dm-mono)', fontSize: '0.7rem', color: 'var(--color-gold-dark)', backgroundColor: 'var(--color-black-soft)',
+              border: '1px solid var(--color-gold)', padding: '0.4rem 1rem', borderRadius: '30px', letterSpacing: '0.3em', 
               textTransform: 'uppercase', fontWeight: 700, marginBottom: '0.5rem'
             }}
           >
@@ -71,8 +72,8 @@ export function LocationSection({ config }: LocationSectionProps) {
             viewport={{ once: true }}
             style={{ 
               fontFamily: 'var(--font-pinyon)', 
-              fontSize: 'clamp(4rem, 12vw, 5.5rem)', // Más grande porque es fuente cursiva
-              color: '#111', 
+              fontSize: 'clamp(3.8rem, 12vw, 5.5rem)', // Más grande porque es fuente cursiva
+              color: 'var(--color-cream)', 
               lineHeight: 1, fontWeight: 400, margin: 0, display: 'flex', flexDirection: 'column', alignItems: 'center',
               textTransform: 'capitalize' // Quitamos mayúsculas puras para que Pinyon se lea bien
             }}
@@ -90,7 +91,7 @@ export function LocationSection({ config }: LocationSectionProps) {
             whileInView={{ opacity: 1 }}
             transition={{ delay: 0.7 }}
             viewport={{ once: true }}
-            style={{ fontFamily: 'var(--font-dm-mono)', fontSize: '0.8rem', color: '#111', letterSpacing: '0.2em', textTransform: 'uppercase', fontWeight: 600, marginTop: '0.5rem' }}
+            style={{ fontFamily: 'var(--font-dm-mono)', fontSize: '0.8rem', color: 'var(--color-gold-dark)', letterSpacing: '0.2em', textTransform: 'uppercase', fontWeight: 600, marginTop: '0.5rem' }}
           >
             {event.venue.address}
           </motion.p>

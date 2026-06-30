@@ -42,6 +42,7 @@ export function DressCodeSection({ config }: DressCodeSectionProps) {
             src="/images/decorativas_v2/etiqueta_elegante.png" 
             alt="Etiqueta elegante" 
             fill 
+            sizes="(max-width: 768px) 180px, 180px"
             style={{ objectFit: 'cover' }} 
           />
         </div>

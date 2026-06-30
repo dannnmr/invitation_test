@@ -34,7 +34,7 @@ export default function HomePage() {
     // Forzar el scroll al inicio siempre que cargue la página
     window.scrollTo(0, 0);
 
-    if (!showEnvelope) {
+    if (showEnvelope === false) {
       setIsRevealed(true);
     }
   }, [showEnvelope]);
@@ -62,7 +62,6 @@ export default function HomePage() {
 
   function handleEnvelopeComplete() {
     markAsOpened();
-    setIsRevealed(true);
   }
 
   return (
@@ -70,6 +69,7 @@ export default function HomePage() {
       {showEnvelope && (
         <EnvelopeScreen
           contentRef={contentRef}
+          onStartOpen={() => setIsRevealed(true)}
           onComplete={handleEnvelopeComplete}
         />
       )}
@@ -77,8 +77,7 @@ export default function HomePage() {
       <div
         ref={contentRef}
         style={{
-          opacity:    isRevealed || !showEnvelope ? 1 : 0,
-          transition: 'opacity 0.1s',
+          opacity: 1, // Siempre visible detrás del sobre
         }}
       >
         {/* 01 — Hero */}

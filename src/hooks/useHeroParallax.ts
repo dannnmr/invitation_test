@@ -22,9 +22,8 @@ export function useHeroParallax() {
     const image     = imageRef.current;
     if (!container || !image) return;
 
-    // Estado inicial — imagen centrada verticalmente, pero ESCALADA
-    // para que al moverse (yPercent) no deje espacios en blanco en la parte inferior o superior.
-    gsap.set(image, { yPercent: -15, scale: 1.25 });
+    // Estado inicial — imagen centrada verticalmente
+    gsap.set(image, { yPercent: -15 });
 
     const trigger = gsap.to(image, {
       yPercent: 15,

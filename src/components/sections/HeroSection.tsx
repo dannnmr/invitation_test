@@ -25,8 +25,8 @@ export function HeroSection({ config, isRevealed }: HeroSectionProps) {
   const { containerRef, imageRef } = useHeroParallax();
 
   // Reveal del nombre — se activa cuando isRevealed cambia a true
-  const { ref: nameRef, play: playName }    = useTextReveal({ autoPlay: false, stagger: 0.05 });
-  const { ref: surnameRef, play: playSurname } = useTextReveal({ autoPlay: false, delay: 0.2, stagger: 0.04 });
+  const { ref: nameRef, play: playName }    = useTextReveal({ autoPlay: false, duration: 0.5, stagger: 0.02 });
+  const { ref: surnameRef, play: playSurname } = useTextReveal({ autoPlay: false, delay: 0.1, duration: 0.5, stagger: 0.02 });
 
   // Reveal del bloque de fecha/lugar al scroll
   const detailsRef = useScrollReveal<HTMLDivElement>({
@@ -38,11 +38,11 @@ export function HeroSection({ config, isRevealed }: HeroSectionProps) {
 
   useEffect(() => {
     if (!isRevealed) return;
-    // Pequeño delay para que el clip-path termine primero
+    // Iniciamos la animación del texto casi de inmediato
     const t = setTimeout(() => {
       playName();
       playSurname();
-    }, 400);
+    }, 0);
     return () => clearTimeout(t);
   }, [isRevealed, playName, playSurname]);
 
@@ -72,8 +72,8 @@ export function HeroSection({ config, isRevealed }: HeroSectionProps) {
         aria-hidden="true"
         style={{
           position: 'absolute',
-          top: '-20%',
-          bottom: '-20%',
+          top: '-25%',
+          bottom: '-25%',
           left: '-10%',
           right: '-10%',
           zIndex: 0,
@@ -190,7 +190,7 @@ export function HeroSection({ config, isRevealed }: HeroSectionProps) {
             textTransform: 'uppercase',
             marginBottom:  'clamp(1.5rem, 3vw, 2.5rem)',
             opacity:       isRevealed ? 1 : 0,
-            transition:    'opacity 0.6s ease 0.3s',
+            transition:    'opacity 0.3s ease 0.1s', // Delay mínimo para que aparezca casi junto con el nombre
           }}
           aria-hidden="true"
         >

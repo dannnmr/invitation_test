@@ -12,7 +12,7 @@ const SESSION_KEY = 'xv-envelope-opened';
  * Usa sessionStorage (se limpia al cerrar el tab).
  */
 export function useEnvelopeSession() {
-  const [showEnvelope, setShowEnvelope] = useState<boolean | null>(null);
+  const [showEnvelope, setShowEnvelope] = useState<boolean>(true);
 
   useEffect(() => {
     // Al comentar esta línea y el sessionStorage.setItem, 

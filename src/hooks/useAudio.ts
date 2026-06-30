@@ -23,7 +23,7 @@ export function useAudio({
   src,
   volume = 0.3,
   loop = true,
-  fadeDuration = 1500,
+  fadeDuration = 500,
 }: UseAudioOptions): UseAudioReturn {
   const audioRef   = useRef<HTMLAudioElement | null>(null);
   const fadeRef    = useRef<number | null>(null);
@@ -51,8 +51,7 @@ export function useAudio({
     if (!audio) return;
 
     audio.play().catch(() => {
-      // Autoplay bloqueado — el usuario debe interactuar primero
-      console.warn('[useAudio] Autoplay bloqueado. Requiere interacción del usuario.');
+      // Autoplay bloqueado — el usuario debe interactuar primero, es el comportamiento normal del navegador
     });
 
     const start     = Date.now();
@@ -155,14 +154,34 @@ export function useAudio({
       }
     };
 
-    // Pequeño delay para dar tiempo a la carga inicial
-    const timeoutId = setTimeout(attemptAutoplay, 800);
+    // Delay mínimo para dar tiempo al DOM
+    const timeoutId = setTimeout(attemptAutoplay, 50);
 
     return () => {
       clearTimeout(timeoutId);
       cleanupListeners();
     };
   }, [fadeIn]);
+
+  // Manejar cuando el usuario sale de la pestaña o minimiza el navegador
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        if (isPlaying && audioRef.current) {
+          audioRef.current.pause();
+        }
+      } else {
+        if (isPlaying && audioRef.current) {
+          audioRef.current.play().catch(() => {});
+        }
+      }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+  }, [isPlaying]);
 
   return { isPlaying, toggle, setVolume };
 }

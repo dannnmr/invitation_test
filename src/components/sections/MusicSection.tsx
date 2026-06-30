@@ -5,6 +5,7 @@ import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
 import { supabase } from '@/lib/supabase';
 import { submitToGoogleSheets } from '@/lib/googleSheets';
 import { Send, CheckCircle2, RotateCw } from 'lucide-react';
+import Image from 'next/image';
 
 export function MusicSection() {
   const [song, setSong] = useState('');
@@ -57,7 +58,7 @@ export function MusicSection() {
     <section 
       ref={sectionRef}
       style={{ 
-        backgroundColor: '#fdfbf7', // Fondo perla
+        backgroundColor: '#fbfbf7', // Fondo oscuro
         display: 'flex', 
         alignItems: 'center', 
         justifyContent: 'center',
@@ -66,6 +67,18 @@ export function MusicSection() {
         overflow: 'hidden'
       }}
     >
+      {/* Imagen de fondo */}
+      <div style={{ position: 'absolute', inset: 0, opacity: 0.6, pointerEvents: 'none' }}>
+        <Image 
+          src="/images/decorativas_v2/bg_newyork_rosa.png" 
+          alt="NY Rosa Background" 
+          fill 
+          className="object-cover" 
+          style={{ objectPosition: 'center' }}
+        />
+        {/* Degradado superior e inferior para fusionarlo mejor */}
+        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, #fdfbf7 0%, transparent 20%, transparent 80%, #fdfbf7 100%)' }} />
+      </div>
       <div style={{
         width: '100%', maxWidth: '600px',
         display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center',

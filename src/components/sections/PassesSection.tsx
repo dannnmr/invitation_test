@@ -24,83 +24,182 @@ function PassesOption1({ config }: PassesSectionProps) {
   const shortMonth = event.date.toLocaleDateString('es-ES', { month: 'short' });
 
   return (
-    <section style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#fdfbf7', padding: '2rem', overflow: 'hidden' }}>
-      
+    <section 
+      aria-label="Pases Backstage VIP"
+      style={{ 
+        minHeight: 'auto', 
+        display: 'flex', 
+        alignItems: 'center', 
+        justifyContent: 'center', 
+        backgroundColor: '#fdfbf7', 
+        padding: '6rem 2rem', 
+        overflow: 'hidden',
+        position: 'relative'
+      }}
+    >
+      {/* Background Soft Glow to enhance the VIP pass */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: 'absolute',
+          inset: 0,
+          background: 'radial-gradient(circle at center, rgba(197, 160, 89, 0.08) 0%, transparent 60%)',
+          pointerEvents: 'none',
+        }}
+      />
+
       <motion.div 
-        initial={{ rotate: -5 }}
-        animate={{ rotate: 5 }}
-        transition={{ duration: 3, repeat: Infinity, repeatType: 'reverse', ease: 'easeInOut' }}
-        style={{ transformOrigin: 'top center', position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center' }}
+        initial={{ rotate: -3 }}
+        animate={{ rotate: 3 }}
+        transition={{ duration: 4, repeat: Infinity, repeatType: 'reverse', ease: 'easeInOut' }}
+        style={{ transformOrigin: 'top center', position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center', zIndex: 10 }}
       >
-        {/* Lanyard */}
-        <div style={{ width: '15px', height: '150px', backgroundColor: '#222', backgroundImage: 'repeating-linear-gradient(45deg, #222, #222 5px, #111 5px, #111 10px)', borderLeft: '1px solid #333', borderRight: '1px solid #333', position: 'relative', zIndex: 1 }} />
-        
-        {/* Clip */}
-        <div style={{ width: '30px', height: '40px', border: '4px solid #aaa', borderRadius: '15px', position: 'relative', top: '-10px', zIndex: 2, backgroundColor: 'transparent' }} />
-        
-        {/* VIP Card */}
+        {/* Lanyard de Cinta Enroscada (Más corto y anclado al centro del clip) */}
         <div style={{ 
-          width: '320px', 
-          height: '480px', 
-          backgroundColor: '#151515', 
-          borderRadius: '12px', 
-          border: '1px solid rgba(244, 114, 182, 0.3)', 
-          boxShadow: '0 20px 50px rgba(0,0,0,0.8), inset 0 0 20px rgba(0,0,0,0.5)', 
+          position: 'absolute', 
+          zIndex: 1, 
+          bottom: '100%', 
+          left: '50%', 
+          transform: 'translate(-100%, 15px)', 
+          width: '100vw', 
+          height: '100px', 
+          pointerEvents: 'none' 
+        }}>
+          {/* SVG responsivo que alinea su borde derecho con el centro exacto de la tarjeta (left: 50%) */}
+          <svg width="100%" height="100%" viewBox="0 0 1000 150" preserveAspectRatio="none" style={{ filter: 'drop-shadow(0px 8px 6px rgba(0,0,0,0.3))' }}>
+            <defs>
+              <linearGradient id="cintaFront" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="#e19cb0" />
+                <stop offset="50%" stopColor="#fdf0f4" />
+                <stop offset="100%" stopColor="#e19cb0" />
+              </linearGradient>
+              <linearGradient id="cintaBack" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="#b86d84" />
+                <stop offset="50%" stopColor="#d38c9e" />
+                <stop offset="100%" stopColor="#b86d84" />
+              </linearGradient>
+            </defs>
+            
+            {/* Un lazo compacto con un giro completo (360 grados) formando un rizo elegante */}
+            
+            {/* 1. Parte trasera del rizo */}
+            <path d="M 750 80 C 825 40, 700 0, 650 40" fill="none" stroke="url(#cintaBack)" strokeWidth="18" strokeLinecap="round" />
+            
+            {/* 2. Cinta ascendente principal (viene desde la izquierda y forma la base del giro) */}
+            <path d="M 0 100 C 400 150, 600 150, 750 80" fill="none" stroke="url(#cintaFront)" strokeWidth="18" strokeLinecap="round" />
+            
+            {/* 3. Cinta frontal descendente (cierra el bucle cruzando sobre la principal y baja al clip en Y=150) */}
+            <path d="M 650 40 C 600 80, 900 120, 1000 150" fill="none" stroke="url(#cintaFront)" strokeWidth="18" strokeLinecap="square" />
+          </svg>
+        </div>
+        
+        {/* Clip Metálico Mejorado */}
+        <div style={{ 
+          width: '24px', 
+          height: '35px', 
+          border: '3px solid #d4d4d8', 
+          borderRadius: '10px 10px 16px 16px', 
+          background: 'linear-gradient(135deg, rgba(255,255,255,0.9), rgba(180,180,180,0.5))',
+          boxShadow: 'inset 0 1px 3px rgba(255,255,255,1), 0 2px 4px rgba(0,0,0,0.3)',
           position: 'relative', 
-          top: '-20px', 
+          top: '-15px', 
+          zIndex: 2,
+          transform: 'rotate(-5deg)', // ligero ángulo para acompañar la cinta
+          transformOrigin: 'top center'
+        }} />
+        
+        {/* Credencial VIP Física (Ultra-Compacta) */}
+        <div style={{ 
+          width: '260px', 
+          height: '300px', 
+          backgroundColor: '#0a0a0a', 
+          borderRadius: '10px', 
+          border: '1px solid rgba(197, 160, 89, 0.4)', 
+          boxShadow: '0 20px 40px rgba(0,0,0,0.2), 0 8px 15px rgba(0,0,0,0.1), inset 0 0 15px rgba(255,255,255,0.05)', 
+          position: 'relative', 
+          top: '-25px', 
           zIndex: 3,
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          padding: '2rem 1.5rem',
+          padding: '1.5rem 1.25rem 1.25rem 1.25rem',
           overflow: 'hidden'
         }}>
-          {/* Background image watermark */}
-          <div style={{ position: 'absolute', inset: 0, opacity: 0.1, pointerEvents: 'none' }}>
-            <Image src="/images/decorativas_v2/fondo_newyork.png" alt="NY Background" fill className="object-cover grayscale" />
+          {/* Background image New York B/W */}
+          <div style={{ position: 'absolute', inset: 0, opacity: 0.85, pointerEvents: 'none' }}>
+            <Image 
+              src="/images/decorativas_v2/fondo_newyork.png" 
+              alt="NY Background" 
+              fill 
+              sizes="(max-width: 768px) 260px, 260px"
+              className="object-cover grayscale" 
+              style={{ objectPosition: 'center top' }}
+            />
+            <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, transparent, #0a0a0a 75%)' }} />
           </div>
 
-          {/* Hole punch */}
-          <div style={{ position: 'absolute', top: '15px', width: '60px', height: '15px', backgroundColor: '#fdfbf7', borderRadius: '10px', border: '1px solid #333', zIndex: 10 }} />
+          {/* Troquelado superior para el clip */}
+          <div style={{ 
+            position: 'absolute', 
+            top: '10px', 
+            width: '45px', 
+            height: '8px', 
+            backgroundColor: '#fdfbf7', // Transparencia simulada pintando del color de fondo
+            borderRadius: '8px', 
+            boxShadow: 'inset 0 2px 5px rgba(0,0,0,0.4)',
+            zIndex: 10 
+          }} />
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '1.5rem', zIndex: 5 }}>
-            <Compass className="w-6 h-6 text-pink-400 stroke-[1.5]" />
-            <h2 style={{ fontFamily: 'var(--font-sans)', fontSize: '2rem', fontWeight: 900, color: 'var(--color-gold)', letterSpacing: '4px', margin: 0 }}>VIP PASS</h2>
+          {/* VIP PASS header */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', marginTop: '0.5rem', zIndex: 5 }}>
+            <Compass className="w-5 h-5 text-gold drop-shadow-md" style={{ color: 'var(--color-gold)' }} />
+            <h2 style={{ fontFamily: 'var(--font-sans)', fontSize: '1.75rem', fontWeight: 900, color: '#FFFFFF', letterSpacing: '0.15em', margin: 0, lineHeight: 1 }}>VIP</h2>
           </div>
+          <span style={{ fontFamily: 'var(--font-dm-mono)', fontSize: '0.65rem', color: 'var(--color-gold)', letterSpacing: '0.3em', fontWeight: 600, zIndex: 5, marginTop: '0.2rem' }}>BACKSTAGE</span>
           
-          <div style={{ width: '100%', height: '1px', backgroundColor: 'rgba(244,114,182,0.3)', margin: '1rem 0', zIndex: 5 }} />
+          <div style={{ width: '100%', height: '1px', background: 'linear-gradient(90deg, transparent, rgba(197, 160, 89, 0.5), transparent)', margin: '0.75rem 0', zIndex: 5 }} />
 
-          <p style={{ fontFamily: 'var(--font-dm-mono)', color: 'var(--color-cream-muted)', fontSize: '0.8rem', letterSpacing: '2px', zIndex: 5, textTransform: 'uppercase' }}>
+          <p style={{ fontFamily: 'var(--font-sans)', color: 'rgba(255,255,255,0.7)', fontSize: '0.6rem', letterSpacing: '0.15em', zIndex: 5, textTransform: 'uppercase', fontWeight: 600 }}>
             {passes.topLabel || 'ACCESS GRANTED'}
           </p>
           
-          <h3 style={{ fontFamily: 'var(--font-pinyon)', fontSize: '3rem', color: '#fff', margin: '1.5rem 0', textAlign: 'center', zIndex: 5 }}>
-            {quinceañera.name}
+          {/* Nro de Personas (Reemplaza el nombre) */}
+          <h3 style={{ fontFamily: 'var(--font-pinyon)', fontSize: '2rem', color: 'var(--color-gold)', margin: '0.5rem 0', textAlign: 'center', zIndex: 5, textShadow: '0 2px 8px rgba(0,0,0,0.5)', lineHeight: 1.1 }}>
+            {passes.quantity} Persona
           </h3>
 
-          <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', marginBottom: '1.5rem', zIndex: 5, borderTop: '1px dashed #444', borderBottom: '1px dashed #444', padding: '1rem 0' }}>
-            <div style={{ textAlign: 'center' }}>
-              <span style={{ fontFamily: 'var(--font-dm-mono)', fontSize: '0.65rem', color: 'var(--color-gold-dark)', display: 'block' }}>DATE</span>
-              <span style={{ fontFamily: 'var(--font-sans)', fontSize: '1rem', color: '#fff', fontWeight: 'bold' }}>{dayNumber} {shortMonth.toUpperCase()}</span>
+          <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', marginBottom: '0.75rem', zIndex: 5, borderTop: '1px solid rgba(255,255,255,0.1)', borderBottom: '1px solid rgba(255,255,255,0.1)', padding: '0.75rem 0', marginTop: '0.25rem' }}>
+            <div style={{ textAlign: 'center', flex: 1 }}>
+              <span style={{ fontFamily: 'var(--font-sans)', fontSize: '0.5rem', color: 'rgba(255,255,255,0.5)', display: 'block', letterSpacing: '0.1em', fontWeight: 700, marginBottom: '0.15rem' }}>DATE</span>
+              <span style={{ fontFamily: 'var(--font-sans)', fontSize: '0.8rem', color: '#fff', fontWeight: 900, letterSpacing: '0.05em' }}>{dayNumber} {shortMonth.toUpperCase()}</span>
             </div>
-            <div style={{ textAlign: 'center' }}>
-              <span style={{ fontFamily: 'var(--font-dm-mono)', fontSize: '0.65rem', color: 'var(--color-gold-dark)', display: 'block' }}>TIME</span>
-              <span style={{ fontFamily: 'var(--font-sans)', fontSize: '1rem', color: '#fff', fontWeight: 'bold' }}>{event.ceremonyTime} Hrs</span>
-            </div>
-            <div style={{ textAlign: 'center' }}>
-              <span style={{ fontFamily: 'var(--font-dm-mono)', fontSize: '0.65rem', color: 'var(--color-gold-dark)', display: 'block' }}>ADMIT</span>
-              <span style={{ fontFamily: 'var(--font-sans)', fontSize: '1rem', color: '#fff', fontWeight: 'bold' }}>{passes.quantity}</span>
+            <div style={{ width: '1px', backgroundColor: 'rgba(255,255,255,0.1)' }} />
+            <div style={{ textAlign: 'center', flex: 1 }}>
+              <span style={{ fontFamily: 'var(--font-sans)', fontSize: '0.5rem', color: 'rgba(255,255,255,0.5)', display: 'block', letterSpacing: '0.1em', fontWeight: 700, marginBottom: '0.15rem' }}>TIME</span>
+              <span style={{ fontFamily: 'var(--font-sans)', fontSize: '0.8rem', color: '#fff', fontWeight: 900, letterSpacing: '0.05em' }}>{event.receptionTime}</span>
             </div>
           </div>
 
-          <div style={{ backgroundColor: '#fff', padding: '10px', borderRadius: '5px', marginTop: 'auto', zIndex: 5, width: '100%', display: 'flex', justifyContent: 'center' }}>
-            <div style={{ width: '100%', height: '50px', backgroundImage: 'repeating-linear-gradient(90deg, #000, #000 3px, transparent 3px, transparent 7px)', backgroundSize: '100% 100%' }} />
+          <div style={{ marginTop: 'auto', zIndex: 5, width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            {/* Realistic Barcode */}
+            <div style={{ 
+              width: '90%', 
+              height: '35px', 
+              backgroundColor: '#fff',
+              padding: '3px',
+              borderRadius: '2px',
+              display: 'flex',
+              gap: '2px',
+              alignItems: 'stretch',
+              justifyContent: 'center'
+            }}>
+              {/* Generamos barras aleatorias fijas para el diseño del código de barras */}
+              {[3, 1, 4, 2, 1, 3, 2, 4, 1, 1, 3, 2, 1, 4, 2, 2, 1, 3, 1].map((w, i) => (
+                <div key={i} style={{ width: `${w * 1.5}px`, backgroundColor: '#000', height: '100%' }} />
+              ))}
+            </div>
+         
           </div>
-          
-          <p style={{ fontFamily: 'var(--font-dm-mono)', color: '#888', fontSize: '0.65rem', marginTop: '0.5rem', zIndex: 5, letterSpacing: '2px' }}>
-            VALID FOR ONE ENTRY
-          </p>
-
         </div>
       </motion.div>
     </section>

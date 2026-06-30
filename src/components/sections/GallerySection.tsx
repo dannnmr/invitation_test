@@ -9,6 +9,7 @@ import { supabase } from '@/lib/supabase';
 import { compressImage } from '@/lib/imageCompressor';
 import { submitToGoogleSheets } from '@/lib/googleSheets';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
+import { FloatingDecoration } from '@/components/ui/FloatingDecoration';
 
 type Photo = {
   id: string;
@@ -155,8 +156,8 @@ export function GallerySection() {
     <section
       aria-label="Galería interactiva en vivo"
       style={{
-        backgroundColor: '#fdfbf7',
-        padding: 'clamp(5rem, 10vw, 8rem) clamp(1.5rem, 4vw, 3rem)',
+        backgroundColor: '#fdfbf7', // Base
+        padding: '3rem 1.5rem', // Padding muy reducido para quitar espacios en blanco
         position: 'relative',
         overflow: 'hidden',
         borderTop: '0.5px solid rgba(244, 114, 182, 0.15)',
@@ -164,6 +165,7 @@ export function GallerySection() {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
+        width: '100%'
       }}
     >
       <div
@@ -180,169 +182,194 @@ export function GallerySection() {
         <Sparkles className="w-8 h-8 text-pink-300 animate-pulse" />
       </div>
 
-      {/* Cabecera */}
-      <div
-        ref={headerRef}
-        style={{
-          textAlign: 'center',
-          maxWidth: '600px',
-          marginBottom: '3rem',
-          zIndex: 5,
-        }}
-      >
-        <p
-          style={{
-            fontFamily: 'var(--font-dm-mono)',
-            fontSize: 'clamp(0.65rem, 1.2vw, 0.8rem)',
-            color: 'var(--color-gold)',
-            letterSpacing: '0.2em',
-            textTransform: 'uppercase',
-            marginBottom: '0.75rem',
-            fontWeight: 600,
-          }}
-        >
-          Captura el Momento
-        </p>
-        <h2
-          style={{
-            fontFamily: 'var(--font-pinyon)',
-            fontSize: 'clamp(3rem, 7vw, 4.5rem)',
-            fontWeight: 300,
-            color: 'var(--color-gold-dark)',
-            lineHeight: 1.1,
-            marginBottom: '1.25rem',
-          }}
-        >
-          Galería Live
-        </h2>
-        <p
-          style={{
-            fontFamily: 'var(--font-sans)',
-            fontSize: '0.85rem',
-            color: 'var(--color-cream-muted)',
-            lineHeight: 1.6,
-          }}
-        >
-          Sube tus fotos favoritas de la fiesta directamente desde tu celular. ¡Ayúdanos a construir juntos el álbum de recuerdos!
-        </p>
-      </div>
+      {/* Decorative foliage floating in background (Imported from Ericka logic) */}
+      
+      <FloatingDecoration
+        src="/images/decorativas_v2/martini_rosa.png"
+        alt="Flor Dorada"
+        style={{ bottom: '1%', right: '-16%', width: '450px', height: '450px', opacity: 0.25, zIndex: 0 }}
+        animationStyle="float"
+      />
+      <FloatingDecoration
+        src="/images/decorativas_v2/bola_rosa.png"
+        alt="Jirafa"
+        style={{ top: '1%', right: '-20%', width: '450px', height: '450px', opacity: 0.25, zIndex: 0 }}
+        animationStyle="float"
+      />
 
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          width: '100%',
-          maxWidth: '500px',
-          zIndex: 10,
-        }}
-      >
-        {/* Zona de Carga (Upload) */}
-        <div
-          {...getRootProps()}
+      {/* Subtle Background Glows */}
+      <div style={{ position: 'absolute', top: '-10%', right: '-10%', width: '400px', height: '400px', backgroundColor: 'var(--color-gold)', opacity: 0.05, borderRadius: '50%', filter: 'blur(100px)', pointerEvents: 'none', zIndex: 0 }} />
+      <div style={{ position: 'absolute', bottom: '-10%', left: '-10%', width: '300px', height: '300px', backgroundColor: 'rgba(244,114,182,1)', opacity: 0.03, borderRadius: '50%', filter: 'blur(100px)', pointerEvents: 'none', zIndex: 0 }} />
+
+      <div style={{ maxWidth: '1152px', width: '100%', position: 'relative', zIndex: 10, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+
+        {/* Cabecera */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
           style={{
-            width: '100%',
-            padding: '2.5rem 1.5rem',
-            border: isDragActive ? '2px dashed var(--color-gold)' : '2px dashed rgba(244, 114, 182, 0.3)',
-            backgroundColor: isDragActive ? 'rgba(244, 114, 182, 0.05)' : 'var(--color-surface)',
-            borderRadius: '24px',
             textAlign: 'center',
-            cursor: isUploading ? 'not-allowed' : 'pointer',
-            boxShadow: '0 10px 30px rgba(0, 0, 0, 0.02)',
-            transition: 'all 0.3s ease',
-            marginBottom: '3rem',
+            marginBottom: '1.5rem', // Margen inferior reducido
+            width: '100%',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center'
           }}
         >
-          <input {...getInputProps()} />
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.75rem' }}>
-            {isUploading ? (
-              <>
-                <RotateCw className="w-10 h-10 text-pink-400 animate-spin" />
-                <p style={{ fontFamily: 'var(--font-sans)', fontSize: '0.85rem', fontWeight: 600, color: 'var(--color-cream)' }}>Subiendo fotografía...</p>
-              </>
-            ) : (
-              <>
-                <UploadCloud className="w-10 h-10 text-pink-400" />
-                <div>
-                  <p style={{ fontFamily: 'var(--font-sans)', fontSize: '0.95rem', fontWeight: 700, color: 'var(--color-cream)', marginBottom: '4px' }}>
-                    Toca aquí o arrastra una foto
-                  </p>
-                  <p style={{ fontFamily: 'var(--font-dm-mono)', fontSize: '0.6rem', color: 'var(--color-cream-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                    JPG, PNG, WEBP (Max 5MB)
-                  </p>
-                </div>
-              </>
-            )}
+          <p
+            style={{
+              fontFamily: 'var(--font-sans)',
+              fontSize: 'clamp(0.65rem, 1.2vw, 0.75rem)',
+              color: 'var(--color-cream-muted)',
+              letterSpacing: '0.5em',
+              textTransform: 'uppercase',
+              marginBottom: '0.5rem',
+              fontWeight: 700,
+            }}
+          >
+            Captura el Momento
+          </p>
+          <h3
+            style={{
+              fontFamily: 'var(--font-pinyon)',
+              fontSize: 'clamp(3.5rem, 8vw, 6rem)',
+              color: 'var(--color-cream)',
+              fontWeight: 400, // Quitar negrita  
+              lineHeight: 1,
+              marginBottom: '1rem',
+            }}
+          >
+            Galería Live
+          </h3>
+          <p
+            style={{
+              fontFamily: 'var(--font-sans)',
+              fontSize: 'clamp(0.75rem, 1.5vw, 0.875rem)',
+              color: 'var(--color-gold-dark)', // Uniformidad con el estilo principal
+              letterSpacing: '0.15em',
+              fontWeight: 300,
+              maxWidth: '32rem',
+              margin: '0 auto',
+              textTransform: 'uppercase',
+              padding: '0 1rem',
+            }}
+          >
+            Sube tus fotos favoritas de la fiesta. ¡Construyamos el álbum de recuerdos juntos!
+          </p>
+
+          {/* UPLOAD ZONE */}
+          <div
+            {...getRootProps()}
+            style={{
+              marginTop: '2rem',
+              maxWidth: '28rem',
+              width: '100%',
+              marginInline: 'auto',
+              padding: '2rem',
+              border: '2px dashed',
+              borderColor: isDragActive ? 'var(--color-gold)' : 'rgba(244, 114, 182, 0.35)',
+              borderRadius: '2.5rem',
+              cursor: isUploading ? 'not-allowed' : 'pointer',
+              transition: 'all 0.3s ease',
+              backgroundColor: isDragActive ? 'rgba(244, 114, 182, 0.05)' : 'rgba(255,255,255,0.7)',
+              backdropFilter: 'blur(12px)',
+              boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.02)',
+              opacity: isUploading ? 0.5 : 1
+            }}
+          >
+            <input {...getInputProps()} />
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem' }}>
+              {isUploading ? (
+                <>
+                  <RotateCw className="w-10 h-10 text-pink-400 animate-spin" />
+                  <p style={{ fontFamily: 'var(--font-sans)', color: 'var(--color-gold-dark)', fontWeight: 700, letterSpacing: '0.025em', fontSize: '0.875rem' }}>Subiendo foto...</p>
+                </>
+              ) : (
+                <>
+                  <UploadCloud className="w-10 h-10 text-pink-400 drop-shadow-sm" />
+                  <div>
+                    <p style={{ fontFamily: 'var(--font-sans)', color: 'var(--color-gold-dark)', fontWeight: 800, fontSize: '1rem', marginBottom: '4px' }}>Toca aquí o arrastra una foto</p>
+                    <p style={{ fontFamily: 'var(--font-sans)', fontSize: '0.625rem', color: 'var(--color-gold)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>JPG, PNG, WEBP (Max 5MB)</p>
+                  </div>
+                </>
+              )}
+            </div>
           </div>
-        </div>
 
-        {/* Mensaje de Error de subida */}
-        <AnimatePresence>
-          {uploadError && (
-            <motion.p
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              style={{
-                color: '#d9534f',
-                fontSize: '0.8rem',
-                fontFamily: 'var(--font-dm-mono)',
-                textTransform: 'uppercase',
-                marginBottom: '2rem',
-                textAlign: 'center',
-              }}
-            >
-              {uploadError}
-            </motion.p>
-          )}
-        </AnimatePresence>
+          {/* Mensaje de Error de subida */}
+          <AnimatePresence>
+            {uploadError && (
+              <motion.p
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                style={{
+                  color: '#d9534f',
+                  fontSize: '0.75rem',
+                  fontFamily: 'var(--font-sans)',
+                  fontWeight: 700,
+                  letterSpacing: '0.1em',
+                  textTransform: 'uppercase',
+                  marginTop: '1.5rem',
+                }}
+              >
+                {uploadError}
+              </motion.p>
+            )}
+          </AnimatePresence>
+        </motion.div>
 
-        {/* Swiper Apilado / Visor de Fotos */}
-        <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        {/* STACKED CARD SWIPER */}
+        <div style={{ width: '100%', position: 'relative', zIndex: 10, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           {isLoading ? (
-            <div style={{ padding: '3rem 0' }}>
-              <RotateCw className="w-8 h-8 text-pink-400 animate-spin" />
+            <div style={{ width: '100%', padding: '5rem 0', display: 'flex', justifyContent: 'center', color: 'var(--color-gold-dark)' }}>
+              <RotateCw className="w-10 h-10 animate-spin mx-auto block" />
             </div>
           ) : photos.length === 0 ? (
-            <p style={{ fontFamily: 'var(--font-dm-mono)', fontSize: '0.75rem', color: 'var(--color-cream-muted)', textTransform: 'uppercase', letterSpacing: '0.1em', padding: '3rem 0', textAlign: 'center' }}>
-              El mural está vacío. ¡Sube la primera foto!
-            </p>
+            <div style={{ width: '100%', padding: '5rem 0', textAlign: 'center', color: 'var(--color-cream-muted)', fontFamily: 'var(--font-sans)', letterSpacing: '0.1em', textTransform: 'uppercase', fontSize: '0.875rem' }}>
+              El mural interactivo está vacío. ¡Haz los honores!
+            </div>
           ) : currentIndex >= photos.length ? (
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
-              style={{ textAlign: 'center', padding: '2rem 0' }}
+              style={{ textAlign: 'center', padding: '2.5rem 0' }}
             >
-              <p style={{ fontFamily: 'var(--font-sans)', fontSize: '0.85rem', color: 'var(--color-cream-muted)', marginBottom: '1.25rem' }}>
+              <p style={{ color: 'var(--color-cream-muted)', fontFamily: 'var(--font-sans)', fontSize: '0.75rem', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '1rem', fontWeight: 500 }}>
                 ¡Has visto todas las fotos!
               </p>
               <button
                 onClick={() => setCurrentIndex(0)}
                 style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '0.5rem',
+                  padding: '0.625rem 1.25rem',
                   backgroundColor: 'var(--color-gold)',
-                  color: 'var(--color-black)',
-                  border: 'none',
-                  borderRadius: '30px',
-                  padding: '0.6rem 1.5rem',
-                  fontFamily: 'var(--font-dm-mono)',
-                  fontSize: '0.7rem',
-                  fontWeight: 600,
+                  color: '#FAF7F2',
+                  borderRadius: '9999px',
+                  fontFamily: 'var(--font-sans)',
                   textTransform: 'uppercase',
+                  fontSize: '0.625rem',
                   letterSpacing: '0.1em',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '0.5rem',
+                  margin: '0 auto',
                   cursor: 'pointer',
-                  boxShadow: '0 4px 10px rgba(244, 114, 182, 0.15)',
+                  border: 'none',
+                  boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)',
+                  transition: 'all 0.3s'
                 }}
+                onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
+                onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
               >
-                <RotateCw className="w-3.5 h-3.5" /> Volver a ver
+                <RotateCw className="w-4 h-4" /> Volver a ver galería
               </button>
             </motion.div>
           ) : (
             <>
               {/* Stack de Tarjetas */}
-              <div style={{ position: 'relative', width: '280px', height: '370px' }}>
+              <div style={{ position: 'relative', width: '100%', maxWidth: '360px', height: '480px', marginTop: '0.5rem' }}>
                 <AnimatePresence>
                   {photos.slice(currentIndex, currentIndex + 3).reverse().map((photo, reversedIndex, arr) => {
                     const isTop = reversedIndex === arr.length - 1;
@@ -356,14 +383,14 @@ export function GallerySection() {
                         animate={{
                           scale: 1 - visualIndex * 0.05,
                           y: visualIndex * 15,
-                          x: visualIndex === 0 ? -4 : visualIndex === 1 ? 6 : -10,
-                          rotate: visualIndex === 0 ? -3 : visualIndex === 1 ? 3 : -6,
+                          x: visualIndex === 0 ? -4 : visualIndex === 1 ? 8 : -12,
+                          rotate: visualIndex === 0 ? -3 : visualIndex === 1 ? 4 : -7,
                           opacity: 1 - visualIndex * 0.15,
                         }}
                         exit={{
                           x: exitDirection === 'left' ? -300 : 300,
                           opacity: 0,
-                          rotate: exitDirection === 'left' ? -15 : 15,
+                          rotate: exitDirection === 'left' ? -20 : 20,
                           transition: { duration: 0.3 },
                         }}
                         transition={{ type: 'spring', stiffness: 300, damping: 25 }}
@@ -374,10 +401,10 @@ export function GallerySection() {
                           width: '100%',
                           height: '100%',
                           backgroundColor: '#FFFFFF',
-                          padding: '12px 12px 50px 12px',
-                          boxShadow: '0 10px 25px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.02)',
+                          padding: '14px 14px 64px 14px', // Extra padding for polaroid bottom
+                          boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
                           borderRadius: '4px',
-                          border: '1px solid #ECECEC',
+                          border: '1px solid rgba(229, 231, 235, 0.6)',
                           display: 'flex',
                           flexDirection: 'column',
                           zIndex: photos.length - currentIndex - visualIndex,
@@ -392,17 +419,17 @@ export function GallerySection() {
                         <div
                           style={{
                             position: 'absolute',
-                            top: '-24px',
+                            top: '-40px',
                             left: '50%',
                             transform: 'translateX(-50%)',
                             width: '56px',
-                            height: '56px',
+                            height: '80px',
                             zIndex: 50,
                             pointerEvents: 'none',
                           }}
                         >
                           <img
-                            src="/images/decorativas_v2/clip_polaroid.png"
+                            src="/images/decorativas_v2/clip_rosa.png"
                             alt="Polaroid Clip"
                             style={{ width: '100%', height: '100%', objectFit: 'contain' }}
                           />
@@ -414,9 +441,9 @@ export function GallerySection() {
                             position: 'relative',
                             width: '100%',
                             height: '100%',
-                            backgroundColor: '#F7F7F7',
+                            backgroundColor: '#F3F3F3',
                             overflow: 'hidden',
-                            borderRadius: '2px',
+                            border: '1px solid #E5E7EB',
                             cursor: isTop ? 'zoom-in' : 'default',
                           }}
                           onClick={() => {
@@ -433,67 +460,29 @@ export function GallerySection() {
                             }}
                             draggable="false"
                           />
-
-                          {/* Hover effect para desktop */}
-                          {isTop && (
-                            <div
-                              style={{
-                                position: 'absolute',
-                                inset: 0,
-                                backgroundColor: 'rgba(0, 0, 0, 0.25)',
-                                display: 'flex',
-                                flexDirection: 'column',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                gap: '4px',
-                                opacity: 0,
-                                transition: 'opacity 0.2s',
-                              }}
-                              className="desktop-hover-overlay"
-                              onMouseEnter={(e) => {
-                                e.currentTarget.style.opacity = '1';
-                              }}
-                              onMouseLeave={(e) => {
-                                e.currentTarget.style.opacity = '0';
-                              }}
-                            >
-                              <div
-                                style={{
-                                  width: '32px',
-                                  height: '32px',
-                                  borderRadius: '50%',
-                                  backgroundColor: 'rgba(255, 255, 255, 0.2)',
-                                  backdropFilter: 'blur(5px)',
-                                  display: 'flex',
-                                  alignItems: 'center',
-                                  justifyContent: 'center',
-                                  color: '#FFFFFF',
-                                }}
-                              >
-                                <Maximize2 className="w-4 h-4" />
-                              </div>
-                            </div>
-                          )}
                         </div>
 
                         {/* Barra de pie Polaroid */}
                         <div
                           style={{
-                            marginTop: '10px',
+                            marginTop: '14px',
                             display: 'flex',
                             justifyContent: 'space-between',
                             alignItems: 'center',
+                            padding: '0 4px'
                           }}
                         >
-                          <Heart className="w-5 h-5 text-pink-400 fill-pink-50/50" />
-                          <span style={{ fontFamily: 'var(--font-dm-mono)', fontSize: '8px', color: '#999999', letterSpacing: '0.05em' }}>
-                            {isTop ? 'SWIPE / TOCAR' : ''}
+                          <Heart style={{ width: '24px', height: '24px', color: 'var(--color-gold)', fill: isTop ? 'rgba(197, 160, 89, 0.2)' : 'transparent', transition: 'colors 0.3s' }} />
+                          <span style={{ fontFamily: 'var(--font-sans)', fontSize: '9px', color: '#737373', letterSpacing: '0.12em', fontWeight: 900, textTransform: 'uppercase', flex: 1, textAlign: 'center' }}>
+                            {isTop ? 'Toca para ampliar' : ''}
                           </span>
                           <Maximize2
-                            className="w-5 h-5 text-neutral-400 hover:text-neutral-700 cursor-pointer"
+                            style={{ width: '24px', height: '24px', color: isTop ? '#737373' : '#d4d4d8', cursor: isTop ? 'pointer' : 'default', transition: 'colors 0.3s' }}
                             onClick={(e) => {
-                              e.stopPropagation();
-                              if (isTop) setSelectedImage(photo.foto_url);
+                              if (isTop) {
+                                e.stopPropagation();
+                                setSelectedImage(photo.foto_url);
+                              }
                             }}
                           />
                         </div>
@@ -504,7 +493,12 @@ export function GallerySection() {
               </div>
 
               {/* Botones de navegación del swiper */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: '2rem', marginTop: '2rem' }}>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 }}
+                style={{ display: 'flex', alignItems: 'center', gap: '2.5rem', marginTop: '2rem', position: 'relative', zIndex: 20 }}
+              >
                 <button
                   onClick={() => {
                     if (currentIndex > 0) {
@@ -514,24 +508,25 @@ export function GallerySection() {
                   }}
                   disabled={currentIndex === 0}
                   style={{
-                    width: '44px',
-                    height: '44px',
+                    width: '56px',
+                    height: '56px',
                     borderRadius: '50%',
-                    backgroundColor: 'var(--color-surface)',
-                    border: '1px solid rgba(244, 114, 182, 0.2)',
+                    backgroundColor: '#FAF7F2',
+                    border: '1px solid rgba(197, 160, 89, 0.2)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     cursor: currentIndex === 0 ? 'not-allowed' : 'pointer',
                     opacity: currentIndex === 0 ? 0.4 : 1,
-                    color: 'var(--color-cream)',
-                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.02)',
+                    color: currentIndex === 0 ? '#a3a3a3' : 'var(--color-gold-dark)',
+                    boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)',
+                    transition: 'all 0.3s'
                   }}
                 >
-                  <ChevronLeft className="w-5 h-5" />
+                  <ChevronLeft className="w-6 h-6" />
                 </button>
 
-                <span style={{ fontFamily: 'var(--font-dm-mono)', fontSize: '0.7rem', color: 'var(--color-gold-dark)', fontWeight: 700, letterSpacing: '0.15em' }}>
+                <span style={{ fontFamily: 'var(--font-sans)', fontSize: '0.75rem', color: 'var(--color-gold-dark)', fontWeight: 900, letterSpacing: '0.25em', textTransform: 'uppercase', minWidth: '80px', textAlign: 'center' }}>
                   {currentIndex + 1} / {photos.length}
                 </span>
 
@@ -543,22 +538,23 @@ export function GallerySection() {
                     }
                   }}
                   style={{
-                    width: '44px',
-                    height: '44px',
+                    width: '56px',
+                    height: '56px',
                     borderRadius: '50%',
-                    backgroundColor: 'var(--color-surface)',
-                    border: '1px solid rgba(244, 114, 182, 0.2)',
+                    backgroundColor: '#FAF7F2',
+                    border: '1px solid rgba(197, 160, 89, 0.3)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     cursor: 'pointer',
-                    color: 'var(--color-cream)',
-                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.02)',
+                    color: 'var(--color-gold-dark)',
+                    boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)',
+                    transition: 'all 0.3s'
                   }}
                 >
-                  <ChevronRight className="w-5 h-5" />
+                  <ChevronRight className="w-6 h-6" />
                 </button>
-              </div>
+              </motion.div>
             </>
           )}
         </div>
@@ -574,14 +570,13 @@ export function GallerySection() {
             style={{
               position: 'fixed',
               inset: 0,
-              zIndex: 1000,
-              backgroundColor: 'rgba(250, 250, 250, 0.95)',
+              zIndex: 100,
+              backgroundColor: 'rgba(250, 247, 242, 0.95)',
               backdropFilter: 'blur(15px)',
-              WebkitBackdropFilter: 'blur(15px)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              padding: '2rem',
+              padding: '2.5rem',
               cursor: 'zoom-out',
             }}
             onClick={() => setSelectedImage(null)}
@@ -592,54 +587,58 @@ export function GallerySection() {
               animate={{ opacity: 1, y: 0 }}
               style={{
                 position: 'absolute',
-                top: '20px',
-                right: '20px',
-                width: '48px',
-                height: '48px',
+                top: '1.5rem',
+                right: '1.5rem',
+                backgroundColor: 'white',
+                padding: '1rem',
                 borderRadius: '50%',
-                backgroundColor: 'var(--color-surface)',
-                border: '1px solid rgba(244, 114, 182, 0.25)',
+                border: '1px solid rgba(197, 160, 89, 0.2)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                color: 'var(--color-cream)',
+                color: 'var(--color-gold-dark)',
                 cursor: 'pointer',
-                boxShadow: '0 4px 12px rgba(0,0,0,0.05)',
-                zIndex: 1010,
+                boxShadow: '0 4px 6px -1px rgba(0,0,0,0.1)',
+                zIndex: 50,
+                transition: 'all 0.3s'
               }}
               onClick={() => setSelectedImage(null)}
             >
-              <X className="w-5 h-5" />
+              <X className="w-6 h-6" />
             </motion.button>
 
-            {/* Polaroid framed container in fullscreen */}
+            {/* Fullscreen container */}
             <motion.div
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
               transition={{ type: 'spring', damping: 25, stiffness: 300 }}
               style={{
-                backgroundColor: '#FFFFFF',
-                padding: '12px 12px 40px 12px',
-                borderRadius: '4px',
-                border: '1px solid #ECECEC',
-                boxShadow: '0 20px 50px rgba(0,0,0,0.06)',
-                maxWidth: '90vw',
-                maxHeight: '85vh',
+                position: 'relative',
+                maxWidth: '1024px',
+                width: '100%',
+                height: '100%',
                 display: 'flex',
-                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                pointerEvents: 'none'
               }}
-              onClick={(e) => e.stopPropagation()}
             >
               <img
                 src={selectedImage}
-                alt="Zoomed memory"
+                alt="Fullscreen view"
                 style={{
                   maxWidth: '100%',
-                  maxHeight: '70vh',
+                  maxHeight: '90vh',
                   objectFit: 'contain',
-                  borderRadius: '2px',
+                  backgroundColor: 'white',
+                  padding: '0.5rem',
+                  border: '1px solid rgba(197, 160, 89, 0.2)',
+                  boxShadow: '0 4px 6px -1px rgba(0,0,0,0.1)',
+                  pointerEvents: 'auto',
+                  cursor: 'default'
                 }}
+                onClick={(e) => e.stopPropagation()}
               />
             </motion.div>
           </motion.div>

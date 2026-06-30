@@ -25,42 +25,20 @@ export function FooterSection() {
         width: '100%',
       }}
     >
-      {/* Grid Pattern sutil */}
-      <div
-        aria-hidden="true"
-        style={{
-          position: 'absolute',
-          inset: 0,
-          backgroundImage: 'linear-gradient(rgba(244, 114, 182, 0.015) 1px, transparent 1px), linear-gradient(90deg, rgba(244, 114, 182, 0.015) 1px, transparent 1px)',
-          backgroundSize: '40px 40px',
-          pointerEvents: 'none',
-          opacity: 0.8,
-          zIndex: 0,
-        }}
-      />
-
-      {/* Leopardo marca de agua en la esquina inferior */}
-      <div
-        aria-hidden="true"
-        style={{
-          position: 'absolute',
-          bottom: '-10%',
-          right: '-5%',
-          width: '180px',
-          height: '180px',
-          opacity: 0.15,
-          pointerEvents: 'none',
-          zIndex: 1,
-        }}
-      >
-        <Image
-          src="/images/decorativas_v2/ny_skyline.png"
-          alt="Skyline decorativo"
-          fill
-          sizes="33vw"
-          className="object-contain"
+      {/* Imagen de fondo de Nueva York */}
+      <div style={{ position: 'absolute', inset: 0, opacity: 0.5, pointerEvents: 'none', zIndex: 0 }}>
+        <Image 
+          src="/images/decorativas_v2/bg_newyork.jpg" 
+          alt="NY Background Footer" 
+          fill 
+          className="object-cover" 
+          style={{ objectPosition: 'center' }}
         />
+        {/* Degradado para oscurecer y fusionar con el fondo */}
+        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, var(--color-black) 0%, transparent 50%, var(--color-black) 100%)' }} />
       </div>
+
+     
 
       <div
         className="relative z-10 w-full max-w-[850px] flex flex-col md:flex-row items-center md:items-center justify-between gap-8 text-center md:text-left"
@@ -87,7 +65,8 @@ export function FooterSection() {
             style={{
               fontFamily: 'var(--font-pinyon)',
               fontSize: 'clamp(3rem, 7vw, 4rem)',
-              color: 'var(--color-gold-dark)',
+              color: 'var(--color-cream)',
+              fontWeight:400,
               lineHeight: 1.1,
               marginTop: '0.25rem',
               marginBottom: '0.25rem',
@@ -105,6 +84,7 @@ export function FooterSection() {
               letterSpacing: '0.2em',
               textTransform: 'uppercase',
               fontWeight: 600,
+              marginBottom:5
             }}
           >
             no dejes que te lo cuenten
@@ -159,7 +139,7 @@ export function FooterSection() {
           <div
             style={{
               backgroundColor: 'var(--color-gold)',
-              color: 'var(--color-black)',
+              color: 'var(--color-cream)',
               padding: '0.5rem 1rem',
               borderRadius: '10px',
               fontSize: '0.75rem',
