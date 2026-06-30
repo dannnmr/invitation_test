@@ -9,7 +9,7 @@ export async function submitRSVP(
   data: Omit<RSVPSubmission, 'id' | 'createdAt'>
 ): Promise<RSVPSubmission> {
   const { error } = await supabase
-    .from('invitados')
+    .from('invitados2')
     .insert({
       nombre: data.guestName.trim(),
     });
@@ -33,7 +33,7 @@ export async function submitRSVP(
  */
 export async function getRSVPCount(invitationId: string): Promise<number> {
   const { count, error } = await supabase
-    .from('invitados')
+    .from('invitados2')
     .select('*', { count: 'exact', head: true });
 
   if (error) return 0;

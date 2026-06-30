@@ -35,7 +35,7 @@ export function MusicSection() {
 
     try {
       const { error: sbError } = await supabase
-        .from('canciones')
+        .from('canciones2')
         .insert([{ cancion: song.trim() }]);
 
       if (sbError) throw sbError;

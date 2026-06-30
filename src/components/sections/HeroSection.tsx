@@ -38,11 +38,11 @@ export function HeroSection({ config, isRevealed }: HeroSectionProps) {
 
   useEffect(() => {
     if (!isRevealed) return;
-    // Iniciamos la animación del texto casi de inmediato
+    // Retraso exacto para que el texto empiece a animarse justo cuando las solapas del sobre dejan ver el centro
     const t = setTimeout(() => {
       playName();
       playSurname();
-    }, 0);
+    }, 500);
     return () => clearTimeout(t);
   }, [isRevealed, playName, playSurname]);
 
@@ -80,7 +80,7 @@ export function HeroSection({ config, isRevealed }: HeroSectionProps) {
         }}
       >
         <img
-          src="/images/decorativas_v2/bg-option4.png"
+          src="/images/decorativas_v2/bg_ny1.png"
           alt="New York Skyline"
           style={{
             width: '100%',

@@ -45,8 +45,8 @@ export function GallerySection() {
   const fetchPhotos = async () => {
     try {
       const { data, error } = await supabase
-        .from('fotos')
-        .select('*')
+        .from('fotos2')
+        .select('id, foto_url')
         .order('creado_en', { ascending: false });
 
       if (!error && data) {
@@ -67,7 +67,7 @@ export function GallerySection() {
       .channel('public:photos')
       .on(
         'postgres_changes',
-        { event: 'INSERT', schema: 'public', table: 'fotos' },
+        { event: 'INSERT', schema: 'public', table: 'fotos2' },
         (payload) => {
           setPhotos((prev) => {
             const exists = prev.some((p) => p.id === payload.new.id);
@@ -118,7 +118,7 @@ export function GallerySection() {
 
       // Guardar registro en la base de datos (Supabase de Ericka tiene la tabla 'fotos' y columna 'foto_url')
       const { error: dbError, data: insertedData } = await supabase
-        .from('fotos')
+        .from('fotos2')
         .insert([{ foto_url: publicUrl }])
         .select()
         .single();
