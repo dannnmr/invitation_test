@@ -44,7 +44,7 @@ export function SaveTheDateSection() {
     <section
       aria-label="Save the date"
       style={{
-        backgroundColor: '#fdfbf7',
+        backgroundColor: 'var(--color-black)',
         padding: 'clamp(4rem, 8vw, 6rem) clamp(1.5rem, 4vw, 3rem)',
         display: 'flex',
         flexDirection: 'column',
@@ -52,283 +52,197 @@ export function SaveTheDateSection() {
         justifyContent: 'center',
         position: 'relative',
         overflow: 'hidden',
-        borderTop: '0.5px solid rgba(244, 114, 182, 0.15)',
       }}
     >
-      {/* Detalle botánico en esquina */}
       <div
-        aria-hidden="true"
+        className="boarding-pass-wrapper"
         style={{
-          position: 'absolute',
-          bottom: '0%',
-          right: '-20%',
-          width: '360px',
-          height: '360px',
-          opacity: 0.30,
-          pointerEvents: 'none',
-        }}
-      >
-        <Image
-          src="/images/decorativas_v2/estatua_brillos.png"
-          alt="Flor decorativa"
-          fill
-          sizes="300px"
-          className="object-contain"
-        />
-      </div>
-
-      <div
-        style={{
-          maxWidth: '750px',
           width: '100%',
           display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
+          justifyContent: 'center',
           position: 'relative',
           zIndex: 10,
+          padding: '1rem',
         }}
       >
-        {/* Tarjeta Save The Date */}
+        <style>{`
+          .boarding-pass-wrapper {
+            font-size: 16px;
+          }
+          /* Cuando la pantalla es menor a 800px, achicamos la fuente base dinámicamente. */
+          /* 46.875em es el ancho del ticket (750px / 16). 32px es el padding horizontal total (1rem a cada lado) */
+          @media (max-width: 800px) {
+            .boarding-pass-wrapper {
+               font-size: calc((100vw - 32px) / 46.875);
+            }
+          }
+        `}</style>
+        
+        {/* Tarjeta Save The Date - TIPO BOARDING PASS ESCALABLE */}
         <div
           ref={cardRef}
           style={{
-            width: '100%',
-            maxWidth: '650px',
+            minWidth: '46.875em', // Equivale a 750px en desktop
+            maxWidth: '56.25em',  // Equivale a 900px
+            background: 'linear-gradient(135deg, #F8F9FA 0%, #EAEAEA 100%)',
+            borderRadius: '1em',
+            boxShadow: '0 1.25em 3.125em rgba(0, 0, 0, 0.8), 0 0 1.875em rgba(247, 177, 199, 0.2)',
+            display: 'flex',
+            flexDirection: 'row',
             position: 'relative',
+            overflow: 'hidden',
+            margin: '0 auto',
           }}
         >
-          {/* Main Card Contenedor */}
+          {/* CÓDIGO DE BARRAS (Izquierda) */}
+          <div style={{ width: '3.125em', minWidth: '3.125em', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1.5em 0', borderRight: '1px solid rgba(0,0,0,0.1)' }}>
+            <div style={{
+              width: '1.25em', height: '100%',
+              backgroundImage: `repeating-linear-gradient(to bottom, #000 0, #000 3px, transparent 3px, transparent 5px, #000 5px, #000 9px, transparent 9px, transparent 12px, #000 12px, #000 14px, transparent 14px, transparent 18px)`,
+              opacity: 0.8
+            }} />
+          </div>
+
+          {/* CUERPO PRINCIPAL DEL TICKET (Centro) */}
           <div
             style={{
-              background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.85) 0%, rgba(253, 251, 247, 0.4) 100%)',
-              border: '1px solid rgba(248, 200, 220, 0.6)',
-              borderRadius: '24px',
-              overflow: 'hidden',
-              boxShadow: '0 10px 40px rgba(181, 131, 141, 0.1)',
-              backdropFilter: 'blur(12px)',
-              WebkitBackdropFilter: 'blur(1px)',
+              flex: '1',
+              padding: '2.5em 3em',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-between',
               position: 'relative',
             }}
           >
-            {/* Top color bar */}
-            <div style={{ height: '3px', background: 'linear-gradient(to right, transparent, #B5838D, transparent)' }} />
+            {/* Silueta 25 de fondo (Watermark) */}
+            <div style={{
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              fontFamily: 'var(--font-display)',
+              fontSize: '28em',
+              fontWeight: 900,
+              color: 'transparent',
+              WebkitTextStroke: '2px rgba(0, 0, 0, 0.04)',
+              zIndex: 0,
+              pointerEvents: 'none',
+              lineHeight: 0.8
+            }}>
+              25
+            </div>
 
-            <div
-              style={{
-                padding: 'clamp(1.5rem, 4vw, 2.5rem)',
-                position: 'relative',
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '1.5rem',
-              }}
-            >
-              {/* Marca de agua - Número del día */}
-              <span
-                style={{
-                  position: 'absolute',
-                  right: '5%',
-                  top: '40%',
-                  transform: 'translateY(-50%)',
-                  fontFamily: 'var(--font-display)',
-                  fontWeight: 900,
-                  fontSize: 'clamp(6rem, 15vw, 10rem)',
-                  color: 'transparent',
-                  WebkitTextStroke: '1px rgba(248, 200, 220, 0.5)', // Rosa bebé suavizado
-                  userSelect: 'none',
-                  pointerEvents: 'none',
-                  lineHeight: 1,
-                }}
-              >
-                {dayNumber}
-              </span>
-
-              {/* Fila superior: Detalles */}
-              <div
-                style={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  width: '100%',
-                  zIndex: 5,
-                }}
-              >
-                {/* Lado izquierdo - Fecha (CON NUEVA TIPOGRAFIA) */}
-                <div style={{ textAlign: 'left' }}>
-                  <span
-                    style={{
-                      fontFamily: 'var(--font-dm-mono)',
-                      fontSize: '0.65rem',
-                      color: '#B5838D',
-                      letterSpacing: '0.25em',
-                      textTransform: 'uppercase',
-                      fontWeight: 700,
-                      display: 'block',
-                      marginBottom: '0.6rem',
-                    }}
-                  >
-                    Save the Date
-                  </span>
-
-                  <div style={{ display: 'flex', alignItems: 'end', gap: '0.8rem' }}>
-                    <span
-                      style={{
-                        fontFamily: 'var(--font-display)', // Tipografía icónica del número
-                        fontSize: 'clamp(3.5rem, 7vw, 5.5rem)',
-                        fontWeight: 400,
-                        color: '#111',
-                        lineHeight: 0.8,
-                      }}
-                    >
-                      {dayNumber}
-                    </span>
-                    <div style={{ display: 'flex', flexDirection: 'column', paddingBottom: '4px' }}>
-                      <span
-                        style={{
-                          fontFamily: 'var(--font-cormorant)', // Tipografía editorial italic
-                          fontSize: 'clamp(1.5rem, 3vw, 2.2rem)',
-                          fontWeight: 400,
-                          color: '#B5838D',
-                          fontStyle: 'italic',
-                          textTransform: 'capitalize',
-                          lineHeight: 1,
-                        }}
-                      >
-                        {monthName}
-                      </span>
-                      <span
-                        style={{
-                          fontFamily: 'var(--font-dm-mono)',
-                          fontSize: '0.75rem',
-                          color: '#888',
-                          letterSpacing: '0.15em',
-                          marginTop: '0.2rem'
-                        }}
-                      >
-                        {yearNumber}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Lado derecho - Hora */}
-                <div style={{ textAlign: 'right', paddingRight: '1rem' }}>
-                  <span
-                    style={{
-                      fontFamily: 'var(--font-dm-mono)',
-                      fontSize: '0.65rem',
-                      color: '#B5838D',
-                      letterSpacing: '0.2em',
-                      textTransform: 'uppercase',
-                      fontWeight: 700,
-                      display: 'block',
-                      marginBottom: '0.2rem',
-                    }}
-                  >
-                    Hora
-                  </span>
-                  <span
-                    style={{
-                      fontFamily: 'var(--font-pinyon)',
-                      fontSize: 'clamp(2rem, 5vw, 3.5rem)',
-                      color: '#111',
-                      lineHeight: 1,
-                      display: 'block',
-                    }}
-                  >
-                    {event.receptionTime} Hrs
-                  </span>
-                  <span
-                    style={{
-                      fontFamily: 'var(--font-sans)',
-                      fontSize: '0.65rem',
-                      fontWeight: 600,
-                      color: '#B5838D',
-                      letterSpacing: '0.1em',
-                      textTransform: 'uppercase',
-                      display: 'block',
-                      marginTop: '4px',
-                    }}
-                  >
-                    {quinceañera.name}
-                  </span>
-                </div>
+            {/* Top: VIP PASS */}
+            <div style={{ zIndex: 2, position: 'relative' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5em' }}>
+                <span style={{ fontFamily: 'var(--font-display)', fontSize: '3.5em', fontWeight: 900, color: '#050505', letterSpacing: '0.02em', lineHeight: 1 }}>Save the Date</span>
+                <span style={{ fontSize: '2em', color: '#050505' }}>✈</span>
               </div>
-
-              {/* Separador */}
-              <div
-                style={{
-                  height: '1px',
-                  backgroundColor: 'rgba(244, 114, 182, 0.15)',
-                  width: '100%',
-                  zIndex: 5,
-                }}
-              />
-
-              {/* Botón de Añadir */}
-              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.75rem', zIndex: 5 }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                  <span style={{ width: '4px', height: '4px', borderRadius: '50%', backgroundColor: '#F8C8DC' }} />
-                  <span
-                    style={{
-                      fontFamily: 'var(--font-dm-mono)',
-                      fontSize: '0.65rem',
-                      color: '#888',
-                      letterSpacing: '0.2em',
-                      textTransform: 'uppercase',
-                      fontWeight: 700,
-                    }}
-                  >
-                    {dayOfWeek}
+              
+              <div style={{ display: 'flex', alignItems: 'center', gap: '1em', marginTop: '0.8em' }}>
+                {/* Badge Rose Gold */}
+                <div style={{ background: 'var(--color-gold)', padding: '0.4em 1.2em', borderRadius: '50em', display: 'inline-block' }}>
+                  <span style={{ fontFamily: 'var(--font-dm-mono)', fontSize: '1.5em', fontWeight: 400, color: '#050505', letterSpacing: '0.1em' }}>
+                    1 Persona
                   </span>
                 </div>
-
-                <motion.button
-                  onClick={handleAddToCalendar}
-                  whileHover={{ scale: 1.02, boxShadow: '0 15px 30px rgba(17, 17, 17, 0.2)' }}
-                  whileTap={{ scale: 0.98 }}
-                  style={{
-                    width: '100%',
-                    position: 'relative',
-                    overflow: 'hidden',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    gap: '0.75rem',
-                    padding: '0.70rem 1.5rem',
-                    borderRadius: '50px',
-                    backgroundColor: '#111', // Botón negro editorial
-                    border: '1px solid #111',
-                    color: '#F8C8DC',
-                    cursor: 'pointer',
-                    boxShadow: '0 10px 20px rgba(0, 0, 0, 0.1)',
-                  }}
-                >
-                  {/* Shimmer Rosa Brillante */}
-                  <motion.div 
-                    animate={{ x: ['-100%', '200%'] }} transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
-                    style={{ position: 'absolute', top: 0, left: 0, width: '50%', height: '100%', background: 'linear-gradient(90deg, transparent, rgba(248, 200, 220, 0.15), transparent)', transform: 'skewX(-20deg)', zIndex: 1 }}
-                  />
-                  <CalendarPlus className="w-5 h-5" style={{ color: '#F8C8DC', position: 'relative', zIndex: 2 }} />
-                  <span
-                    style={{
-                      fontFamily: 'var(--font-dm-mono)',
-                      fontSize: '0.75rem',
-                      fontWeight: 700,
-                      letterSpacing: '0.15em',
-                      textTransform: 'uppercase',
-                      color: '#F8C8DC',
-                      position: 'relative',
-                      zIndex: 2,
-                    }}
-                  >
-                    Añadir al Calendario
-                  </span>
-                </motion.button>
+                <span style={{ fontFamily: 'var(--font-sans)', fontSize: '0.8em', color: 'rgba(0,0,0,0.6)', letterSpacing: '0.15em', textTransform: 'uppercase', fontWeight: 700 }}>
+                  Por invitación 
+                </span>
               </div>
             </div>
+
+            {/* Middle: Detalles (Grid) */}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1em', marginTop: '3em', marginBottom: '3em', zIndex: 2, position: 'relative' }}>
+              <div>
+                <span style={{ fontFamily: 'var(--font-display)', fontSize: '1.8em', color: '#050505', fontWeight: 900, letterSpacing: '0.05em' }}>Date</span>
+                <br/>
+                <span style={{ fontFamily: 'var(--font-cormorant)', fontSize: '1.5em', color: '#333', fontWeight: 600 }}>{dayNumber}, {monthName}</span>
+              </div>
+              <div>
+                <span style={{ fontFamily: 'var(--font-display)', fontSize: '1.8em', color: '#050505', fontWeight: 900, letterSpacing: '0.05em' }}>Hour</span>
+                <br/>
+                <span style={{ fontFamily: 'var(--font-cormorant)', fontSize: '1.5em', color: '#333', fontWeight: 600 }}>{event.receptionTime} hrs</span>
+              </div>
+              <div>
+                <span style={{ fontFamily: 'var(--font-display)', fontSize: '1.8em', color: '#050505', fontWeight: 900, letterSpacing: '0.05em' }}>Gate</span>
+                <br/>
+                <span style={{ fontFamily: 'var(--font-cormorant)', fontSize: '1.5em', color: '#333', fontWeight: 600 }}>05</span>
+              </div>
+            </div>
+
+            {/* Bottom: Botón Agendar */}
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: 'auto', zIndex: 2, position: 'relative' }}>
+              <motion.button
+                onClick={handleAddToCalendar}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  width: '100%',
+                  gap: '0.8em',
+                  padding: '0.8em 2em',
+                  borderRadius: '50em',
+                  backgroundColor: 'var(--color-black)',
+                  border: 'none',
+                  color: 'var(--color-gold)',
+                  cursor: 'pointer',
+                  boxShadow: '0 0.5em 1.5em rgba(0,0,0,0.3)'
+                }}
+              >
+                <CalendarPlus style={{ width: '1.8em', height: '1.8em' }} />
+                <span style={{ fontFamily: 'var(--font-dm-mono)', fontSize: '0.85em', fontWeight: 700, letterSpacing: '0.09em', textTransform: 'uppercase' }}>
+                  Agendar en Calendario
+                </span>
+              </motion.button>
+            </div>
+          </div>
+
+          {/* DIVISOR (Línea punteada) */}
+          <div style={{ width: '2px', borderLeft: '2px dashed rgba(0, 0, 0, 0.2)', position: 'relative' }}>
+            {/* Agujeros pre-picado */}
+            <div style={{ position: 'absolute', top: '-0.75em', left: '-0.68em', width: '1.25em', height: '1.25em', backgroundColor: 'var(--color-black)', borderRadius: '50%', boxShadow: 'inset 0 -2px 5px rgba(0,0,0,0.3)' }} />
+            <div style={{ position: 'absolute', bottom: '-0.75em', left: '-0.68em', width: '1.25em', height: '1.25em', backgroundColor: 'var(--color-black)', borderRadius: '50%', boxShadow: 'inset 0 2px 5px rgba(0,0,0,0.3)' }} />
+          </div>
+
+          {/* TALÓN (Derecha) */}
+          <div
+            style={{
+              width: '11.25em',
+              minWidth: '11.25em',
+              position: 'relative',
+              backgroundColor: '#EAEAEA',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            {/* Imagen de fondo en el talón (Estatua de la Libertad) */}
+            <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', opacity: 0.85 }}>
+              <Image 
+                src="/images/decorativas_v2/estatua_brillos.png" 
+                alt="New York" 
+                fill 
+                style={{ objectFit: 'cover', objectPosition: 'center', filter: 'grayscale(100%) contrast(1.2)' }} 
+              />
+              <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: 'linear-gradient(to top, rgba(0,0,0,0.3), transparent)' }} />
+            </div>
+
+            {/* Letras N Y verticales */}
+            <div style={{ position: 'relative', zIndex: 2, display: 'flex', flexDirection: 'column', gap: '1em', alignItems: 'center' }}>
+              <span style={{ fontFamily: 'var(--font-display)', fontSize: '5em', fontWeight: 900, color: '#050505', lineHeight: 0.8, textShadow: '2px 2px 0px #fff' }}>N</span>
+              <span style={{ fontFamily: 'var(--font-display)', fontSize: '5em', fontWeight: 900, color: '#050505', lineHeight: 0.8, textShadow: '2px 2px 0px #fff' }}>Y</span>
+            </div>
+            
+            {/* Pequeña franja rose gold inferior para unir el diseño */}
+            <div style={{ position: 'absolute', bottom: 0, left: 0, width: '100%', height: '0.5em', backgroundColor: 'var(--color-gold)' }} />
           </div>
         </div>
       </div>
+      
     </section>
   );
 }

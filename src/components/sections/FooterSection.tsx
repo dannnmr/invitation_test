@@ -28,11 +28,11 @@ export function FooterSection() {
       {/* Imagen de fondo de Nueva York */}
       <div style={{ position: 'absolute', inset: 0, opacity: 0.5, pointerEvents: 'none', zIndex: 0 }}>
         <Image 
-          src="/images/decorativas_v2/bg_newyork.jpg" 
+          src="/images/decorativas_v2/eficio_blackandwhite.png" 
           alt="NY Background Footer" 
           fill 
           className="object-cover" 
-          style={{ objectPosition: 'center' }}
+          style={{ objectPosition: 'bottom' }}
         />
         {/* Degradado para oscurecer y fusionar con el fondo */}
         <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, var(--color-black) 0%, transparent 50%, var(--color-black) 100%)' }} />

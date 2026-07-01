@@ -3,13 +3,14 @@
 import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
-import { Camera, Image as ImageIcon, UploadCloud, RotateCw, X, Plus, Heart, Maximize2, ChevronLeft, ChevronRight, Sparkles } from 'lucide-react';
+import { Camera, Image as ImageIcon, UploadCloud, RotateCw, X, Plus, Heart, Maximize2, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useDropzone } from 'react-dropzone';
 import { supabase } from '@/lib/supabase';
 import { compressImage } from '@/lib/imageCompressor';
 import { submitToGoogleSheets } from '@/lib/googleSheets';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import { FloatingDecoration } from '@/components/ui/FloatingDecoration';
+import { CSSSparkle } from '@/components/ui/CSSSparkle';
 
 type Photo = {
   id: string;
@@ -156,11 +157,11 @@ export function GallerySection() {
     <section
       aria-label="Galería interactiva en vivo"
       style={{
-        backgroundColor: '#fdfbf7', // Base
+        backgroundColor: 'var(--color-black)', // Base
         padding: '3rem 1.5rem', // Padding muy reducido para quitar espacios en blanco
         position: 'relative',
         overflow: 'hidden',
-        borderTop: '0.5px solid rgba(244, 114, 182, 0.15)',
+        borderTop: '0.5px solid rgba(247, 177, 199, 0.15)',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -168,18 +169,12 @@ export function GallerySection() {
         width: '100%'
       }}
     >
-      <div
-        aria-hidden="true"
-        style={{
-          position: 'absolute',
-          top: '5%',
-          right: '5%',
-          pointerEvents: 'none',
-          opacity: 0.15,
-          color: 'var(--color-gold)',
-        }}
-      >
-        <Sparkles className="w-8 h-8 text-pink-300 animate-pulse" />
+      {/* Sparkles Ambientales */}
+      <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', pointerEvents: 'none', zIndex: 0 }}>
+        <CSSSparkle size={20} color="var(--color-gold)" top="10%" left="15%" delay="0s" points={8} />
+        <CSSSparkle size={15} color="#EAEAEA" top="20%" right="10%" delay="1s" points={4} />
+        <CSSSparkle size={24} color="var(--color-gold)" bottom="15%" left="5%" delay="0.5s" points={4} />
+        <CSSSparkle size={18} color="#EAEAEA" bottom="5%" right="20%" delay="1.5s" points={8} />
       </div>
 
       {/* Decorative foliage floating in background (Imported from Ericka logic) */}
@@ -187,19 +182,19 @@ export function GallerySection() {
       <FloatingDecoration
         src="/images/decorativas_v2/martini_rosa.png"
         alt="Flor Dorada"
-        style={{ bottom: '-5%', right: '35%', width: '300px', height: '300px', opacity: 0.25, zIndex: 0 }}
+        style={{ bottom: '-5%', right: '35%', width: '300px', height: '300px', opacity: 0.45, zIndex: 0 }}
         animationStyle="float"
       />
       <FloatingDecoration
         src="/images/decorativas_v2/bola_rosa.png"
         alt="Jirafa"
-        style={{ top: '-10%', right: '-30%', width: '450px', height: '450px', opacity: 0.25, zIndex: 0 }}
+        style={{ top: '-10%', right: '-30%', width: '450px', height: '450px', opacity: 0.45, zIndex: 0 }}
         animationStyle="float"
       />
 
       {/* Subtle Background Glows */}
       <div style={{ position: 'absolute', top: '-10%', right: '-10%', width: '400px', height: '400px', backgroundColor: 'var(--color-gold)', opacity: 0.05, borderRadius: '50%', filter: 'blur(100px)', pointerEvents: 'none', zIndex: 0 }} />
-      <div style={{ position: 'absolute', bottom: '-10%', left: '-10%', width: '300px', height: '300px', backgroundColor: 'rgba(244,114,182,1)', opacity: 0.03, borderRadius: '50%', filter: 'blur(100px)', pointerEvents: 'none', zIndex: 0 }} />
+      <div style={{ position: 'absolute', bottom: '-10%', left: '-10%', width: '300px', height: '300px', backgroundColor: 'rgba(247, 177, 199, 1)', opacity: 0.03, borderRadius: '50%', filter: 'blur(100px)', pointerEvents: 'none', zIndex: 0 }} />
 
       <div style={{ maxWidth: '1152px', width: '100%', position: 'relative', zIndex: 10, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
 
@@ -246,7 +241,7 @@ export function GallerySection() {
             style={{
               fontFamily: 'var(--font-sans)',
               fontSize: 'clamp(0.75rem, 1.5vw, 0.875rem)',
-              color: 'var(--color-gold-dark)', // Uniformidad con el estilo principal
+              color: 'rgba(255, 255, 255, 0.7)', // Uniformidad con el estilo principal nocturno
               letterSpacing: '0.15em',
               fontWeight: 300,
               maxWidth: '32rem',
@@ -268,11 +263,11 @@ export function GallerySection() {
               marginInline: 'auto',
               padding: '2rem',
               border: '2px dashed',
-              borderColor: isDragActive ? 'var(--color-gold)' : 'rgba(244, 114, 182, 0.35)',
+              borderColor: isDragActive ? 'var(--color-gold)' : 'rgba(247, 177, 199, 0.4)',
               borderRadius: '2.5rem',
               cursor: isUploading ? 'not-allowed' : 'pointer',
               transition: 'all 0.3s ease',
-              backgroundColor: isDragActive ? 'rgba(244, 114, 182, 0.05)' : 'rgba(255,255,255,0.7)',
+              backgroundColor: isDragActive ? 'rgba(247, 177, 199, 0.05)' : 'rgba(255,255,255,0.03)',
               backdropFilter: 'blur(12px)',
               boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.02)',
               opacity: isUploading ? 0.5 : 1
@@ -282,15 +277,15 @@ export function GallerySection() {
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem' }}>
               {isUploading ? (
                 <>
-                  <RotateCw className="w-10 h-10 text-pink-400 animate-spin" />
-                  <p style={{ fontFamily: 'var(--font-sans)', color: 'var(--color-gold-dark)', fontWeight: 700, letterSpacing: '0.025em', fontSize: '0.875rem' }}>Subiendo foto...</p>
+                  <RotateCw className="w-10 h-10 animate-spin" color="var(--color-gold)" />
+                  <p style={{ fontFamily: 'var(--font-sans)', color: 'var(--color-gold)', fontWeight: 700, letterSpacing: '0.025em', fontSize: '0.875rem' }}>Subiendo foto...</p>
                 </>
               ) : (
                 <>
-                  <UploadCloud className="w-10 h-10 text-pink-400 drop-shadow-sm" />
+                  <UploadCloud className="w-10 h-10 drop-shadow-sm" color="var(--color-gold)" />
                   <div>
-                    <p style={{ fontFamily: 'var(--font-sans)', color: 'var(--color-gold-dark)', fontWeight: 800, fontSize: '1rem', marginBottom: '4px' }}>Toca aquí o arrastra una foto</p>
-                    <p style={{ fontFamily: 'var(--font-sans)', fontSize: '0.625rem', color: 'var(--color-gold)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>JPG, PNG, WEBP (Max 5MB)</p>
+                    <p style={{ fontFamily: 'var(--font-sans)', color: 'var(--color-cream)', fontWeight: 800, fontSize: '1rem', marginBottom: '4px' }}>Toca aquí o arrastra una foto</p>
+                    <p style={{ fontFamily: 'var(--font-sans)', fontSize: '0.625rem', color: 'rgba(255,255,255,0.5)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>JPG, PNG, WEBP (Max 5MB)</p>
                   </div>
                 </>
               )}
@@ -305,7 +300,7 @@ export function GallerySection() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
                 style={{
-                  color: '#d9534f',
+                  color: '#ff6b6b',
                   fontSize: '0.75rem',
                   fontFamily: 'var(--font-sans)',
                   fontWeight: 700,
@@ -323,11 +318,11 @@ export function GallerySection() {
         {/* STACKED CARD SWIPER */}
         <div style={{ width: '100%', position: 'relative', zIndex: 10, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           {isLoading ? (
-            <div style={{ width: '100%', padding: '5rem 0', display: 'flex', justifyContent: 'center', color: 'var(--color-gold-dark)' }}>
+            <div style={{ width: '100%', padding: '5rem 0', display: 'flex', justifyContent: 'center', color: 'var(--color-gold)' }}>
               <RotateCw className="w-10 h-10 animate-spin mx-auto block" />
             </div>
           ) : photos.length === 0 ? (
-            <div style={{ width: '100%', padding: '5rem 0', textAlign: 'center', color: 'var(--color-cream-muted)', fontFamily: 'var(--font-sans)', letterSpacing: '0.1em', textTransform: 'uppercase', fontSize: '0.875rem' }}>
+            <div style={{ width: '100%', padding: '5rem 0', textAlign: 'center', color: 'rgba(255,255,255,0.6)', fontFamily: 'var(--font-sans)', letterSpacing: '0.1em', textTransform: 'uppercase', fontSize: '0.875rem' }}>
               El mural interactivo está vacío. ¡Haz los honores!
             </div>
           ) : currentIndex >= photos.length ? (
@@ -336,7 +331,7 @@ export function GallerySection() {
               animate={{ opacity: 1, scale: 1 }}
               style={{ textAlign: 'center', padding: '2.5rem 0' }}
             >
-              <p style={{ color: 'var(--color-cream-muted)', fontFamily: 'var(--font-sans)', fontSize: '0.75rem', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '1rem', fontWeight: 500 }}>
+              <p style={{ color: 'rgba(255,255,255,0.6)', fontFamily: 'var(--font-sans)', fontSize: '0.75rem', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '1rem', fontWeight: 500 }}>
                 ¡Has visto todas las fotos!
               </p>
               <button
@@ -344,9 +339,10 @@ export function GallerySection() {
                 style={{
                   padding: '0.625rem 1.25rem',
                   backgroundColor: 'var(--color-gold)',
-                  color: '#FAF7F2',
+                  color: 'var(--color-black)',
                   borderRadius: '9999px',
                   fontFamily: 'var(--font-sans)',
+                  fontWeight: 700,
                   textTransform: 'uppercase',
                   fontSize: '0.625rem',
                   letterSpacing: '0.1em',
@@ -357,7 +353,7 @@ export function GallerySection() {
                   margin: '0 auto',
                   cursor: 'pointer',
                   border: 'none',
-                  boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)',
+                  boxShadow: '0 4px 15px rgba(247, 177, 199, 0.3)',
                   transition: 'all 0.3s'
                 }}
                 onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
@@ -511,22 +507,22 @@ export function GallerySection() {
                     width: '56px',
                     height: '56px',
                     borderRadius: '50%',
-                    backgroundColor: '#FAF7F2',
-                    border: '1px solid rgba(197, 160, 89, 0.2)',
+                    backgroundColor: 'rgba(255,255,255,0.05)',
+                    border: '1px solid rgba(247, 177, 199, 0.3)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     cursor: currentIndex === 0 ? 'not-allowed' : 'pointer',
                     opacity: currentIndex === 0 ? 0.4 : 1,
-                    color: currentIndex === 0 ? '#a3a3a3' : 'var(--color-gold-dark)',
-                    boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)',
+                    color: currentIndex === 0 ? '#555' : 'var(--color-gold)',
+                    boxShadow: '0 4px 15px rgba(0, 0, 0, 0.5)',
                     transition: 'all 0.3s'
                   }}
                 >
                   <ChevronLeft className="w-6 h-6" />
                 </button>
 
-                <span style={{ fontFamily: 'var(--font-sans)', fontSize: '0.75rem', color: 'var(--color-gold-dark)', fontWeight: 900, letterSpacing: '0.25em', textTransform: 'uppercase', minWidth: '80px', textAlign: 'center' }}>
+                <span style={{ fontFamily: 'var(--font-sans)', fontSize: '0.75rem', color: 'var(--color-cream)', fontWeight: 900, letterSpacing: '0.25em', textTransform: 'uppercase', minWidth: '80px', textAlign: 'center' }}>
                   {currentIndex + 1} / {photos.length}
                 </span>
 
@@ -541,14 +537,14 @@ export function GallerySection() {
                     width: '56px',
                     height: '56px',
                     borderRadius: '50%',
-                    backgroundColor: '#FAF7F2',
-                    border: '1px solid rgba(197, 160, 89, 0.3)',
+                    backgroundColor: 'rgba(255,255,255,0.05)',
+                    border: '1px solid rgba(247, 177, 199, 0.3)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     cursor: 'pointer',
-                    color: 'var(--color-gold-dark)',
-                    boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)',
+                    color: 'var(--color-gold)',
+                    boxShadow: '0 4px 15px rgba(0, 0, 0, 0.5)',
                     transition: 'all 0.3s'
                   }}
                 >
@@ -571,7 +567,7 @@ export function GallerySection() {
               position: 'fixed',
               inset: 0,
               zIndex: 100,
-              backgroundColor: 'rgba(250, 247, 242, 0.95)',
+              backgroundColor: 'rgba(0, 0, 0, 0.95)',
               backdropFilter: 'blur(15px)',
               display: 'flex',
               alignItems: 'center',
@@ -589,16 +585,16 @@ export function GallerySection() {
                 position: 'absolute',
                 top: '1.5rem',
                 right: '1.5rem',
-                backgroundColor: 'white',
+                backgroundColor: 'var(--color-black)',
                 padding: '1rem',
                 borderRadius: '50%',
-                border: '1px solid rgba(197, 160, 89, 0.2)',
+                border: '1px solid rgba(247, 177, 199, 0.4)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                color: 'var(--color-gold-dark)',
+                color: 'var(--color-gold)',
                 cursor: 'pointer',
-                boxShadow: '0 4px 6px -1px rgba(0,0,0,0.1)',
+                boxShadow: '0 4px 15px rgba(0,0,0,0.5)',
                 zIndex: 50,
                 transition: 'all 0.3s'
               }}
@@ -631,10 +627,10 @@ export function GallerySection() {
                   maxWidth: '100%',
                   maxHeight: '90vh',
                   objectFit: 'contain',
-                  backgroundColor: 'white',
-                  padding: '0.5rem',
-                  border: '1px solid rgba(197, 160, 89, 0.2)',
-                  boxShadow: '0 4px 6px -1px rgba(0,0,0,0.1)',
+                  backgroundColor: 'transparent',
+                  padding: '0',
+                  border: 'none',
+                  boxShadow: '0 20px 40px rgba(0,0,0,0.8)',
                   pointerEvents: 'auto',
                   cursor: 'default'
                 }}

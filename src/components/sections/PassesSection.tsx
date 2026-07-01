@@ -31,7 +31,7 @@ function PassesOption1({ config }: PassesSectionProps) {
         display: 'flex', 
         alignItems: 'center', 
         justifyContent: 'center', 
-        backgroundColor: '#fdfbf7', 
+        backgroundColor: 'var(--color-black)', 
         padding: '6rem 2rem', 
         overflow: 'hidden',
         position: 'relative'
@@ -43,7 +43,7 @@ function PassesOption1({ config }: PassesSectionProps) {
         style={{
           position: 'absolute',
           inset: 0,
-          background: 'radial-gradient(circle at center, rgba(197, 160, 89, 0.08) 0%, transparent 60%)',
+          background: 'radial-gradient(circle at center, rgba(247, 177, 199, 0.08) 0%, transparent 60%)',
           pointerEvents: 'none',
         }}
       />
@@ -54,7 +54,7 @@ function PassesOption1({ config }: PassesSectionProps) {
         transition={{ duration: 4, repeat: Infinity, repeatType: 'reverse', ease: 'easeInOut' }}
         style={{ transformOrigin: 'top center', position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center', zIndex: 10 }}
       >
-        {/* Lanyard de Cinta Enroscada (Más corto y anclado al centro del clip) */}
+        {/* Lanyard de Cinta Enroscada */}
         <div style={{ 
           position: 'absolute', 
           zIndex: 1, 
@@ -66,17 +66,17 @@ function PassesOption1({ config }: PassesSectionProps) {
           pointerEvents: 'none' 
         }}>
           {/* SVG responsivo que alinea su borde derecho con el centro exacto de la tarjeta (left: 50%) */}
-          <svg width="100%" height="100%" viewBox="0 0 1000 150" preserveAspectRatio="none" style={{ filter: 'drop-shadow(0px 8px 6px rgba(0,0,0,0.3))' }}>
+          <svg width="100%" height="100%" viewBox="0 0 1000 150" preserveAspectRatio="none" style={{ filter: 'drop-shadow(0px 8px 6px rgba(0,0,0,0.8))' }}>
             <defs>
               <linearGradient id="cintaFront" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stopColor="#e19cb0" />
-                <stop offset="50%" stopColor="#fdf0f4" />
-                <stop offset="100%" stopColor="#e19cb0" />
+                <stop offset="0%" stopColor="#f7b1c7" />
+                <stop offset="50%" stopColor="#ffe4ec" />
+                <stop offset="100%" stopColor="#f7b1c7" />
               </linearGradient>
               <linearGradient id="cintaBack" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stopColor="#b86d84" />
-                <stop offset="50%" stopColor="#d38c9e" />
-                <stop offset="100%" stopColor="#b86d84" />
+                <stop offset="0%" stopColor="#8c5b6b" />
+                <stop offset="50%" stopColor="#b57a8f" />
+                <stop offset="100%" stopColor="#8c5b6b" />
               </linearGradient>
             </defs>
             
@@ -100,7 +100,7 @@ function PassesOption1({ config }: PassesSectionProps) {
           border: '3px solid #d4d4d8', 
           borderRadius: '10px 10px 16px 16px', 
           background: 'linear-gradient(135deg, rgba(255,255,255,0.9), rgba(180,180,180,0.5))',
-          boxShadow: 'inset 0 1px 3px rgba(255,255,255,1), 0 2px 4px rgba(0,0,0,0.3)',
+          boxShadow: 'inset 0 1px 3px rgba(255,255,255,1), 0 2px 4px rgba(0,0,0,0.5)',
           position: 'relative', 
           top: '-15px', 
           zIndex: 2,
@@ -112,10 +112,10 @@ function PassesOption1({ config }: PassesSectionProps) {
         <div style={{ 
           width: '260px', 
           height: '300px', 
-          backgroundColor: '#0a0a0a', 
+          backgroundColor: '#050505', 
           borderRadius: '10px', 
-          border: '1px solid rgba(197, 160, 89, 0.4)', 
-          boxShadow: '0 20px 40px rgba(0,0,0,0.2), 0 8px 15px rgba(0,0,0,0.1), inset 0 0 15px rgba(255,255,255,0.05)', 
+          border: '1px solid rgba(247, 177, 199, 0.4)', 
+          boxShadow: '0 20px 40px rgba(0,0,0,0.8), 0 8px 15px rgba(0,0,0,0.5), inset 0 0 15px rgba(247, 177, 199, 0.05)', 
           position: 'relative', 
           top: '-25px', 
           zIndex: 3,
@@ -126,7 +126,7 @@ function PassesOption1({ config }: PassesSectionProps) {
           overflow: 'hidden'
         }}>
           {/* Background image New York B/W */}
-          <div style={{ position: 'absolute', inset: 0, opacity: 0.85, pointerEvents: 'none' }}>
+          <div style={{ position: 'absolute', inset: 0, opacity: 0.75, pointerEvents: 'none' }}>
             <Image 
               src="/images/decorativas_v2/fondo_newyork.png" 
               alt="NY Background" 
@@ -135,7 +135,7 @@ function PassesOption1({ config }: PassesSectionProps) {
               className="object-cover grayscale" 
               style={{ objectPosition: 'center top' }}
             />
-            <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, transparent, #0a0a0a 75%)' }} />
+            <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, transparent, #050505 75%)' }} />
           </div>
 
           {/* Troquelado superior para el clip */}
@@ -144,27 +144,27 @@ function PassesOption1({ config }: PassesSectionProps) {
             top: '10px', 
             width: '45px', 
             height: '8px', 
-            backgroundColor: '#fdfbf7', // Transparencia simulada pintando del color de fondo
+            backgroundColor: 'var(--color-black)', // Transparencia simulada pintando del color de fondo general
             borderRadius: '8px', 
-            boxShadow: 'inset 0 2px 5px rgba(0,0,0,0.4)',
+            boxShadow: 'inset 0 2px 5px rgba(0,0,0,0.8)',
             zIndex: 10 
           }} />
 
           {/* VIP PASS header */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', marginTop: '0.5rem', zIndex: 5 }}>
-            <Compass className="w-5 h-5 text-gold drop-shadow-md" style={{ color: 'var(--color-gold)' }} />
+            <Compass className="w-5 h-5 drop-shadow-md" style={{ color: 'var(--color-gold)' }} />
             <h2 style={{ fontFamily: 'var(--font-sans)', fontSize: '1.75rem', fontWeight: 900, color: '#FFFFFF', letterSpacing: '0.15em', margin: 0, lineHeight: 1 }}>VIP</h2>
           </div>
           <span style={{ fontFamily: 'var(--font-dm-mono)', fontSize: '0.65rem', color: 'var(--color-gold)', letterSpacing: '0.3em', fontWeight: 600, zIndex: 5, marginTop: '0.2rem' }}>BACKSTAGE</span>
           
-          <div style={{ width: '100%', height: '1px', background: 'linear-gradient(90deg, transparent, rgba(197, 160, 89, 0.5), transparent)', margin: '0.75rem 0', zIndex: 5 }} />
+          <div style={{ width: '100%', height: '1px', background: 'linear-gradient(90deg, transparent, rgba(247, 177, 199, 0.5), transparent)', margin: '0.75rem 0', zIndex: 5 }} />
 
           <p style={{ fontFamily: 'var(--font-sans)', color: 'rgba(255,255,255,0.7)', fontSize: '0.6rem', letterSpacing: '0.15em', zIndex: 5, textTransform: 'uppercase', fontWeight: 600 }}>
             {passes.topLabel || 'ACCESS GRANTED'}
           </p>
           
           {/* Nro de Personas (Reemplaza el nombre) */}
-          <h3 style={{ fontFamily: 'var(--font-pinyon)', fontSize: '2rem', color: 'var(--color-gold)', margin: '0.5rem 0', textAlign: 'center', zIndex: 5, textShadow: '0 2px 8px rgba(0,0,0,0.5)', lineHeight: 1.1 }}>
+          <h3 style={{ fontFamily: 'var(--font-pinyon)', fontSize: '2rem', color: 'var(--color-gold)', margin: '0.5rem 0', textAlign: 'center', zIndex: 5, textShadow: '0 2px 8px rgba(0,0,0,0.8)', lineHeight: 1.1 }}>
             {passes.quantity} Persona
           </h3>
 
@@ -207,7 +207,7 @@ function PassesOption1({ config }: PassesSectionProps) {
 }
 
 /**
- * Opción 2: Diseño Original (Pase Horizontal Perlado)
+ * Opción 2: Diseño Original (Pase Horizontal Perlado adaptado a oscuro)
  */
 export function PassesOption2({ config }: PassesSectionProps) {
   const { passes, event, quinceañera } = config;
@@ -229,7 +229,7 @@ export function PassesOption2({ config }: PassesSectionProps) {
     <section
       aria-label="Pases de acceso digital"
       style={{
-        backgroundColor: '#fdfbf7',
+        backgroundColor: 'var(--color-black)',
         padding: 'clamp(5rem, 10vw, 8rem) clamp(1.5rem, 4vw, 3rem)',
         display: 'flex',
         flexDirection: 'column',
@@ -237,7 +237,7 @@ export function PassesOption2({ config }: PassesSectionProps) {
         justifyContent: 'center',
         position: 'relative',
         overflow: 'hidden',
-        borderTop: '0.5px solid rgba(244, 114, 182, 0.15)',
+        borderTop: '0.5px solid rgba(247, 177, 199, 0.15)',
       }}
     >
       {/* Background Soft Glow */}
@@ -246,7 +246,7 @@ export function PassesOption2({ config }: PassesSectionProps) {
         style={{
           position: 'absolute',
           inset: 0,
-          background: 'radial-gradient(ellipse at center, rgba(244, 114, 182, 0.03) 0%, transparent 70%)',
+          background: 'radial-gradient(ellipse at center, rgba(247, 177, 199, 0.05) 0%, transparent 70%)',
           pointerEvents: 'none',
         }}
       />
@@ -288,7 +288,7 @@ export function PassesOption2({ config }: PassesSectionProps) {
               fontFamily: 'var(--font-pinyon)',
               fontSize: 'clamp(3rem, 7vw, 4.5rem)',
               fontWeight: 300,
-              color: 'var(--color-gold-dark)',
+              color: 'var(--color-cream)',
               lineHeight: 1.1,
             }}
           >
@@ -313,11 +313,13 @@ export function PassesOption2({ config }: PassesSectionProps) {
             style={{
               width: '100%',
               display: 'flex',
-              backgroundColor: 'var(--color-surface)',
+              backgroundColor: 'rgba(255, 255, 255, 0.03)',
+              backdropFilter: 'blur(12px)',
+              WebkitBackdropFilter: 'blur(12px)',
               borderRadius: '18px',
-              border: '1px solid rgba(244, 114, 182, 0.2)',
+              border: '1px solid rgba(247, 177, 199, 0.4)',
               overflow: 'hidden',
-              boxShadow: '0 15px 40px rgba(0, 0, 0, 0.04)',
+              boxShadow: '0 15px 40px rgba(0, 0, 0, 0.8), inset 0 0 20px rgba(247, 177, 199, 0.05)',
               position: 'relative',
               zIndex: 10,
             }}
@@ -340,7 +342,7 @@ export function PassesOption2({ config }: PassesSectionProps) {
                 style={{
                   position: 'absolute',
                   inset: 0,
-                  background: 'radial-gradient(circle at 70% 50%, rgba(244, 114, 182, 0.05) 0%, transparent 80%)',
+                  background: 'radial-gradient(circle at 70% 50%, rgba(247, 177, 199, 0.05) 0%, transparent 80%)',
                   pointerEvents: 'none',
                 }}
               />
@@ -365,14 +367,14 @@ export function PassesOption2({ config }: PassesSectionProps) {
                         fontSize: 'clamp(1.5rem, 3.5vw, 2.25rem)',
                         fontWeight: 900,
                         letterSpacing: '-0.02em',
-                        color: 'var(--color-gold-dark)',
+                        color: 'var(--color-cream)',
                         textTransform: 'uppercase',
                         lineHeight: 1,
                       }}
                     >
                       VIP PASS
                     </h3>
-                    <Compass className="w-5 h-5 md:w-7 md:h-7 text-pink-400 stroke-[1.5]" />
+                    <Compass className="w-5 h-5 md:w-7 md:h-7 stroke-[1.5]" style={{ color: 'var(--color-gold)' }} />
                   </div>
 
                   <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '0.75rem' }}>
@@ -380,11 +382,11 @@ export function PassesOption2({ config }: PassesSectionProps) {
                       style={{
                         display: 'inline-flex',
                         alignItems: 'center',
-                        backgroundColor: 'rgba(244, 114, 182, 0.08)',
-                        border: '1px solid rgba(244, 114, 182, 0.25)',
-                        color: 'var(--color-gold-dark)',
+                        backgroundColor: 'var(--color-gold)',
+                        border: 'none',
+                        color: 'var(--color-black)',
                         fontSize: '0.7rem',
-                        fontWeight: 700,
+                        fontWeight: 800,
                         textTransform: 'uppercase',
                         letterSpacing: '0.1em',
                         padding: '2px 10px',
@@ -398,7 +400,7 @@ export function PassesOption2({ config }: PassesSectionProps) {
                       style={{
                         fontFamily: 'var(--font-sans)',
                         fontSize: '0.7rem',
-                        color: 'var(--color-cream-muted)',
+                        color: 'rgba(255,255,255,0.7)',
                         textTransform: 'uppercase',
                         letterSpacing: '0.08em',
                       }}
@@ -415,7 +417,7 @@ export function PassesOption2({ config }: PassesSectionProps) {
                       style={{
                         fontFamily: 'var(--font-dm-mono)',
                         fontSize: '0.65rem',
-                        color: 'var(--color-gold-dark)',
+                        color: 'rgba(255,255,255,0.5)',
                         fontWeight: 600,
                         letterSpacing: '0.05em',
                         display: 'block',
@@ -442,7 +444,7 @@ export function PassesOption2({ config }: PassesSectionProps) {
                       style={{
                         fontFamily: 'var(--font-dm-mono)',
                         fontSize: '0.65rem',
-                        color: 'var(--color-gold-dark)',
+                        color: 'rgba(255,255,255,0.5)',
                         fontWeight: 600,
                         letterSpacing: '0.05em',
                         display: 'block',
@@ -483,8 +485,8 @@ export function PassesOption2({ config }: PassesSectionProps) {
                   width: 'clamp(70px, 12vw, 95px)',
                   height: 'clamp(70px, 12vw, 95px)',
                   borderRadius: '50%',
-                  border: '1px dashed rgba(244, 114, 182, 0.35)',
-                  backgroundColor: 'rgba(244, 114, 182, 0.03)',
+                  border: '1px dashed rgba(247, 177, 199, 0.4)',
+                  backgroundColor: 'rgba(247, 177, 199, 0.05)',
                   padding: '4px',
                   display: 'flex',
                   flexDirection: 'column',
@@ -501,7 +503,7 @@ export function PassesOption2({ config }: PassesSectionProps) {
                     fontSize: '5px',
                     fontWeight: 700,
                     letterSpacing: '0.15em',
-                    color: 'var(--color-gold-dark)',
+                    color: 'var(--color-cream)',
                     textTransform: 'uppercase',
                     position: 'absolute',
                     top: '8%',
@@ -515,13 +517,13 @@ export function PassesOption2({ config }: PassesSectionProps) {
                     width: '60%',
                     height: '60%',
                     borderRadius: '50%',
-                    border: '1px dashed rgba(244, 114, 182, 0.2)',
+                    border: '1px dashed rgba(247, 177, 199, 0.2)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                   }}
                 >
-                  <Compass className="w-5 h-5 text-pink-400 stroke-[1.2]" />
+                  <Compass className="w-5 h-5 stroke-[1.2]" style={{ color: 'var(--color-gold)' }} />
                 </div>
 
                 <span
@@ -529,7 +531,7 @@ export function PassesOption2({ config }: PassesSectionProps) {
                     fontFamily: 'var(--font-dm-mono)',
                     fontSize: '5px',
                     letterSpacing: '0.1em',
-                    color: 'var(--color-cream-muted)',
+                    color: 'rgba(255,255,255,0.5)',
                     textTransform: 'uppercase',
                     position: 'absolute',
                     bottom: '8%',
@@ -561,7 +563,7 @@ export function PassesOption2({ config }: PassesSectionProps) {
                   height: '20px',
                   borderRadius: '50%',
                   backgroundColor: 'var(--color-black)', // Se fusiona con el fondo
-                  borderBottom: '1px solid rgba(244, 114, 182, 0.2)',
+                  borderBottom: '1px solid rgba(247, 177, 199, 0.4)',
                   zIndex: 20,
                 }}
               />
@@ -570,7 +572,7 @@ export function PassesOption2({ config }: PassesSectionProps) {
                 style={{
                   height: '100%',
                   width: 0,
-                  borderLeft: '1px dashed rgba(244, 114, 182, 0.35)',
+                  borderLeft: '1px dashed rgba(247, 177, 199, 0.4)',
                   margin: '12px 0',
                 }}
               />
@@ -583,7 +585,7 @@ export function PassesOption2({ config }: PassesSectionProps) {
                   height: '20px',
                   borderRadius: '50%',
                   backgroundColor: 'var(--color-black)', // Se fusiona con el fondo
-                  borderTop: '1px solid rgba(244, 114, 182, 0.2)',
+                  borderTop: '1px solid rgba(247, 177, 199, 0.4)',
                   zIndex: 20,
                 }}
               />
@@ -593,14 +595,14 @@ export function PassesOption2({ config }: PassesSectionProps) {
             <div
               style={{
                 width: 'clamp(65px, 15vw, 160px)',
-                backgroundColor: 'rgba(244, 114, 182, 0.02)',
+                backgroundColor: 'rgba(247, 177, 199, 0.05)',
                 position: 'relative',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 flexShrink: 0,
                 overflow: 'hidden',
-                borderLeft: '1px solid rgba(244, 114, 182, 0.05)',
+                borderLeft: '1px solid rgba(247, 177, 199, 0.1)',
               }}
             >
               {/* Leopardo marca de agua en el Stub */}
@@ -608,8 +610,9 @@ export function PassesOption2({ config }: PassesSectionProps) {
                 style={{
                   position: 'absolute',
                   inset: 0,
-                  opacity: 0.08,
+                  opacity: 0.15,
                   pointerEvents: 'none',
+                  mixBlendMode: 'lighten'
                 }}
               >
                 <Image
@@ -639,7 +642,7 @@ export function PassesOption2({ config }: PassesSectionProps) {
                   fontFamily: 'var(--font-display)',
                   fontWeight: 900,
                   fontSize: 'clamp(2.5rem, 5vw, 5.5rem)',
-                  color: 'rgba(244, 114, 182, 0.25)',
+                  color: 'rgba(247, 177, 199, 0.25)',
                   writingMode: 'vertical-rl',
                   textOrientation: 'upright',
                   letterSpacing: '-0.1em',

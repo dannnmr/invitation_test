@@ -58,7 +58,7 @@ export function MusicSection() {
     <section 
       ref={sectionRef}
       style={{ 
-        backgroundColor: '#fbfbf7', // Fondo oscuro
+        backgroundColor: 'var(--color-black)', // Fondo oscuro
         display: 'flex', 
         alignItems: 'center', 
         justifyContent: 'center',
@@ -68,16 +68,16 @@ export function MusicSection() {
       }}
     >
       {/* Imagen de fondo */}
-      <div style={{ position: 'absolute', inset: 0, opacity: 0.6, pointerEvents: 'none' }}>
+      <div style={{ position: 'absolute', inset: 0, opacity: 0.5, pointerEvents: 'none' }}>
         <Image 
-          src="/images/decorativas_v2/bg_newyork_rosa.png" 
+          src="/images/decorativas_v2/bg-new-rosa.png" 
           alt="NY Rosa Background" 
           fill 
           className="object-cover" 
           style={{ objectPosition: 'center' }}
         />
         {/* Degradado superior e inferior para fusionarlo mejor */}
-        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, #fdfbf7 0%, transparent 20%, transparent 80%, #fdfbf7 100%)' }} />
+        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, var(--color-black) 0%, transparent 20%, transparent 80%, var(--color-black) 100%)' }} />
       </div>
       <div style={{
         width: '100%', maxWidth: '600px',
@@ -90,36 +90,36 @@ export function MusicSection() {
           <motion.div 
             style={{ 
               width: '100%', height: '100%', borderRadius: '50%', position: 'relative', overflow: 'hidden',
-              // Surcos del vinilo en tonos más oscuros para distinguirlo
-              background: 'repeating-radial-gradient(circle, rgba(17,17,17,0.05) 0, rgba(17,17,17,0.08) 2px, transparent 3px, transparent 4px)',
-              border: '1px solid #111', // Borde negro evidente solicitado
-              boxShadow: '0 10px 20px rgba(17,17,17,0.15)',
+              // Surcos del vinilo adaptados a noche
+              background: 'repeating-radial-gradient(circle, #050505 0, #111 2px, #0a0a0a 3px, #1a1a1a 4px)',
+              border: '1px solid rgba(247, 177, 199, 0.3)', // Borde rose gold sutil
+              boxShadow: '0 10px 20px rgba(0,0,0,0.8), 0 0 15px rgba(247, 177, 199, 0.15)',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               rotate: vinylRotation // Animación interactiva de giro vinculada al scroll
             }}
           >
-            {/* Puntos de anclaje visual (en color negro) */}
-            <div style={{ position: 'absolute', top: '10px', left: '20px', width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#111' }} />
-            <div style={{ position: 'absolute', bottom: '15px', right: '15px', width: '5px', height: '5px', borderRadius: '50%', border: '1.5px solid #111' }} />
+            {/* Puntos de anclaje visual */}
+            <div style={{ position: 'absolute', top: '10px', left: '20px', width: '8px', height: '8px', borderRadius: '50%', backgroundColor: 'rgba(255,255,255,0.1)' }} />
+            <div style={{ position: 'absolute', bottom: '15px', right: '15px', width: '5px', height: '5px', borderRadius: '50%', border: '1.5px solid rgba(255,255,255,0.1)' }} />
             
-            {/* Sombra asimétrica gris oscuro */}
-            <div style={{ position: 'absolute', top: 0, left: '50%', width: '50%', height: '100%', background: 'linear-gradient(90deg, rgba(17,17,17,0.15) 0%, transparent 100%)' }} />
+            {/* Sombra asimétrica */}
+            <div style={{ position: 'absolute', top: 0, left: '50%', width: '50%', height: '100%', background: 'linear-gradient(90deg, rgba(0,0,0,0.5) 0%, transparent 100%)' }} />
 
-            {/* Etiqueta central combinando el rosa del Hero (#F8C8DC) y negro */}
-            <div style={{ position: 'relative', zIndex: 2, width: '34px', height: '34px', borderRadius: '50%', background: 'linear-gradient(90deg, #F8C8DC 50%, #111 50%)', border: '1px solid #111', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#fff', border: '1px solid #111' }} />
+            {/* Etiqueta central rose gold y negra */}
+            <div style={{ position: 'relative', zIndex: 2, width: '34px', height: '34px', borderRadius: '50%', background: 'linear-gradient(90deg, var(--color-gold) 50%, #222 50%)', border: '1px solid rgba(255,255,255,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#050505', border: '1px solid rgba(247, 177, 199, 0.5)' }} />
             </div>
           </motion.div>
         </div>
 
-        {/* Textos tipográficos usando el rosa original (#F8C8DC) pero con sombra para legibilidad si es necesario, aunque en texto suele verse bien. Usaremos el rosa. */}
-        <span style={{ fontFamily: 'var(--font-dm-mono)', fontSize: '0.65rem', color: '#111', backgroundColor: '#F8C8DC', padding: '0.2rem 0.6rem', borderRadius: '12px', letterSpacing: '0.3em', textTransform: 'uppercase', fontWeight: 700, display: 'inline-block', marginBottom: '0.8rem' }}>
+        {/* Textos tipográficos */}
+        <span style={{ fontFamily: 'var(--font-dm-mono)', fontSize: '0.65rem', color: 'var(--color-black)', backgroundColor: 'var(--color-gold)', padding: '0.2rem 0.6rem', borderRadius: '12px', letterSpacing: '0.3em', textTransform: 'uppercase', fontWeight: 800, display: 'inline-block', marginBottom: '0.8rem' }}>
           Playlist
         </span>
-        <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(3.5rem, 8vw, 5rem)', fontWeight: 400, color: '#111', lineHeight: 1, marginBottom: '0.1rem' }}>
+        <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(3.5rem, 8vw, 5rem)', fontWeight: 400, color: 'var(--color-cream)', lineHeight: 1, marginBottom: '0.1rem' }}>
           Música
         </h2>
-        <p style={{ fontFamily: 'var(--font-sans)', fontSize: '0.85rem', color: '#666', lineHeight: 1.6, maxWidth: '400px', margin: '0 auto 2rem auto' }}>
+        <p style={{ fontFamily: 'var(--font-sans)', fontSize: '0.85rem', color: 'rgba(255, 255, 255, 0.7)', lineHeight: 1.6, maxWidth: '400px', margin: '0 auto 2rem auto' }}>
           ¿Qué canción no puede faltar en la fiesta? 
         </p>
 
@@ -128,11 +128,13 @@ export function MusicSection() {
           
           <div style={{ 
             display: 'flex', alignItems: 'center', 
-            background: '#fff', 
-            border: '0.3px solid #111', // Borde negro para consistencia con el vinilo
+            background: 'rgba(255, 255, 255, 0.05)', 
+            border: '1px solid rgba(247, 177, 199, 0.4)', // Borde rose gold
             borderRadius: '50px',
             padding: '0.3rem 0.3rem 0.3rem 1.5rem',
-            boxShadow: '0 8px 25px rgba(0, 0, 0, 0.05)'
+            boxShadow: '0 8px 25px rgba(0, 0, 0, 0.5), inset 0 0 10px rgba(247, 177, 199, 0.05)',
+            backdropFilter: 'blur(10px)',
+            WebkitBackdropFilter: 'blur(10px)'
           }}>
             <input 
               type="text" 
@@ -142,7 +144,7 @@ export function MusicSection() {
               disabled={isSubmitting || isSuccess}
               style={{ 
                 flex: 1, backgroundColor: 'transparent', border: 'none', 
-                color: '#111', fontFamily: 'var(--font-sans)', fontSize: '0.95rem', outline: 'none' 
+                color: 'var(--color-cream)', fontFamily: 'var(--font-sans)', fontSize: '0.95rem', outline: 'none' 
               }}
             />
             
@@ -151,18 +153,19 @@ export function MusicSection() {
               disabled={isSubmitting || isSuccess} 
               style={{ 
                 width: '45px', height: '45px', borderRadius: '50%',
-                backgroundColor: (isSubmitting || isSuccess) ? '#eaeaea' : '#F8C8DC', // Rosa Hero
-                border: '0.5px solid #111', // Borde negro sutil en el botón
-                color: '#111', // Icono negro para contraste perfecto con el rosa claro
+                backgroundColor: (isSubmitting || isSuccess) ? '#333' : 'var(--color-gold)', // Rose Gold
+                border: 'none',
+                color: (isSubmitting || isSuccess) ? 'rgba(255,255,255,0.5)' : 'var(--color-black)', // Icono negro
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
                 cursor: (isSubmitting || isSuccess) ? 'not-allowed' : 'pointer',
                 transition: 'all 0.3s',
+                boxShadow: (isSubmitting || isSuccess) ? 'none' : '0 0 15px rgba(247, 177, 199, 0.4)'
               }}
             >
               {isSubmitting ? (
-                <RotateCw className="w-5 h-5 animate-spin" color="#111" />
+                <RotateCw className="w-5 h-5 animate-spin" />
               ) : isSuccess ? (
-                <CheckCircle2 className="w-5 h-5 text-green-600" />
+                <CheckCircle2 className="w-5 h-5" />
               ) : (
                 <Send className="w-4 h-4" style={{ marginLeft: '-2px' }} />
               )}
@@ -172,12 +175,12 @@ export function MusicSection() {
           {/* Mensajes de error o éxito */}
           <AnimatePresence mode="wait">
             {error && (
-              <motion.p initial={{ opacity: 0, y: -5 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} style={{ color: '#e06666', fontSize: '0.75rem', fontFamily: 'var(--font-sans)', margin: '0.5rem 0 0 0', fontWeight: 600 }}>
+              <motion.p initial={{ opacity: 0, y: -5 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} style={{ color: '#ff6b6b', fontSize: '0.75rem', fontFamily: 'var(--font-sans)', margin: '0.5rem 0 0 0', fontWeight: 600 }}>
                 {error}
               </motion.p>
             )}
             {isSuccess && (
-              <motion.p initial={{ opacity: 0, y: -5 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} style={{ color: '#111', fontSize: '0.75rem', fontFamily: 'var(--font-dm-mono)', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: 600, margin: '0.5rem 0 0 0' }}>
+              <motion.p initial={{ opacity: 0, y: -5 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} style={{ color: 'var(--color-gold)', fontSize: '0.75rem', fontFamily: 'var(--font-dm-mono)', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: 700, margin: '0.5rem 0 0 0' }}>
                 ¡Sugerencia agregada!
               </motion.p>
             )}

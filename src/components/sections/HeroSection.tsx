@@ -143,7 +143,7 @@ export function HeroSection({ config, isRevealed }: HeroSectionProps) {
 
         {/* Inferior */}
         <img
-          src="/images/decorativas_v2/estatua.png"
+          src="/images/decorativas_v2/estatua_libertad.png"
           alt="Estatua con brillos"
           style={{ position: 'absolute', bottom: '-5%', left: '-5%', width: 'clamp(230px, 30vw, 400px)', opacity: 0.95 }}
         />

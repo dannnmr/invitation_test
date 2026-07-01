@@ -12,32 +12,33 @@ export function DressCodeSection({ config }: DressCodeSectionProps) {
   const { dressCode } = config;
 
   return (
-    <section style={{ padding: '3.5rem 1rem', backgroundColor: '#fdfbf7', display: 'flex', justifyContent: 'center', position: 'relative' }}>
+    <section style={{ padding: '3.5rem 1rem', backgroundColor: 'var(--color-black)', display: 'flex', justifyContent: 'center', position: 'relative' }}>
       {/* Luz rosa de fondo para el glassmorphism */}
-      <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: '250px', height: '400px', background: 'radial-gradient(ellipse, rgba(248, 200, 220, 0.4) 0%, transparent 70%)', filter: 'blur(40px)', zIndex: 0 }} />
+      <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: '250px', height: '400px', background: 'radial-gradient(ellipse, rgba(247, 177, 199, 0.15) 0%, transparent 70%)', filter: 'blur(40px)', zIndex: 0 }} />
 
       <div style={{ 
         zIndex: 1,
         width: '100%', maxWidth: '350px',
         padding: '2.5rem 1rem',
-        border: '1px solid rgba(192, 192, 192, 0.6)',
+        border: '1px solid rgba(247, 177, 199, 0.4)',
         borderRadius: '150px 150px 0 0', // Forma de arco superior (espejo)
-        backgroundColor: 'rgba(255, 255, 255, 0.6)',
-        backdropFilter: 'blur(10px)',
+        backgroundColor: 'rgba(255, 255, 255, 0.03)',
+        backdropFilter: 'blur(12px)',
+        WebkitBackdropFilter: 'blur(12px)',
         display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center',
-        boxShadow: '0 10px 30px rgba(181, 131, 141, 0.05)'
+        boxShadow: '0 10px 30px rgba(0, 0, 0, 0.8), inset 0 0 20px rgba(247, 177, 199, 0.05)'
       }}>
         
-        <span style={{ fontFamily: 'var(--font-dm-mono)', fontSize: '0.65rem', color: '#B5838D', letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: '0.5rem' }}>
+        <span style={{ fontFamily: 'var(--font-dm-mono)', fontSize: '0.65rem', color: 'var(--color-gold)', letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: '0.5rem' }}>
           Sugerencia de estilo
         </span>
         
-        <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(3rem, 7vw, 4rem)', color: '#111', fontWeight: 400, margin: 0, lineHeight: 1, zIndex: 2, position: 'relative' }}>
+        <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(3rem, 7vw, 4rem)', color: 'var(--color-cream)', fontWeight: 400, margin: 0, lineHeight: 1, zIndex: 2, position: 'relative' }}>
           Dress Code
         </h2>
 
         {/* Imagen con márgenes negativos para reducir los espacios en blanco de su archivo original sin afectar su tamaño visual */}
-        <div style={{ position: 'relative', width: '100%', maxWidth: '180px', height: '180px', marginTop: '-1.5rem', marginBottom: '-0.5rem', zIndex: 1 }}>
+        <div style={{ position: 'relative', width: '100%', maxWidth: '180px', height: '180px', marginTop: '-1.5rem', marginBottom: '-0.5rem', zIndex: 1, filter: 'drop-shadow(0 0 10px rgba(255,255,255,0.1))' }}>
           <Image 
             src="/images/decorativas_v2/etiqueta_elegante.png" 
             alt="Etiqueta elegante" 
@@ -57,8 +58,8 @@ export function DressCodeSection({ config }: DressCodeSectionProps) {
                 backgroundColor: isImage ? 'transparent' : color,
                 backgroundImage: isImage ? `url("${color}")` : 'none',
                 backgroundSize: 'cover', backgroundPosition: 'center',
-                border: '2px solid #fff',
-                boxShadow: '0 5px 10px rgba(181, 131, 141, 0.2)'
+                border: '1px solid rgba(247, 177, 199, 0.5)',
+                boxShadow: '0 5px 15px rgba(0, 0, 0, 0.5)'
               }} />
             );
           })}
@@ -67,14 +68,14 @@ export function DressCodeSection({ config }: DressCodeSectionProps) {
         {/* Nota especial rediseñada de forma más elegante */}
         <div style={{ 
           display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem', 
-          borderTop: '1px solid rgba(181, 131, 141, 0.3)', 
+          borderTop: '1px solid rgba(247, 177, 199, 0.2)', 
           paddingTop: '1.5rem', marginTop: '1rem',
           width: '80%'
         }}>
-          <span style={{ fontFamily: 'var(--font-pinyon)', fontSize: '2rem', color: '#B5838D', lineHeight: 0.8 }}>Nota Especial</span>
+          <span style={{ fontFamily: 'var(--font-pinyon)', fontSize: '2rem', color: 'var(--color-gold)', lineHeight: 0.8 }}>Nota Especial</span>
           <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.5rem', marginTop: '0.2rem' }}>
-            <Ban size={14} color="#B5838D" style={{ marginTop: '2px', flexShrink: 0 }} />
-            <p style={{ fontFamily: 'var(--font-sans)', color: '#888', fontSize: '0.75rem', lineHeight: 1.5, letterSpacing: '0.05em', fontStyle: 'italic', margin: 0, textAlign: 'left' }}>
+            <Ban size={14} color="var(--color-gold)" style={{ marginTop: '2px', flexShrink: 0 }} />
+            <p style={{ fontFamily: 'var(--font-sans)', color: 'rgba(255, 255, 255, 0.7)', fontSize: '0.75rem', lineHeight: 1.5, letterSpacing: '0.05em', fontStyle: 'italic', margin: 0, textAlign: 'left' }}>
               {dressCode.notes}
             </p>
           </div>

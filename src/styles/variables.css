@@ -1,19 +1,19 @@
 :root {
   /* Paleta principal (Nueva York Elegante y Vibrante) */
-  --color-black:        #fdfbf7;       /* Perla */
-  --color-black-soft:   #F5F5F5;
-  --color-surface:      #FFFFFF;
-  --color-gold:         #F8C8DC;       /* Rosa pastel Luciana */
-  --color-gold-light:   #FBCFE8;       /* Rosa claro */
-  --color-gold-dark:    #B5838D;       /* Rosa polvoriento elegante */
-  --color-cream:        #1A1A1A;       /* Negro texto */
-  --color-cream-muted:  #4B5563;
+  --color-black:        #050505;       /* Negro profundo */
+  --color-black-soft:   #111111;       /* Gris carbón */
+  --color-surface:      #0A0A0A;       /* Superficie oscura */
+  --color-gold:         #f7b1c7;       /* Rose gold solicitado */
+  --color-gold-light:   #F4E0DB;       /* Rose gold muy claro */
+  --color-gold-dark:    #B76E79;       /* Rose gold metálico/oscuro */
+  --color-cream:        #EAEAEA;       /* Plata claro / Texto principal */
+  --color-cream-muted:  #A3A3A3;       /* Gris plata tenue */
   --color-white:        #FFFFFF;
   
   /* Detalles Metálicos */
-  --color-gold-metallic:   #D4AF37;
+  --color-gold-metallic:   #B76E79;    /* Reemplazando dorado por rose gold oscuro */
   --color-silver-metallic: #C0C0C0;
-  --color-ny-black:        #111111;
+  --color-ny-black:        #000000;
 
   /* Tipografía */
   --font-display:  var(--font-pinyon), 'Pinyon Script', cursive;

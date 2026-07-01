@@ -7,7 +7,7 @@ export function GiftRegistrySection() {
     <section
       aria-label="Mesa de regalos y sugerencias"
       style={{
-        backgroundColor: '#fdfbf7', // Fondo perla
+        backgroundColor: 'var(--color-black)', // Fondo oscuro
         padding: '3.5rem 1.5rem', // Compacto para no ser tan alto
         display: 'flex',
         flexDirection: 'column',
@@ -30,7 +30,7 @@ export function GiftRegistrySection() {
           style={{
             fontFamily: 'var(--font-dm-mono)',
             fontSize: '0.65rem',
-            color: '#B5838D', // Rosa viejo
+            color: 'var(--color-gold)', // Rose gold
             letterSpacing: '0.2em',
             textTransform: 'uppercase',
             marginBottom: '0.5rem',
@@ -43,7 +43,7 @@ export function GiftRegistrySection() {
             fontFamily: 'var(--font-display)',
             fontSize: 'clamp(3rem, 8vw, 4.5rem)',
             fontWeight: 400,
-            color: '#111',
+            color: 'var(--color-cream)', // Letras claras
             marginBottom: '1rem',
             lineHeight: 1,
           }}
@@ -56,11 +56,11 @@ export function GiftRegistrySection() {
       {/* Tarjeta Horizontal (Imagen izquierda, Texto derecha) */}
       <div
         style={{
-          background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.85) 0%, rgba(253, 251, 247, 0.4) 100%)',
-          border: '1px solid rgba(192, 192, 192, 0.6)',
+          background: 'rgba(255, 255, 255, 0.03)', // Cristal oscuro
+          border: '1px solid rgba(247, 177, 199, 0.4)', // Borde rose gold
           borderRadius: '24px',
           padding: '2rem 1.5rem',
-          boxShadow: '0 10px 40px rgba(181, 131, 141, 0.05)',
+          boxShadow: '0 10px 40px rgba(0, 0, 0, 0.8), inset 0 0 20px rgba(247, 177, 199, 0.05)',
           backdropFilter: 'blur(12px)',
           WebkitBackdropFilter: 'blur(12px)',
           display: 'flex',
@@ -81,7 +81,7 @@ export function GiftRegistrySection() {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-         
+          filter: 'drop-shadow(0 0 10px rgba(255,255,255,0.1))'
         }}>
           <div style={{ position: 'relative', width: '180px', height: '180px' }}>
             <Image
@@ -96,13 +96,13 @@ export function GiftRegistrySection() {
 
         {/* Lado Derecho: Textos */}
         <div style={{ flex: 1, textAlign: 'left' }}>
-          <p style={{ fontFamily: 'var(--font-dm-mono)', fontSize: '0.65rem', color: '#B5838D', letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '0.25rem', fontWeight: 700 }}>
+          <p style={{ fontFamily: 'var(--font-dm-mono)', fontSize: '0.65rem', color: 'var(--color-gold)', letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '0.25rem', fontWeight: 700 }}>
             REGALOS
           </p>
-          <h4 style={{ fontFamily: 'var(--font-display)', fontSize: '1.8rem', color: '#111', marginBottom: '0.4rem', fontWeight: 400, lineHeight: 1 }}>
+          <h4 style={{ fontFamily: 'var(--font-display)', fontSize: '1.8rem', color: 'var(--color-cream)', marginBottom: '0.4rem', fontWeight: 400, lineHeight: 1 }}>
             Lluvia de Sobres
           </h4>
-          <p style={{ fontFamily: 'var(--font-sans)', fontSize: '0.8rem', color: '#555', lineHeight: 1.5, margin: 0 }}>
+          <p style={{ fontFamily: 'var(--font-sans)', fontSize: '0.8rem', color: 'rgba(255, 255, 255, 0.7)', lineHeight: 1.5, margin: 0 }}>
             Compartir este dia contigo sera el mejor regalo. Cualquier muestra de afecto sera recibida con gratitud
           </p>
         </div>

@@ -45,14 +45,14 @@ export function ParentsSection({ config }: ParentsSectionProps) {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#fdfbf7',
+        backgroundColor: 'var(--color-black)',
         position: 'relative',
         overflow: 'hidden'
       }}
     >
       <style dangerouslySetInnerHTML={{ __html: `
         .spotlight-opt3 {
-          background: radial-gradient(circle at 50% 0%, rgba(244, 114, 182, 0.15) 0%, transparent 60%);
+          background: radial-gradient(circle at 50% 0%, rgba(224, 191, 184, 0.15) 0%, transparent 60%);
           position: absolute;
           top: 0; left: 0; right: 0; bottom: 0;
           pointer-events: none;
@@ -66,9 +66,9 @@ export function ParentsSection({ config }: ParentsSectionProps) {
 
       {/* Estrellas decorativas */}
       <DiamondStar color="#C0C0C0" size="35px" top="15%" left="15%" delay="0" />
-      <DiamondStar color="#F8C8DC" size="40px" bottom="5%" right="5%" delay="1" />
+      <DiamondStar color="var(--color-gold)" size="40px" bottom="5%" right="5%" delay="1" />
       <DiamondStar color="#C0C0C0" size="20px" top="30%" right="20%" delay="2" />
-      <DiamondStar color="#F8C8DC" size="30px" bottom="5%" left="30%" delay="0.5" />
+      <DiamondStar color="var(--color-gold)" size="30px" bottom="5%" left="30%" delay="0.5" />
       <DiamondStar color="#C0C0C0" size="15px" top="70%" left="10%" delay="1.5" />
 
       <div style={{ width: '100%', maxWidth: '600px', textAlign: 'center', zIndex: 1 }}>
@@ -77,7 +77,7 @@ export function ParentsSection({ config }: ParentsSectionProps) {
           style={{
             fontFamily: 'var(--font-dm-mono)',
             fontSize: '0.65rem',
-            color: '#B5838D',
+            color: 'var(--color-gold)',
             letterSpacing: '0.3em',
             textTransform: 'uppercase',
             marginBottom: '1rem',
@@ -89,25 +89,25 @@ export function ParentsSection({ config }: ParentsSectionProps) {
 
         <div ref={blockRef} style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
           <div className="reveal-item" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <p style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2.5rem, 7vw, 3.5rem)', color: '#111', lineHeight: 1 }}>
+            <p style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2.5rem, 7vw, 3.5rem)', color: 'var(--color-cream)', lineHeight: 1 }}>
               {parents.fatherName}
             </p>
-            <span style={{ fontFamily: 'var(--font-cormorant)', fontSize: 'clamp(1.5rem, 4vw, 2.2rem)', color: '#C0C0C0', margin: '0.2rem 0', fontStyle: 'italic' }}>
+            <span style={{ fontFamily: 'var(--font-cormorant)', fontSize: 'clamp(1.5rem, 4vw, 2.2rem)', color: 'var(--color-gold)', margin: '0.2rem 0', fontStyle: 'italic' }}>
               &
             </span>
-            <p style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2.5rem, 7vw, 3.5rem)', color: '#111', lineHeight: 1 }}>
+            <p style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2.5rem, 7vw, 3.5rem)', color: 'var(--color-cream)', lineHeight: 1 }}>
               {parents.motherName}
             </p>
           </div>
 
           {parents.godparents && parents.godparents.length > 0 && (
             <div className="reveal-item" style={{ marginTop: '1.5rem' }}>
-              <span style={{ fontFamily: 'var(--font-dm-mono)', fontSize: '0.6rem', color: '#888', letterSpacing: '0.3em', textTransform: 'uppercase', display: 'block', marginBottom: '1rem' }}>
+              <span style={{ fontFamily: 'var(--font-dm-mono)', fontSize: '0.6rem', color: 'var(--color-cream-muted)', letterSpacing: '0.3em', textTransform: 'uppercase', display: 'block', marginBottom: '1rem' }}>
                 Mis Padrinos
               </span>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                 {parents.godparents.map((g, idx) => (
-                  <p key={idx} style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2rem, 5vw, 2.5rem)', color: '#111', lineHeight: 1 }}>
+                  <p key={idx} style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2rem, 5vw, 2.5rem)', color: 'var(--color-cream)', lineHeight: 1 }}>
                     {g}
                   </p>
                 ))}
