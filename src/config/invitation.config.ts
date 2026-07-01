@@ -11,7 +11,7 @@ export const defaultInvitationConfig: InvitationConfig = {
     name: 'Luciana',
     fullName: 'Luciana Daza Sánchez',
     age: 15,
-    photoUrl: '/images/decorativas_v2/fondo_newyork.png',
+    photoUrl: '/images/decorativas_v2/fondo_newyork.webp',
     photoAlt: 'Luciana Daza Sánchez en su sesión de fotos de XV años',
   },
   event: {
@@ -56,7 +56,7 @@ export const defaultInvitationConfig: InvitationConfig = {
       time: '20:30',
       title: 'Ingreso De La Quinceañera',
       description: 'Gran entrada y vals tradicional.',
-      icon: '/images/decorativas_v2/estatua_brillos.png',
+      icon: '/images/decorativas_v2/estatua_brillos.webp',
     },
     {
       time: '21:00',

@@ -135,8 +135,12 @@ export function SaveTheDateSection() {
             {/* Top: VIP PASS */}
             <div style={{ zIndex: 2, position: 'relative' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5em' }}>
-                <span style={{ fontFamily: 'var(--font-display)', fontSize: '3.5em', fontWeight: 900, color: '#050505', letterSpacing: '0.02em', lineHeight: 1 }}>Save the Date</span>
+                <span style={{ fontFamily: 'var(--font-display)', fontSize: '3em', fontWeight: 900, color: '#050505', letterSpacing: '0.02em', lineHeight: 1 }}>Save the Date</span>
                 <span style={{ fontSize: '2em', color: '#050505' }}>✈</span>
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginLeft: '0.5em', lineHeight: 0.8 }}>
+                  <span style={{ fontFamily: 'var(--font-display)', fontSize: '5em', fontWeight: 900, color: '#050505', textShadow: '2px 2px 0px #fff' }}>N</span>
+                  <span style={{ fontFamily: 'var(--font-display)', fontSize: '5em', fontWeight: 900, color: '#050505', textShadow: '2px 2px 0px #fff' }}>Y</span>
+                </div>
               </div>
               
               <div style={{ display: 'flex', alignItems: 'center', gap: '1em', marginTop: '0.8em' }}>
@@ -221,22 +225,17 @@ export function SaveTheDateSection() {
             }}
           >
             {/* Imagen de fondo en el talón (Estatua de la Libertad) */}
-            <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', opacity: 0.85 }}>
+            <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', opacity: 1 }}>
               <Image 
-                src="/images/decorativas_v2/estatua_brillos.png" 
+                src="/images/decorativas_v2/estatua_brillos.webp" 
                 alt="New York" 
                 fill 
+                sizes="(max-width: 768px) 150px, 200px"
                 style={{ objectFit: 'cover', objectPosition: 'center', filter: 'grayscale(100%) contrast(1.2)' }} 
               />
-              <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: 'linear-gradient(to top, rgba(0,0,0,0.3), transparent)' }} />
+              <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: 'linear-gradient(to top, rgba(0,0,0,0.2), transparent)' }} />
             </div>
 
-            {/* Letras N Y verticales */}
-            <div style={{ position: 'relative', zIndex: 2, display: 'flex', flexDirection: 'column', gap: '1em', alignItems: 'center' }}>
-              <span style={{ fontFamily: 'var(--font-display)', fontSize: '5em', fontWeight: 900, color: '#050505', lineHeight: 0.8, textShadow: '2px 2px 0px #fff' }}>N</span>
-              <span style={{ fontFamily: 'var(--font-display)', fontSize: '5em', fontWeight: 900, color: '#050505', lineHeight: 0.8, textShadow: '2px 2px 0px #fff' }}>Y</span>
-            </div>
-            
             {/* Pequeña franja rose gold inferior para unir el diseño */}
             <div style={{ position: 'absolute', bottom: 0, left: 0, width: '100%', height: '0.5em', backgroundColor: 'var(--color-gold)' }} />
           </div>

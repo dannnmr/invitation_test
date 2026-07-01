@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import { motion } from 'framer-motion';
 import { FloatingDecoration } from '@/components/ui/FloatingDecoration';
 
 export function GiftRegistrySection() {
@@ -31,6 +32,33 @@ export function GiftRegistrySection() {
         style={{ bottom: '10%', right: '5%', width: '100px', height: '100px', opacity: 0.6, zIndex: 0 }}
         animationStyle="float"
       />
+
+
+
+      <motion.div
+        animate={{ rotate: [3, -3, 3] }}
+        transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+        style={{
+          position: 'absolute',
+          top: '-1%',
+          right: '-5%',
+          width: 'clamp(200px, 40vw, 280px)',
+          height: 'clamp(200px, 40vw, 280px)',
+          zIndex: 1,
+          pointerEvents: 'none',
+          opacity: 0.55,
+          transformOrigin: 'top center',
+          transform: 'scaleX(-1)'
+        }}
+      >
+        <Image 
+          src="/images/decorativas_v2/boladisco2.png"
+          alt="Disco ball"
+          fill
+          sizes="(max-width: 768px) 200px, 280px"
+          style={{ objectFit: 'contain' }}
+        />
+      </motion.div>
 
       {/* Cabecera */}
       <div

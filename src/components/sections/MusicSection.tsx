@@ -6,6 +6,7 @@ import { supabase } from '@/lib/supabase';
 import { submitToGoogleSheets } from '@/lib/googleSheets';
 import { Send, CheckCircle2, RotateCw } from 'lucide-react';
 import Image from 'next/image';
+import { CSSSparkle } from '@/components/ui/CSSSparkle';
 
 export function MusicSection() {
   const [song, setSong] = useState('');
@@ -78,6 +79,14 @@ export function MusicSection() {
         />
         {/* Degradado superior e inferior para fusionarlo mejor */}
         <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, var(--color-black) 0%, transparent 20%, transparent 80%, var(--color-black) 100%)' }} />
+      </div>
+
+      <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', pointerEvents: 'none', zIndex: 0 }}>
+        <CSSSparkle size={20} color="var(--color-gold)" top="20%" left="15%" delay="0s" points={8} />
+        <CSSSparkle size={30} color="#EAEAEA" top="10%" right="20%" delay="1s" points={4} />
+        <CSSSparkle size={24} color="var(--color-gold)" bottom="30%" left="10%" delay="0.5s" points={4} />
+        <CSSSparkle size={15} color="#EAEAEA" bottom="20%" right="15%" delay="1.5s" points={8} />
+        <CSSSparkle size={18} color="var(--color-gold)" top="50%" right="5%" delay="0.2s" points={4} />
       </div>
       <div style={{
         width: '100%', maxWidth: '600px',

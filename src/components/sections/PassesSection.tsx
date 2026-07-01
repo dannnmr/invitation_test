@@ -6,6 +6,7 @@ import { Compass } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import { SectionVariantSwitcher } from '@/components/ui/SectionVariantSwitcher';
+import { CSSSparkle } from '@/components/ui/CSSSparkle';
 import type { InvitationConfig } from '@/types/invitation';
 
 interface PassesSectionProps {
@@ -47,6 +48,64 @@ function PassesOption1({ config }: PassesSectionProps) {
           pointerEvents: 'none',
         }}
       />
+
+      <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', pointerEvents: 'none', zIndex: 0 }}>
+        <CSSSparkle size={20} color="var(--color-gold)" top="20%" left="15%" delay="0s" points={8} />
+        <CSSSparkle size={30} color="#EAEAEA" top="10%" right="20%" delay="1s" points={4} />
+        <CSSSparkle size={24} color="var(--color-gold)" bottom="30%" left="10%" delay="0.5s" points={4} />
+        <CSSSparkle size={15} color="#EAEAEA" bottom="20%" right="15%" delay="1.5s" points={8} />
+        <CSSSparkle size={18} color="var(--color-gold)" top="50%" right="5%" delay="0.2s" points={4} />
+      </div>
+
+      {/* Bolas de Disco Colgantes */}
+      <motion.div
+        animate={{ rotate: [-3, 3, -3] }}
+        transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut' }}
+        style={{
+          position: 'absolute',
+          bottom: '10%',
+          left: '2%',
+          width: 'clamp(100px, 20vw, 150px)',
+          height: 'clamp(100px, 20vw, 150px)',
+          zIndex: 5,
+          pointerEvents: 'none',
+          opacity: 0.9,
+          transformOrigin: 'top center',
+        }}
+      >
+        <Image 
+          src="/images/decorativas_v2/chrome_starts.png"
+          alt="Disco ball"
+          fill
+          sizes="(max-width: 768px) 150px, 200px"
+          style={{ objectFit: 'contain' }}
+        />
+      </motion.div>
+
+      <motion.div
+        animate={{ rotate: [3, -3, 3] }}
+        transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
+        style={{
+          position: 'absolute',
+          top: '-5%',
+          right: '5%',
+          width: 'clamp(150px, 30vw, 220px)',
+          height: 'clamp(150px, 30vw, 220px)',
+          zIndex: 5,
+          pointerEvents: 'none',
+          opacity: 0.85,
+          transformOrigin: 'top center',
+          transform: 'scaleX(-1)'
+        }}
+      >
+        <Image 
+          src="/images/decorativas_v2/boladisco2.png"
+          alt="Disco ball"
+          fill
+          sizes="(max-width: 768px) 220px, 300px"
+          style={{ objectFit: 'contain' }}
+        />
+      </motion.div>
 
       <motion.div 
         initial={{ rotate: -3 }}
@@ -128,7 +187,7 @@ function PassesOption1({ config }: PassesSectionProps) {
           {/* Background image New York B/W */}
           <div style={{ position: 'absolute', inset: 0, opacity: 0.75, pointerEvents: 'none' }}>
             <Image 
-              src="/images/decorativas_v2/fondo_newyork.png" 
+              src="/images/decorativas_v2/fondo_newyork.webp" 
               alt="NY Background" 
               fill 
               sizes="(max-width: 768px) 260px, 260px"
@@ -616,7 +675,7 @@ export function PassesOption2({ config }: PassesSectionProps) {
                 }}
               >
                 <Image
-                  src="/images/decorativas_v2/fondo_newyork.png"
+                  src="/images/decorativas_v2/fondo_newyork.webp"
                   alt="Watermark New York Skyline"
                   fill
                   sizes="(max-width: 768px) 80px, 160px"

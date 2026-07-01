@@ -25,11 +25,20 @@ export function RSVPSection({ config }: RSVPSectionProps) {
         style={{ top: '15%', left: '10%', width: '120px', height: '120px', opacity: 0.6, zIndex: 0 }}
         animationStyle="float"
       />
-      <FloatingDecoration
-        src="/images/decorativas_v2/starts.png"
-        alt="Estrellas Chrome"
-        style={{ bottom: '15%', right: '10%', width: '100px', height: '100px', opacity: 0.8, zIndex: 0 }}
-        animationStyle="float"
+      {/* Estatua estática en blanco y negro en el costado derecho */}
+      <img
+        src="/images/decorativas_v2/estatua_brillos.webp"
+        alt="Estatua NY"
+        style={{
+          position: 'absolute',
+          bottom: '-10%',
+          right: '-5%',
+          width: 'clamp(250px, 45vw, 450px)',
+          opacity: 0.45,
+          zIndex: 0,
+          filter: 'grayscale(100%)',
+          pointerEvents: 'none'
+        }}
       />
 
       {/* Sparkles Ambientales */}
@@ -78,7 +87,7 @@ export function RSVPSection({ config }: RSVPSectionProps) {
                 RSVP
               </h2>
               <p style={{ fontFamily: 'var(--font-sans)', fontSize: '0.7rem', color: 'rgba(255, 255, 255, 0.7)', letterSpacing: '1px', textTransform: 'uppercase', lineHeight: 1.6, maxWidth: '380px', margin: '0 auto' }}>
-                Por favor, confírmanos tu presencia antes del 16 de Junio.
+                Por favor, confírmanos tu presencia antes del 16 de Julio.
               </p>
             </motion.div>
             

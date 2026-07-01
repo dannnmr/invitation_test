@@ -15,26 +15,24 @@ export function FooterSection() {
         backgroundColor: '#FFFFFF',
         padding: '1rem clamp(1.5rem, 4vw, 3rem)',
         position: 'relative',
-        overflow: 'hidden',
-        borderTop: '1px solid rgba(0, 0, 0, 0.05)',
-        display: 'flex',
+        overflow: 'hidden',        display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
         width: '100%',
       }}
     >
-      {/* Imagen de fondo de Nueva York muy sutil */}
-      <div style={{ position: 'absolute', inset: 0, opacity: 0.15, pointerEvents: 'none', zIndex: 0, mixBlendMode: 'multiply' }}>
+      {/* Imagen de fondo de Nueva York */}
+      <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 0 }}>
         <Image 
-          src="/images/decorativas_v2/edificio2.png" 
+          src="/images/decorativas_v2/bg_newyork.jpg" 
           alt="NY Background Footer" 
           fill 
           className="object-cover" 
           style={{ objectPosition: 'bottom' }}
         />
-        {/* Degradado para fundir la imagen suavemente en el blanco */}
-        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, #FFFFFF 0%, transparent 60%, #FFFFFF 100%)' }} />
+        {/* Degradado negro para oscurecer y atenuar la imagen */}
+        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.4) 100%)' }} />
       </div>
 
       <div
@@ -51,24 +49,25 @@ export function FooterSection() {
                 letterSpacing: '0.25em',
                 textTransform: 'uppercase',
                 fontWeight: 700,
+                textShadow: '0 2px 4px rgba(0,0,0,0.8)'
               }}
             >
               Exclusive Pass
             </span>
-            <div style={{ width: '5px', height: '5px', borderRadius: '50%', backgroundColor: 'var(--color-gold)' }} />
+            <div style={{ width: '5px', height: '5px', borderRadius: '50%', backgroundColor: 'var(--color-gold)', boxShadow: '0 2px 4px rgba(0,0,0,0.8)' }} />
           </div>
 
           <h2
             style={{
               fontFamily: 'var(--font-pinyon)',
               fontSize: 'clamp(3.5rem, 8vw, 4.5rem)',
-              color: '#111111',
+              color: '#FFFFFF',
               fontWeight: 400,
               lineHeight: 1.1,
               marginTop: '0.25rem',
               marginBottom: '0.25rem',
               userSelect: 'none',
-              textShadow: '0 2px 10px rgba(0,0,0,0.02)'
+              textShadow: '0 4px 15px rgba(0,0,0,0.8)'
             }}
           >
             {quinceañera.name}
@@ -78,11 +77,12 @@ export function FooterSection() {
             style={{
               fontFamily: 'var(--font-dm-mono)',
               fontSize: '0.65rem',
-              color: '#666666',
+              color: 'rgba(255,255,255,0.8)',
               letterSpacing: '0.2em',
               textTransform: 'uppercase',
               fontWeight: 600,
-              marginBottom: 5
+              marginBottom: 5,
+              textShadow: '0 2px 4px rgba(0,0,0,0.8)'
             }}
           >
             no dejes que te lo cuenten
@@ -99,7 +99,7 @@ export function FooterSection() {
             alignItems: 'center',
             justifyContent: 'space-between',
             gap: '1.5rem',
-            padding: '1.25rem 1.75rem',
+            padding: '0.47rem 1.75rem',
             backgroundColor: '#FAFAFA',
             border: '1px solid rgba(0, 0, 0, 0.05)',
             borderRadius: '16px',

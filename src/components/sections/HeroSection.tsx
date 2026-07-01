@@ -78,7 +78,7 @@ export function HeroSection({ config, isRevealed }: HeroSectionProps) {
         }}
       >
         <img
-          src="/images/decorativas_v2/bg-bw2.png"
+          src="/images/decorativas_v2/bg-bw2.webp"
           alt="New York Skyline"
           style={{
             width: '100%',
@@ -118,21 +118,20 @@ export function HeroSection({ config, isRevealed }: HeroSectionProps) {
           0% { background-position: -200% center; }
           100% { background-position: 200% center; }
         }
+        @keyframes swing {
+          0%, 100% { transform: rotate(-3deg); }
+          50% { transform: rotate(3deg); }
+        }
+        @keyframes swingAlt {
+          0%, 100% { transform: rotate(3deg) scaleX(-1); }
+          50% { transform: rotate(-3deg) scaleX(-1); }
+        }
       `}</style>
 
       {/* ── Imágenes Decorativas Hero ────────────────────────────── */}
       <div style={{ position: 'absolute', inset: 0, zIndex: 1, pointerEvents: 'none', overflow: 'hidden' }}>
-        {/* Superior (Colgando)
-        <img
-          src="/images/decorativas_v2/bolas_disco_rosa.png"
-          alt="Bolas de disco"
-          style={{ position: 'absolute', top: '-15%', left: '-5%', width: 'clamp(250px, 45vw, 300px)', opacity: 0.95, animation: 'heroFloat 6s ease-in-out infinite' }}
-        />
-        <img
-          src="/images/decorativas_v2/bolas_disco_rosa.png"
-          alt="Bolas de disco"
-          style={{ position: 'absolute', top: '-15%', right: '-6%', width: 'clamp(250px, 45vw, 300px)', opacity: 0.95, animation: 'heroFloat 6s ease-in-out infinite', transform: 'scaleX(-1)' }}
-        /> */}
+        {/* Superior (Colgando) */}
+    
 
         {/* Inferior */}
         <img
