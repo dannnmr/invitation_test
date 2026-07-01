@@ -36,7 +36,7 @@ export const defaultInvitationConfig: InvitationConfig = {
       '/images/decorativas_v2/textura-azul.jpg',
       '/images/decorativas_v2/textura-plateado.png',
     ],
-    notes: 'Colores reservados: Queda estrictamente prohibido el uso del color rosa pastel, azul marino, plateado o tonalidades similares.',
+    notes: 'Colores reservados para la quinceañera: Rosa pastel, azul marino, plateado o tonalidades similares.',
   },
   giftRegistry: {
     stores: [],
