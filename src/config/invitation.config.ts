@@ -94,6 +94,6 @@ export const defaultInvitationConfig: InvitationConfig = {
     unitText: 'Persona',
   },
   googleSheets: {
-    webhookUrl: 'https://script.google.com/macros/s/AKfycbxeX0fXFqjpsNHNzHApitAstibY1OPXQsGZjYa_famkd7U1A0VetCMNl9z7YW4_6MOK0A/exec',
+    webhookUrl: process.env.NEXT_PUBLIC_GOOGLE_SHEETS_WEBHOOK_URL || '',
   },
 };

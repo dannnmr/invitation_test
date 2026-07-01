@@ -46,11 +46,11 @@ export function GallerySection() {
     try {
       const { data, error } = await supabase
         .from('fotos2')
-        .select('id, foto_url')
+        .select('id, foto_url, creado_en')
         .order('creado_en', { ascending: false });
 
       if (!error && data) {
-        setPhotos(data);
+        setPhotos(data as Photo[]);
       }
     } catch (e) {
       console.error(e);

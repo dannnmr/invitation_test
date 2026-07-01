@@ -50,15 +50,18 @@ export async function submitToGoogleSheets(
   }
 
   try {
-    await fetch(webhookUrl, {
-      method: 'POST',
+    const params = new URLSearchParams(payload).toString();
+    const urlWithParams = `${webhookUrl}?${params}`;
+    
+    console.log("🚀 Enviando a Google Sheets:", urlWithParams);
+
+    await fetch(urlWithParams, {
+      method: 'GET',
       mode: 'no-cors',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(payload),
+      cache: 'no-store',
     });
 
+    console.log("✅ Petición a Google Sheets enviada");
     return { success: true };
   } catch (error) {
     console.error(`Error submitting ${type} to Google Sheets:`, error);
