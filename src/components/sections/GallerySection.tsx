@@ -187,13 +187,13 @@ export function GallerySection() {
       <FloatingDecoration
         src="/images/decorativas_v2/martini_rosa.png"
         alt="Flor Dorada"
-        style={{ bottom: '1%', right: '-16%', width: '450px', height: '450px', opacity: 0.25, zIndex: 0 }}
+        style={{ bottom: '-5%', right: '35%', width: '300px', height: '300px', opacity: 0.25, zIndex: 0 }}
         animationStyle="float"
       />
       <FloatingDecoration
         src="/images/decorativas_v2/bola_rosa.png"
         alt="Jirafa"
-        style={{ top: '1%', right: '-20%', width: '450px', height: '450px', opacity: 0.25, zIndex: 0 }}
+        style={{ top: '-10%', right: '-30%', width: '450px', height: '450px', opacity: 0.25, zIndex: 0 }}
         animationStyle="float"
       />
 
