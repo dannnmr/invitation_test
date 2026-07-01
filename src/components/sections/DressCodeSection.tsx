@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import { motion } from 'framer-motion';
 import { Ban } from 'lucide-react';
 import { CSSSparkle } from '@/components/ui/CSSSparkle';
 import type { InvitationConfig } from '@/types/invitation';
@@ -47,7 +48,11 @@ export function DressCodeSection({ config }: DressCodeSectionProps) {
         </h2>
 
         {/* Imagen con márgenes negativos para reducir los espacios en blanco de su archivo original sin afectar su tamaño visual */}
-        <div style={{ position: 'relative', width: '100%', maxWidth: '180px', height: '150px', marginTop: '0.5rem', marginBottom: '0.8rem', zIndex: 1, filter: 'drop-shadow(0 0 10px rgba(255,255,255,0.1))' }}>
+        <motion.div 
+          animate={{ y: [0, -12, 0], rotate: [-3, 3, -3], x: [-2, 2, -2] }}
+          transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+          style={{ position: 'relative', width: '100%', maxWidth: '180px', height: '150px', marginTop: '0.5rem', marginBottom: '0.8rem', zIndex: 1, filter: 'drop-shadow(0 0 10px rgba(255,255,255,0.1))' }}
+        >
           <Image 
             src="/images/decorativas_v2/dress_etiqueta.webp" 
             alt="Etiqueta elegante" 
@@ -55,7 +60,7 @@ export function DressCodeSection({ config }: DressCodeSectionProps) {
             sizes="(max-width: 968px) 180px, 180px"
             style={{ objectFit: 'contain' }} 
           />
-        </div>
+        </motion.div>
         
         {/* Círculos de texturas conservados */}
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem', justifyContent: 'center', marginBottom: '1rem', zIndex: 2, position: 'relative' }}>
