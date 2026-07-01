@@ -6,6 +6,8 @@ import Image from 'next/image';
 import { defaultInvitationConfig } from '@/config/invitation.config';
 import { getCalendarLinks } from '@/lib/calendar';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
+import { CSSSparkle } from '@/components/ui/CSSSparkle';
+import { FloatingDecoration } from '@/components/ui/FloatingDecoration';
 
 /**
  * Sección de Save The Date.
@@ -54,6 +56,39 @@ export function SaveTheDateSection() {
         overflow: 'hidden',
       }}
     >
+      {/* Background Soft Glow */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: 'absolute',
+          inset: 0,
+          background: 'radial-gradient(circle at center, rgba(247, 177, 199, 0.1) 0%, transparent 70%)',
+          pointerEvents: 'none',
+        }}
+      />
+
+      {/* Sparkles Ambientales */}
+      <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', pointerEvents: 'none', zIndex: 0 }}>
+        <CSSSparkle size={20} color="var(--color-gold)" top="15%" left="20%" delay="0s" points={8} />
+        <CSSSparkle size={30} color="#EAEAEA" top="25%" right="15%" delay="1s" points={4} />
+        <CSSSparkle size={24} color="var(--color-gold)" bottom="25%" left="15%" delay="0.5s" points={4} />
+        <CSSSparkle size={15} color="#EAEAEA" bottom="15%" right="20%" delay="1.5s" points={8} />
+      </div>
+
+      {/* Decoraciones temáticas NY */}
+      {/* <FloatingDecoration
+        src="/images/decorativas_v2/starts.png"
+        alt="Estrellas Chrome"
+        style={{ top: '10%', right: '5%', width: '120px', height: '120px', opacity: 0.6, zIndex: 0 }}
+        animationStyle="float"
+      />
+      <FloatingDecoration
+        src="/images/decorativas_v2/starts.png"
+        alt="Estrellas"
+        style={{ bottom: '10%', left: '5%', width: '100px', height: '100px', opacity: 0.5, zIndex: 0 }}
+        animationStyle="pulse"
+      /> */}
+
       <div
         className="boarding-pass-wrapper"
         style={{
@@ -79,8 +114,14 @@ export function SaveTheDateSection() {
         `}</style>
         
         {/* Tarjeta Save The Date - TIPO BOARDING PASS ESCALABLE */}
-        <div
+        <motion.div
           ref={cardRef}
+          whileHover={{ 
+            scale: 1.02, 
+            y: -10, 
+            boxShadow: '0 2em 4em rgba(0, 0, 0, 0.9), 0 0 3em rgba(247, 177, 199, 0.3)' 
+          }}
+          transition={{ type: 'spring', stiffness: 300, damping: 20 }}
           style={{
             minWidth: '46.875em', // Equivale a 750px en desktop
             maxWidth: '56.25em',  // Equivale a 900px
@@ -239,7 +280,7 @@ export function SaveTheDateSection() {
             {/* Pequeña franja rose gold inferior para unir el diseño */}
             <div style={{ position: 'absolute', bottom: 0, left: 0, width: '100%', height: '0.5em', backgroundColor: 'var(--color-gold)' }} />
           </div>
-        </div>
+        </motion.div>
       </div>
       
     </section>

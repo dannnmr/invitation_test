@@ -88,7 +88,7 @@ function PassesOption1({ config }: PassesSectionProps) {
         style={{
           position: 'absolute',
           top: '-5%',
-          right: '5%',
+          right: '-5%',
           width: 'clamp(150px, 30vw, 220px)',
           height: 'clamp(150px, 30vw, 220px)',
           zIndex: 5,
@@ -99,7 +99,7 @@ function PassesOption1({ config }: PassesSectionProps) {
         }}
       >
         <Image 
-          src="/images/decorativas_v2/boladisco2.png"
+          src="/images/decorativas_v2/chrome_starts.png"
           alt="Disco ball"
           fill
           sizes="(max-width: 768px) 220px, 300px"
