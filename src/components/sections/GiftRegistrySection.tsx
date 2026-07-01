@@ -22,7 +22,7 @@ export function GiftRegistrySection() {
       <FloatingDecoration
         src="/images/decorativas_v2/chrome_starts.png"
         alt="Chrome Stars"
-        style={{ top: '1%', left: '5%', width: '120px', height: '120px', opacity: 0.8, zIndex: 0 }}
+        style={{ top: '3%', left: '1%', width: '120px', height: '80px', opacity: 0.8, zIndex: 0 }}
         animationStyle="float"
       />
       <FloatingDecoration
@@ -74,7 +74,7 @@ export function GiftRegistrySection() {
           background: 'rgba(255, 255, 255, 0.03)', // Cristal oscuro
           border: '1px solid rgba(192, 192, 192, 0.8)', // Borde plateado brillante
           borderRadius: '24px',
-          padding: '2rem 1.5rem',
+          padding: '2rem 1rem',
           boxShadow: '0 10px 40px rgba(0, 0, 0, 0.8), 0 0 20px rgba(192, 192, 192, 0.4), inset 0 0 20px rgba(192, 192, 192, 0.2)', // Glow plateado
           backdropFilter: 'blur(12px)',
           WebkitBackdropFilter: 'blur(12px)',
@@ -98,7 +98,7 @@ export function GiftRegistrySection() {
           justifyContent: 'center',
           filter: 'drop-shadow(0 0 10px rgba(255,255,255,0.1))'
         }}>
-          <div style={{ position: 'relative', width: '180px', height: '180px' }}>
+          <div style={{ position: 'relative', width: '230px', height: '230px' }}>
             <Image
               src="/images/decorativas_v2/regalo_sobre.png"
               alt="Lluvia de Sobres"

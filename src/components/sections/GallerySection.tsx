@@ -186,9 +186,9 @@ export function GallerySection() {
         animationStyle="float"
       />
       <FloatingDecoration
-        src="/images/decorativas_v2/bola_rosa.png"
+        src="/images/decorativas_v2/boladisco2.png"
         alt="Jirafa"
-        style={{ top: '-10%', right: '-30%', width: '450px', height: '450px', opacity: 0.45, zIndex: 0 }}
+        style={{ top: '1%', right: '-20%', width: '350px', height: '350px', opacity: 0.45, zIndex: 0 }}
         animationStyle="float"
       />
 
@@ -365,7 +365,7 @@ export function GallerySection() {
           ) : (
             <>
               {/* Stack de Tarjetas */}
-              <div style={{ position: 'relative', width: '100%', maxWidth: '360px', height: '480px', marginTop: '0.5rem' }}>
+              <div style={{ position: 'relative', width: '100%', maxWidth: '280px', height: '360px', marginTop: '0.5rem' }}>
                 <AnimatePresence>
                   {photos.slice(currentIndex, currentIndex + 3).reverse().map((photo, reversedIndex, arr) => {
                     const isTop = reversedIndex === arr.length - 1;
@@ -397,7 +397,7 @@ export function GallerySection() {
                           width: '100%',
                           height: '100%',
                           backgroundColor: '#FFFFFF',
-                          padding: '14px 14px 64px 14px', // Extra padding for polaroid bottom
+                          padding: '10px 10px 48px 10px', // Reducido para la polaroid más pequeña
                           boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
                           borderRadius: '4px',
                           border: '1px solid rgba(229, 231, 235, 0.6)',
@@ -415,11 +415,11 @@ export function GallerySection() {
                         <div
                           style={{
                             position: 'absolute',
-                            top: '-40px',
+                            top: '-30px', // Reducido
                             left: '50%',
                             transform: 'translateX(-50%)',
-                            width: '56px',
-                            height: '80px',
+                            width: '40px', // Reducido
+                            height: '60px', // Reducido
                             zIndex: 50,
                             pointerEvents: 'none',
                           }}
@@ -461,19 +461,19 @@ export function GallerySection() {
                         {/* Barra de pie Polaroid */}
                         <div
                           style={{
-                            marginTop: '14px',
+                            marginTop: '10px',
                             display: 'flex',
                             justifyContent: 'space-between',
                             alignItems: 'center',
                             padding: '0 4px'
                           }}
                         >
-                          <Heart style={{ width: '24px', height: '24px', color: 'var(--color-gold)', fill: isTop ? 'rgba(197, 160, 89, 0.2)' : 'transparent', transition: 'colors 0.3s' }} />
-                          <span style={{ fontFamily: 'var(--font-sans)', fontSize: '9px', color: '#737373', letterSpacing: '0.12em', fontWeight: 900, textTransform: 'uppercase', flex: 1, textAlign: 'center' }}>
+                          <Heart style={{ width: '20px', height: '20px', color: 'var(--color-gold)', fill: isTop ? 'rgba(197, 160, 89, 0.2)' : 'transparent', transition: 'colors 0.3s' }} />
+                          <span style={{ fontFamily: 'var(--font-sans)', fontSize: '8px', color: '#737373', letterSpacing: '0.12em', fontWeight: 900, textTransform: 'uppercase', flex: 1, textAlign: 'center' }}>
                             {isTop ? 'Toca para ampliar' : ''}
                           </span>
                           <Maximize2
-                            style={{ width: '24px', height: '24px', color: isTop ? '#737373' : '#d4d4d8', cursor: isTop ? 'pointer' : 'default', transition: 'colors 0.3s' }}
+                            style={{ width: '20px', height: '20px', color: isTop ? '#737373' : '#d4d4d8', cursor: isTop ? 'pointer' : 'default', transition: 'colors 0.3s' }}
                             onClick={(e) => {
                               if (isTop) {
                                 e.stopPropagation();

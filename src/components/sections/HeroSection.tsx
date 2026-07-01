@@ -25,7 +25,6 @@ export function HeroSection({ config, isRevealed }: HeroSectionProps) {
   const { containerRef, imageRef } = useHeroParallax();
 
   // Reveal del nombre — se activa cuando isRevealed cambia a true
-  const { ref: nameRef, play: playName }    = useTextReveal({ autoPlay: false, duration: 0.5, stagger: 0.02 });
   const { ref: surnameRef, play: playSurname } = useTextReveal({ autoPlay: false, delay: 0.1, duration: 0.5, stagger: 0.02 });
 
   // Reveal del bloque de fecha/lugar al scroll
@@ -40,11 +39,10 @@ export function HeroSection({ config, isRevealed }: HeroSectionProps) {
     if (!isRevealed) return;
     // Retraso exacto para que el texto empiece a animarse justo cuando las solapas del sobre dejan ver el centro
     const t = setTimeout(() => {
-      playName();
       playSurname();
     }, 500);
     return () => clearTimeout(t);
-  }, [isRevealed, playName, playSurname]);
+  }, [isRevealed, playSurname]);
 
   // Separar nombre completo en nombre y apellido
   const nameParts   = quinceañera.fullName.split(' ');
@@ -124,7 +122,7 @@ export function HeroSection({ config, isRevealed }: HeroSectionProps) {
 
       {/* ── Imágenes Decorativas Hero ────────────────────────────── */}
       <div style={{ position: 'absolute', inset: 0, zIndex: 1, pointerEvents: 'none', overflow: 'hidden' }}>
-        {/* Superior (Colgando) */}
+        {/* Superior (Colgando)
         <img
           src="/images/decorativas_v2/bolas_disco_rosa.png"
           alt="Bolas de disco"
@@ -134,7 +132,7 @@ export function HeroSection({ config, isRevealed }: HeroSectionProps) {
           src="/images/decorativas_v2/bolas_disco_rosa.png"
           alt="Bolas de disco"
           style={{ position: 'absolute', top: '-15%', right: '-6%', width: 'clamp(250px, 45vw, 300px)', opacity: 0.95, animation: 'heroFloat 6s ease-in-out infinite', transform: 'scaleX(-1)' }}
-        />
+        /> */}
 
         {/* Inferior */}
         <img
@@ -213,23 +211,29 @@ export function HeroSection({ config, isRevealed }: HeroSectionProps) {
             XV
           </span>
 
-          {/* Nombre — animado letra por letra */}
-          <h1
-            ref={nameRef as React.RefObject<HTMLHeadingElement>}
+          {/* Nombre — Imagen animada */}
+          <div
             style={{
-              fontFamily:   'var(--font-cormorant)',
-              fontSize:     'clamp(4.5rem, 12vw, 8.5rem)',
-              fontWeight:   600,
-              color:        'var(--color-cream)',
-              lineHeight:   1,
-              letterSpacing: '0.05em',
-              textTransform: 'uppercase',
-              marginBottom: '0.15em',
-              textShadow: '0 5px 30px rgba(0, 0, 0, 0.9), 0 2px 10px rgba(0,0,0,0.8)' 
+              position: 'relative',
+              width: '100%',
+              maxWidth: '800px', // Para que la imagen pueda crecer si es necesario
+              padding: '0 1rem',
+              height: 'auto',
+              marginBottom: '1rem',
+              opacity: isRevealed ? 1 : 0,
+              transition: 'opacity 1s ease 0.3s, transform 1s ease 0.3s',
+              transform: isRevealed ? 'translateY(0)' : 'translateY(20px)',
+              filter: 'drop-shadow(0 5px 30px rgba(0, 0, 0, 0.9))',
+              display: 'flex',
+              justifyContent: 'center'
             }}
           >
-            {firstName}
-          </h1>
+            <img 
+              src="/images/decorativas_v2/nombre-lulu.webp" 
+              alt={firstName} 
+              style={{ width: '110%', height: 'auto', objectFit: 'contain'}} 
+            />
+          </div>
         </div>
         </div>
 

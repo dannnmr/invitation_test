@@ -68,9 +68,9 @@ export function MusicSection() {
       }}
     >
       {/* Imagen de fondo */}
-      <div style={{ position: 'absolute', inset: 0, opacity: 0.5, pointerEvents: 'none' }}>
+      <div style={{ position: 'absolute', inset: 0, opacity: 0.4, pointerEvents: 'none' }}>
         <Image 
-          src="/images/decorativas_v2/bg-new-rosa.png" 
+          src="/images/decorativas_v2/bg-test2.jpg" 
           alt="NY Rosa Background" 
           fill 
           className="object-cover" 

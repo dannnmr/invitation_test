@@ -38,9 +38,9 @@ export function DressCodeSection({ config }: DressCodeSectionProps) {
         </h2>
 
         {/* Imagen con márgenes negativos para reducir los espacios en blanco de su archivo original sin afectar su tamaño visual */}
-        <div style={{ position: 'relative', width: '100%', maxWidth: '180px', height: '180px', marginTop: '-1.5rem', marginBottom: '-0.5rem', zIndex: 1, filter: 'drop-shadow(0 0 10px rgba(255,255,255,0.1))' }}>
+        <div style={{ position: 'relative', width: '100%', maxWidth: '180px', height: '150px', marginTop: '0.5rem', marginBottom: '0.8rem', zIndex: 1, filter: 'drop-shadow(0 0 10px rgba(255,255,255,0.1))' }}>
           <Image 
-            src="/images/decorativas_v2/elegante-etiqueta.webp" 
+            src="/images/decorativas_v2/dress_etiqueta.webp" 
             alt="Etiqueta elegante" 
             fill 
             sizes="(max-width: 968px) 180px, 180px"
