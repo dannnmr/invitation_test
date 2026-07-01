@@ -53,10 +53,10 @@ export const metadata: Metadata = {
     template: '%s | Invitación XV Años',
     default: 'Mis XV Años | Luciana',
   },
-  description: 'Acompáñame a celebrar el comienzo de una nueva etapa en mi vida. ¡No faltes!',
+  description: 'Acompáñame a celebrar el comienzo de una nueva etapa en mi vida este 25 de Julio a las 19:00 hrs. ¡No faltes a una noche inolvidable!',
   openGraph: {
     title: 'Mis XV Años | Luciana',
-    description: 'Acompáñame a celebrar el comienzo de una nueva etapa en mi vida. ¡No faltes!',
+    description: 'Acompáñame a celebrar el comienzo de una nueva etapa en mi vida este 25 de Julio a las 19:00 hrs. ¡No faltes a una noche inolvidable!',
     images: [
       {
         url: 'https://luciana-xv-invitation.danmr.com/images/invitation/metadata-lulu.png',
