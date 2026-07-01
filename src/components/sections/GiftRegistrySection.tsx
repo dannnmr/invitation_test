@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import { FloatingDecoration } from '@/components/ui/FloatingDecoration';
 
 export function GiftRegistrySection() {
   return (
@@ -17,6 +18,20 @@ export function GiftRegistrySection() {
         overflow: 'hidden',
       }}
     >
+      {/* Decoraciones temáticas */}
+      <FloatingDecoration
+        src="/images/decorativas_v2/chrome_starts.png"
+        alt="Chrome Stars"
+        style={{ top: '1%', left: '5%', width: '120px', height: '120px', opacity: 0.8, zIndex: 0 }}
+        animationStyle="float"
+      />
+      <FloatingDecoration
+        src="/images/decorativas_v2/starts.png"
+        alt="Stars"
+        style={{ bottom: '10%', right: '5%', width: '100px', height: '100px', opacity: 0.6, zIndex: 0 }}
+        animationStyle="float"
+      />
+
       {/* Cabecera */}
       <div
         style={{
@@ -57,10 +72,10 @@ export function GiftRegistrySection() {
       <div
         style={{
           background: 'rgba(255, 255, 255, 0.03)', // Cristal oscuro
-          border: '1px solid rgba(247, 177, 199, 0.4)', // Borde rose gold
+          border: '1px solid rgba(192, 192, 192, 0.8)', // Borde plateado brillante
           borderRadius: '24px',
           padding: '2rem 1.5rem',
-          boxShadow: '0 10px 40px rgba(0, 0, 0, 0.8), inset 0 0 20px rgba(247, 177, 199, 0.05)',
+          boxShadow: '0 10px 40px rgba(0, 0, 0, 0.8), 0 0 20px rgba(192, 192, 192, 0.4), inset 0 0 20px rgba(192, 192, 192, 0.2)', // Glow plateado
           backdropFilter: 'blur(12px)',
           WebkitBackdropFilter: 'blur(12px)',
           display: 'flex',

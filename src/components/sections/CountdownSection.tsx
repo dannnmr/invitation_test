@@ -88,7 +88,7 @@ export function CountdownSection({ config }: CountdownSectionProps) {
       
       <div style={{ zIndex: 1, textAlign: 'center', marginBottom: '3rem', position: 'relative' }}>
         {/* Moño decorativo de fondo en la izquierda */}
-        <div style={{ position: 'absolute', left: '-120px', top: '-35px', width: '280px', height: '280px', opacity: 0.75, zIndex: -1 }}>
+        <div style={{ position: 'absolute', left: '-120px', top: '-35px', width: '280px', height: '280px', opacity: 0.55, zIndex: -1 }}>
           <Image 
             src="/images/decorativas_v2/moño.png" 
             alt="Lazo decorativo" 
@@ -110,8 +110,8 @@ export function CountdownSection({ config }: CountdownSectionProps) {
               display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
               width: 'clamp(70px, 18vw, 90px)', height: 'clamp(100px, 25vw, 130px)',
               backgroundColor: 'rgba(255, 255, 255, 0.05)',
-              backdropFilter: 'blur(10px)',
-              WebkitBackdropFilter: 'blur(10px)',
+              backdropFilter: 'blur(5px)',
+              WebkitBackdropFilter: 'blur(5px)',
               border: '1px solid rgba(224, 191, 184, 0.6)',
               borderTop: '1px solid rgba(255, 255, 255, 0.5)', /* Reflejo nítido superior */
               borderLeft: '1px solid rgba(255, 255, 255, 0.3)',

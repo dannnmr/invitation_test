@@ -3,6 +3,8 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useRSVPForm } from '@/hooks/useRSVPForm';
+import { FloatingDecoration } from '@/components/ui/FloatingDecoration';
+import { CSSSparkle } from '@/components/ui/CSSSparkle';
 import type { InvitationConfig } from '@/types/invitation';
 
 interface RSVPSectionProps {
@@ -16,7 +18,29 @@ export function RSVPSection({ config }: RSVPSectionProps) {
   return (
     <section style={{ backgroundColor: 'var(--color-black)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '3rem 1.5rem', position: 'relative', overflow: 'hidden' }}>
       
-      {/* Sin fondo degradado por solicitud del usuario */}
+      {/* Decoraciones temáticas NY */}
+      <FloatingDecoration
+        src="/images/decorativas_v2/starts.png"
+        alt="Estrellas NY"
+        style={{ top: '15%', left: '10%', width: '120px', height: '120px', opacity: 0.6, zIndex: 0 }}
+        animationStyle="float"
+      />
+      <FloatingDecoration
+        src="/images/decorativas_v2/starts.png"
+        alt="Estrellas Chrome"
+        style={{ bottom: '15%', right: '10%', width: '100px', height: '100px', opacity: 0.8, zIndex: 0 }}
+        animationStyle="float"
+      />
+
+      {/* Sparkles Ambientales */}
+      <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', pointerEvents: 'none', zIndex: 0 }}>
+        <CSSSparkle size={15} color="#EAEAEA" top="10%" left="20%" delay="0s" points={8} />
+        <CSSSparkle size={20} color="var(--color-gold)" top="40%" right="15%" delay="1s" points={4} />
+        <CSSSparkle size={18} color="#EAEAEA" bottom="30%" left="15%" delay="0.5s" points={4} />
+        <CSSSparkle size={25} color="var(--color-gold)" bottom="10%" right="25%" delay="1.5s" points={8} />
+      </div>
+
+      {/* Formulario RSVP */}
 
       <motion.div 
         initial={{ opacity: 0, y: 40 }}
@@ -25,15 +49,16 @@ export function RSVPSection({ config }: RSVPSectionProps) {
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         style={{
           width: '100%', maxWidth: '420px',
-          // Fondo oscuro de cristal
-          background: 'rgba(255, 255, 255, 0.03)',
-          border: '1px solid rgba(247, 177, 199, 0.4)', borderRadius: '30px',
-          padding: '2.5rem 1.5rem', boxShadow: '0 20px 60px rgba(0, 0, 0, 0.8), inset 0 0 20px rgba(247, 177, 199, 0.05)',
-          backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)', position: 'relative', zIndex: 10
+          // Fondo oscuro de cristal más transparente y brillante
+          background: 'rgba(255, 255, 255, 0.015)',
+          border: '1px solid rgba(192, 192, 192, 0.8)', borderRadius: '30px', // Borde plateado brillante
+          padding: '2.5rem 1.5rem', 
+          boxShadow: '0 20px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(192, 192, 192, 0.3), inset 0 0 30px rgba(192, 192, 192, 0.2)', // Resplandor plateado
+          backdropFilter: 'blur(1px)', WebkitBackdropFilter: 'blur(1px)', position: 'relative', zIndex: 10
         }}
       >
         {/* Destello de cristal en el borde superior */}
-        <div style={{ position: 'absolute', top: 0, left: '20%', right: '20%', height: '1.5px', background: 'linear-gradient(90deg, transparent, rgba(247, 177, 199, 0.8), transparent)' }} />
+        <div style={{ position: 'absolute', top: 0, left: '20%', right: '20%', height: '1.5px', background: 'linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.9), transparent)' }} />
 
         {formState !== 'success' ? (
           <form onSubmit={(e) => { e.preventDefault(); handleSubmit(); }} style={{ display: 'flex', flexDirection: 'column', gap: '2.5rem' }}>
@@ -117,7 +142,7 @@ export function RSVPSection({ config }: RSVPSectionProps) {
               initial={{ rotate: -90, opacity: 0 }}
               animate={{ rotate: 0, opacity: 1 }}
               transition={{ delay: 0.2, duration: 0.5, type: 'spring' }}
-              style={{ width: '70px', height: '70px', borderRadius: '50%', border: '2px solid rgba(247, 177, 199, 0.4)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--color-gold)', fontSize: '2rem', marginBottom: '0.5rem', boxShadow: '0 0 30px rgba(247, 177, 199, 0.2)', background: 'rgba(247, 177, 199, 0.1)' }}
+              style={{ width: '70px', height: '70px', borderRadius: '50%', border: '2px solid rgba(192, 192, 192, 0.8)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--color-gold)', fontSize: '2rem', marginBottom: '0.5rem', boxShadow: '0 0 30px rgba(192, 192, 192, 0.4)', background: 'rgba(192, 192, 192, 0.1)' }}
             >
               ✓
             </motion.div>

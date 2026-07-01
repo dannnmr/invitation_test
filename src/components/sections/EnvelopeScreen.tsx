@@ -160,8 +160,8 @@ export function EnvelopeScreen({ onComplete, onStartOpen }: EnvelopeScreenProps)
             style={{
               position: 'absolute',
               zIndex: 30,
-              width: '240px',
-              height: '240px',
+              width: '350px',
+              height: '350px',
               cursor: 'pointer',
               display: 'flex',
               alignItems: 'center',
@@ -171,11 +171,12 @@ export function EnvelopeScreen({ onComplete, onStartOpen }: EnvelopeScreenProps)
               filter: 'drop-shadow(0 10px 15px rgba(0,0,0,0.2))',
             }}
           >
-            <Image
-              src="/images/invitation/broche_luciana.png"
+             <Image
+              src="/images/invitation/broche_lu.png"
               alt="Abrir invitación"
               fill
-              sizes="(max-width: 768px) 120px, 120px"
+              sizes="(max-width: 768px) 300px, 300px"
+              quality={100}
               priority
               style={{ objectFit: 'contain' }}
             />

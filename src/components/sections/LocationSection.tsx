@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import type { InvitationConfig } from '@/types/invitation';
 import { Navigation } from 'lucide-react';
+import { FloatingDecoration } from '@/components/ui/FloatingDecoration';
 
 interface LocationSectionProps {
   config: InvitationConfig;
@@ -20,6 +21,8 @@ export function LocationSection({ config }: LocationSectionProps) {
       padding: '3rem 1rem', // Padding reducido
       position: 'relative', overflow: 'hidden'
     }}>
+   
+
       {/* Contenedor Ovalado (Píldora) con Animación de Entrada */}
       <motion.div 
         initial={{ opacity: 0, y: 50, scale: 0.95 }}
@@ -30,11 +33,11 @@ export function LocationSection({ config }: LocationSectionProps) {
           position: 'relative', width: '100%', maxWidth: '420px',
           backgroundColor: 'rgba(255, 255, 255, 0.03)', // Cristal oscuro
           backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)',
-          border: '1px solid rgba(247, 177, 199, 0.4)', // Borde rose gold
+          border: '1px solid rgba(192, 192, 192, 0.8)', // Borde plateado brillante
           borderRadius: '150px', // Radio reducido para adaptarse a menor altura
           padding: '3rem 1.5rem', // Padding vertical y horizontal reducidos significativamente
           display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center',
-          boxShadow: '0 20px 40px rgba(0,0,0,0.8), inset 0 0 20px rgba(247, 177, 199, 0.05)', overflow: 'hidden'
+          boxShadow: '0 20px 40px rgba(0,0,0,0.8), 0 0 30px rgba(192, 192, 192, 0.3), inset 0 0 20px rgba(192, 192, 192, 0.2)', overflow: 'hidden'
         }}
       >
         {/* Imagen de fondo sutil con animación de paneo continuo */}

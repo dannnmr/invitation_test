@@ -59,7 +59,7 @@ export const metadata: Metadata = {
     description: 'Acompáñame a celebrar el comienzo de una nueva etapa en mi vida. ¡No faltes!',
     images: [
       {
-        url: 'https://luciana-xv-invitation.danmr.com/images/invitation/metadata-rosa.png',
+        url: 'https://luciana-xv-invitation.danmr.com/images/invitation/metadata-lulu.png',
         width: 1200,
         height: 630,
         alt: 'Mis XV Años - Luciana',

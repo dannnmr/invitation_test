@@ -32,12 +32,11 @@ export const defaultInvitationConfig: InvitationConfig = {
   dressCode: {
     description: 'Código de Vestimenta Elegante',
     colors: [
-      '/images/decorativas_v2/textura_rosa1.png',
-      '/images/decorativas_v2/textura_rosa2.png',
-      '/images/decorativas_v2/textura_rosa 3.png',
-      '/images/decorativas_v2/textura_rosa4.png'
+      '/images/decorativas_v2/textura_rosa4.png',
+      '/images/decorativas_v2/textura-azul.jpg',
+      '/images/decorativas_v2/textura-plateado.png',
     ],
-    notes: 'Colores reservados: Queda estrictamente prohibido el uso del color rosa pastel o tonalidades similares.',
+    notes: 'Colores reservados: Queda estrictamente prohibido el uso del color rosa pastel, azul marino, plateado o tonalidades similares.',
   },
   giftRegistry: {
     stores: [],

@@ -80,7 +80,7 @@ export function HeroSection({ config, isRevealed }: HeroSectionProps) {
         }}
       >
         <img
-          src="/images/decorativas_v2/bg_ny1.png"
+          src="/images/decorativas_v2/bg-bw2.png"
           alt="New York Skyline"
           style={{
             width: '100%',
@@ -98,9 +98,9 @@ export function HeroSection({ config, isRevealed }: HeroSectionProps) {
             background: `
               radial-gradient(
                 circle at center,
-                rgba(253, 251, 247, 0.55) 0%,
-                rgba(253, 251, 247, 0.2) 50%,
-                rgba(253, 251, 247, 0.01) 100%
+                rgba(0, 0, 0, 0.75) 0%,
+                rgba(0, 0, 0, 0.35) 30%,
+                rgba(0, 0, 0, 0.05) 70%
               )
             `,
           }}
@@ -125,21 +125,16 @@ export function HeroSection({ config, isRevealed }: HeroSectionProps) {
       {/* ── Imágenes Decorativas Hero ────────────────────────────── */}
       <div style={{ position: 'absolute', inset: 0, zIndex: 1, pointerEvents: 'none', overflow: 'hidden' }}>
         {/* Superior (Colgando) */}
-        {/* <img
+        <img
           src="/images/decorativas_v2/bolas_disco_rosa.png"
           alt="Bolas de disco"
-          style={{ position: 'absolute', top: '-5%', left: '-5%', width: 'clamp(250px, 45vw, 300px)', opacity: 0.95, animation: 'heroFloat 6s ease-in-out infinite' }}
+          style={{ position: 'absolute', top: '-15%', left: '-5%', width: 'clamp(250px, 45vw, 300px)', opacity: 0.95, animation: 'heroFloat 6s ease-in-out infinite' }}
         />
         <img
           src="/images/decorativas_v2/bolas_disco_rosa.png"
           alt="Bolas de disco"
-          style={{ position: 'absolute', top: '-5%', right: '-6%', width: 'clamp(250px, 45vw, 300px)', opacity: 0.95, animation: 'heroFloat 6s ease-in-out infinite' }}
-        /> */}
-        {/* <img
-          src="/images/decorativas_v2/bola_rosa.png"
-          alt="Bola rosa"
-          style={{ position: 'absolute', top: '-2%', right: '8%', width: 'clamp(80px, 15vw, 180px)', opacity: 0.9, animation: 'heroFloatAlt 8s ease-in-out infinite' }}
-        /> */}
+          style={{ position: 'absolute', top: '-15%', right: '-6%', width: 'clamp(250px, 45vw, 300px)', opacity: 0.95, animation: 'heroFloat 6s ease-in-out infinite', transform: 'scaleX(-1)' }}
+        />
 
         {/* Inferior */}
         <img
@@ -148,17 +143,13 @@ export function HeroSection({ config, isRevealed }: HeroSectionProps) {
           style={{ position: 'absolute', bottom: '-5%', left: '-5%', width: 'clamp(230px, 30vw, 400px)', opacity: 0.95 }}
         />
         <img
-          src="/images/decorativas_v2/edificio_rosa.png"
+          src="/images/decorativas_v2/edificio2.png"
           alt="Edificio Rosa"
           style={{ position: 'absolute', bottom: '-8%', right: '15%', width: 'clamp(120px, 25vw, 350px)', opacity: 0.85 }}
         />
+      
         <img
-          src="/images/decorativas_v2/edificio_rosa.png"
-          alt="Edificio Rosa"
-          style={{ position: 'absolute', bottom: '-8%', right: '30%', width: 'clamp(90px, 25vw, 350px)', opacity: 0.85 }}
-        />
-        <img
-          src="/images/decorativas_v2/edificio_rosa.png"
+          src="/images/decorativas_v2/edificio2.png"
           alt="Estatua"
           style={{ position: 'absolute', bottom: '-2%', right: '-10%', width: 'clamp(160px, 20vw, 250px)', opacity: 0.95 }}
         />
@@ -185,10 +176,10 @@ export function HeroSection({ config, isRevealed }: HeroSectionProps) {
           style={{
             fontFamily:    'var(--font-dm-mono)',
             fontSize:      'clamp(0.7rem, 1.2vw, 0.9rem)',
-            color:         '#555',
+            color:         'var(--color-gold)',
             letterSpacing: '0.4em',
             textTransform: 'uppercase',
-            marginBottom:  'clamp(1.5rem, 3vw, 2.5rem)',
+            marginBottom:  'clamp(2.5rem, 3vw, 2.5rem)',
             opacity:       isRevealed ? 1 : 0,
             transition:    'opacity 0.3s ease 0.1s', // Delay mínimo para que aparezca casi junto con el nombre
           }}
@@ -227,14 +218,14 @@ export function HeroSection({ config, isRevealed }: HeroSectionProps) {
             ref={nameRef as React.RefObject<HTMLHeadingElement>}
             style={{
               fontFamily:   'var(--font-cormorant)',
-              fontSize:     'clamp(4rem, 10vw, 8rem)',
-              fontWeight:   400,
-              color:        '#111', /* Black */
+              fontSize:     'clamp(4.5rem, 12vw, 8.5rem)',
+              fontWeight:   600,
+              color:        'var(--color-cream)',
               lineHeight:   1,
-              letterSpacing: '0.1em',
+              letterSpacing: '0.05em',
               textTransform: 'uppercase',
               marginBottom: '0.15em',
-              textShadow: '0 2px 10px rgba(192, 192, 192, 0.3)' /* Subtle silver shadow */
+              textShadow: '0 5px 30px rgba(0, 0, 0, 0.9), 0 2px 10px rgba(0,0,0,0.8)' 
             }}
           >
             {firstName}
@@ -250,7 +241,7 @@ export function HeroSection({ config, isRevealed }: HeroSectionProps) {
             fontStyle:    'italic',
             fontSize:     'clamp(1rem, 1.2vw, 1.4rem)',
             fontWeight:   400,
-            color:        '#222',
+            color:        'rgba(255, 255, 255, 0.85)',
             lineHeight:   1.5,
             marginBottom: 'clamp(2rem, 5vw, 4rem)',
             marginTop:    'auto',
@@ -258,11 +249,11 @@ export function HeroSection({ config, isRevealed }: HeroSectionProps) {
             opacity:      isRevealed ? 1 : 0,
             transition:   'opacity 0.8s ease 0.8s',
             padding: '0.8rem 1.2rem', /* Reduced padding */
-            backgroundColor: 'rgba(253, 251, 247, 0.15)', /* More transparent */
+            backgroundColor: 'rgba(0, 0, 0, 0.35)', /* Dark glass */
             backdropFilter: 'blur(8px)',
-            border: '1px solid rgba(192, 192, 192, 0.4)', /* Silver border */
+            border: '1px solid rgba(247, 177, 199, 0.3)', /* Rose gold border */
             borderRadius: '4px',
-            boxShadow: '0 4px 20px rgba(0,0,0,0.05)',
+            boxShadow: '0 4px 20px rgba(0,0,0,0.5)',
             textAlign: 'center'
           }}
         >

@@ -142,12 +142,12 @@ export function SaveTheDateSection() {
               <div style={{ display: 'flex', alignItems: 'center', gap: '1em', marginTop: '0.8em' }}>
                 {/* Badge Rose Gold */}
                 <div style={{ background: 'var(--color-gold)', padding: '0.4em 1.2em', borderRadius: '50em', display: 'inline-block' }}>
-                  <span style={{ fontFamily: 'var(--font-dm-mono)', fontSize: '1.5em', fontWeight: 400, color: '#050505', letterSpacing: '0.1em' }}>
-                    1 Persona
+                  <span style={{ fontFamily: 'var(--font-dm-mono)', fontSize: '1.1em', fontWeight: 400, color: '#050505', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
+                    Reserva la Fecha
                   </span>
                 </div>
                 <span style={{ fontFamily: 'var(--font-sans)', fontSize: '0.8em', color: 'rgba(0,0,0,0.6)', letterSpacing: '0.15em', textTransform: 'uppercase', fontWeight: 700 }}>
-                  Por invitación 
+                  ¡No puedes faltar!
                 </span>
               </div>
             </div>
@@ -155,19 +155,19 @@ export function SaveTheDateSection() {
             {/* Middle: Detalles (Grid) */}
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1em', marginTop: '3em', marginBottom: '3em', zIndex: 2, position: 'relative' }}>
               <div>
-                <span style={{ fontFamily: 'var(--font-display)', fontSize: '1.8em', color: '#050505', fontWeight: 900, letterSpacing: '0.05em' }}>Date</span>
+                <span style={{ fontFamily: 'var(--font-display)', fontSize: '1.8em', color: '#050505', fontWeight: 900, letterSpacing: '0.05em' }}>Fecha</span>
                 <br/>
-                <span style={{ fontFamily: 'var(--font-cormorant)', fontSize: '1.5em', color: '#333', fontWeight: 600 }}>{dayNumber}, {monthName}</span>
+                <span style={{ fontFamily: 'var(--font-cormorant)', fontSize: '1.5em', color: '#333', fontWeight: 600 }}>{dayNumber} de {monthName}</span>
               </div>
               <div>
-                <span style={{ fontFamily: 'var(--font-display)', fontSize: '1.8em', color: '#050505', fontWeight: 900, letterSpacing: '0.05em' }}>Hour</span>
+                <span style={{ fontFamily: 'var(--font-display)', fontSize: '1.8em', color: '#050505', fontWeight: 900, letterSpacing: '0.05em' }}>Hora</span>
                 <br/>
                 <span style={{ fontFamily: 'var(--font-cormorant)', fontSize: '1.5em', color: '#333', fontWeight: 600 }}>{event.receptionTime} hrs</span>
               </div>
               <div>
-                <span style={{ fontFamily: 'var(--font-display)', fontSize: '1.8em', color: '#050505', fontWeight: 900, letterSpacing: '0.05em' }}>Gate</span>
+                <span style={{ fontFamily: 'var(--font-display)', fontSize: '1.8em', color: '#050505', fontWeight: 900, letterSpacing: '0.05em' }}>Destino</span>
                 <br/>
-                <span style={{ fontFamily: 'var(--font-cormorant)', fontSize: '1.5em', color: '#333', fontWeight: 600 }}>05</span>
+                <span style={{ fontFamily: 'var(--font-cormorant)', fontSize: '1.5em', color: '#333', fontWeight: 600 }}>Mis XV Años</span>
               </div>
             </div>
 
